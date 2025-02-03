@@ -39,10 +39,7 @@ void Mikamp_RegisterAllDrivers(void)
 #elif defined(__NT__)
     Mikamp_RegisterDriver(drv_ds);
     //Mikamp_RegisterDriver(drv_win);
-#elif defined(__WIN32__)
-    Mikamp_RegisterDriver(drv_ds);
-    //Mikamp_RegisterDriver(drv_win);
-#elif defined(WIN32)
+#elif defined(_WIN32)
     Mikamp_RegisterDriver(drv_ds);
     //Mikamp_RegisterDriver(drv_win);
 #else

@@ -30,7 +30,7 @@
 //  For using Mikamp and MMIO as a DLL library!  Oh swank, thanks to someone cool whom
 //  his name I forget.
 
-#ifdef WIN32
+#if defined(_WIN32)
 #ifndef MMEXPORT
 #ifdef MM_DLL_EXPORT
 #define MMEXPORT  extern __declspec( dllexport )
@@ -40,9 +40,8 @@
 #define MMEXPORT  extern __declspec( dllimport )
 #endif
 #endif
-#else
-#define MMEXPORT extern
 #endif
+
 
 #define align(a) __declspec (align (a))
 

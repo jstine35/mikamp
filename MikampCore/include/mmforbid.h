@@ -28,7 +28,7 @@
 #define MM_FORBID CRITICAL_SECTION
 
 #else
-#ifndef WIN32
+#ifndef _WIN32
 
 #include <pthread.h>
 

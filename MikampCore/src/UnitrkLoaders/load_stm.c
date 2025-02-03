@@ -20,7 +20,7 @@
 #include "mikamp.h"
 #include "itshare.h"
 
-#ifndef WIN32
+#ifndef _WIN32
 #include <ctype.h>
 void strlwr( char *z )
 {

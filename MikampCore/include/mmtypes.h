@@ -15,6 +15,8 @@
 #ifndef TDEFS_H
 #define TDEFS_H
 
+#include <assert.h>
+
 // DIVE_SAFE_FUNCPTR - Enables assertion checks on function pointers before calling
 //   them.  For efficiency reasons, many function pointers are called blindly through-
 //   out the DIVE libraries (particuarly in the VDRIVER).
@@ -42,8 +44,6 @@
 // be glad mikamp no longer streams out thousands of innane warnings.
 
 #ifdef _MSC_VER
-
-#include <assert.h>
 
 #ifndef _air_assert
 #ifdef DIVE_SAFE_FUNCPTR
@@ -86,7 +86,7 @@ typedef unsigned char   CHAR;
 // Already defined on my copy of Linux GCC. Seems to be
 // a BSD thing. [JEL]
 
-#ifdef WIN32
+#ifdef _WIN32
 #ifndef uint
 typedef unsigned int    uint;    // must be at least 16 bits!
 #endif

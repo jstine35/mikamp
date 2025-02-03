@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\mmio">
+      <UniqueIdentifier>{13246429-c89b-48f1-afa9-c91b5c86fbad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Unimod Loaders">
+      <UniqueIdentifier>{64559a9a-a88a-40af-ab68-836d589905c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Unimod Loaders\Sample Decoders">
+      <UniqueIdentifier>{4a979297-ccd2-4def-978b-e9f8c43cbef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Output Devices">
+      <UniqueIdentifier>{bd4d1e8b-68b3-4443-be04-65726cbe6734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mixer">
+      <UniqueIdentifier>{0fab5011-9831-4c19-b78f-bea96c196c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mixer\Resonance Filter">
+      <UniqueIdentifier>{3629b8e7-3123-4b8f-a886-50261a785bb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mixer\Assembly %28x86%29">
+      <UniqueIdentifier>{b888960c-1e9b-4daa-9ddd-a6beb7793149}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Players">
+      <UniqueIdentifier>{160e6a46-a277-410a-9ec9-cfb4e63fc2f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Players\Unimod Player">
+      <UniqueIdentifier>{63ae9769-3fab-4c64-871f-04b7ba6afbc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Unimod Core">
+      <UniqueIdentifier>{1c5cca13-c8c6-47c4-a2f8-c51e8113a91f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\mmio">
+      <UniqueIdentifier>{527dd1a0-b966-402b-a875-c6732007e8d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Includes %28private%29">
+      <UniqueIdentifier>{b078e4ec-7637-4c78-bcd6-062e3f86f10a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\mdsfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mikamp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mplayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sample.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\uniform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\virtch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\assfile.h">
+      <Filter>Header Files\mmio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\log.h">
+      <Filter>Header Files\mmio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mmalloc.h">
+      <Filter>Header Files\mmio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mmerror.h">
+      <Filter>Header Files\mmio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mmforbid.h">
+      <Filter>Header Files\mmio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mminline.h">
+      <Filter>Header Files\mmio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mmio.h">
+      <Filter>Header Files\mmio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mmtypes.h">
+      <Filter>Header Files\mmio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\random.h">
+      <Filter>Header Files\mmio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\unitrkloaders\sampledecoders\adpcmod\ADPCMod.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mixer\asmapi\asmapi.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\unitrkloaders\itshare.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\inputsources\mpforbid.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mixer\resonancefilter\resshare.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mixer\ssmix.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mixer\stdmix.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mixer\vchcrap.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mixer\wrap16.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mixer\wrap8.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\mdreg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mdriver.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sndfx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\voiceset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_669.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_dsm.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_far.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_it.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_m15.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_med.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_mod.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_mtm.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_s3m.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_stm.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_ult.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_uni.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_xm.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\mloader.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\mlreg.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\npertab.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\s3m_it.c">
+      <Filter>Source Files\Unimod Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\sampledecoders\dec_adpcm.c">
+      <Filter>Source Files\Unimod Loaders\Sample Decoders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\sampledecoders\dec_it214.c">
+      <Filter>Source Files\Unimod Loaders\Sample Decoders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\sampledecoders\dec_raw.c">
+      <Filter>Source Files\Unimod Loaders\Sample Decoders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\sampledecoders\dec_vorbis.c">
+      <Filter>Source Files\Unimod Loaders\Sample Decoders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sample_loader.c">
+      <Filter>Source Files\Unimod Loaders\Sample Decoders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sample_manager.c">
+      <Filter>Source Files\Unimod Loaders\Sample Decoders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\outputdrivers\msw\drv_dx6.c">
+      <Filter>Source Files\Output Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\outputdrivers\drv_nos.c">
+      <Filter>Source Files\Output Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\outputdrivers\drv_raw.c">
+      <Filter>Source Files\Output Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\outputdrivers\drv_sdl.c">
+      <Filter>Source Files\Output Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\outputdrivers\drv_wav.c">
+      <Filter>Source Files\Output Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\nc16.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\nc16ss.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\nc8.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\nc8ss.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\placebo.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\regmix_ss.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\vc16.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\vc16ss.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\vc8.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\vc8ss.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\virtch.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\wrap16.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\wrap8.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\resonancefilter\16.c">
+      <Filter>Source Files\Mixer\Resonance Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\resonancefilter\8.c">
+      <Filter>Source Files\Mixer\Resonance Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\mi16.c">
+      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\mi8.c">
+      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\mn16.c">
+      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\mn8.c">
+      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\si16.c">
+      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\si8.c">
+      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\sn16.c">
+      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\sn8.c">
+      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\inputsources\play_unimod.c">
+      <Filter>Source Files\Players\Unimod Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\inputsources\snglen.c">
+      <Filter>Source Files\Players\Unimod Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\inputsources\munitrk.c">
+      <Filter>Source Files\Unimod Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\inputsources\unimod.c">
+      <Filter>Source Files\Unimod Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\x86\cpudetect.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\log.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\mmalloc.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\mmcopy.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\mmerror.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\msw\mmforbid.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\mmio.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\node.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\random.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\wildcard.c">
+      <Filter>Source Files\mmio</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

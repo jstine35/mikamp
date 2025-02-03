@@ -1,12 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mikamp Plugin", "Mikamp Plugin.vcproj", "{84CC46CA-724A-4834-9B39-2E1208D6171B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B8874B74-785A-410E-8BB3-442493C2E54E} = {B8874B74-785A-410E-8BB3-442493C2E54E}
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35514.174 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mikamp Plugin", "MikampPlugin.vcxproj", "{84CC46CA-724A-4834-9B39-2E1208D6171B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mikamp Core", "..\..\MikampCore\build\Mikamp Core.vcproj", "{B8874B74-785A-410E-8BB3-442493C2E54E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mikamp Core", "..\..\MikampCore\build\MikampCore.vcxproj", "{B8874B74-785A-410E-8BB3-442493C2E54E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{B8874B74-785A-410E-8BB3-442493C2E54E}</ProjectGuid>
+    <RootNamespace>Mikamp Core</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>17.0.35514.174</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.obj/Debug/</OutDir>
+    <IntDir>.obj/Debug/</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.obj/Release/</OutDir>
+    <IntDir>.obj/Release/</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;MIKAMP_STATIC;_CRT_SECURE_NO_WARNINGS%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;MIKAMP_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\assfile.h" />
+    <ClInclude Include="..\include\log.h" />
+    <ClInclude Include="..\include\mdsfx.h" />
+    <ClInclude Include="..\include\mikamp.h" />
+    <ClInclude Include="..\include\mmalloc.h" />
+    <ClInclude Include="..\include\mmerror.h" />
+    <ClInclude Include="..\include\mmforbid.h" />
+    <ClInclude Include="..\include\mminline.h" />
+    <ClInclude Include="..\include\mmio.h" />
+    <ClInclude Include="..\include\mmtypes.h" />
+    <ClInclude Include="..\include\mplayer.h" />
+    <ClInclude Include="..\include\random.h" />
+    <ClInclude Include="..\include\sample.h" />
+    <ClInclude Include="..\include\uniform.h" />
+    <ClInclude Include="..\include\virtch.h" />
+    <ClInclude Include="..\src\inputsources\mpforbid.h" />
+    <ClInclude Include="..\src\mixer\asmapi\asmapi.h" />
+    <ClInclude Include="..\src\mixer\resonancefilter\resshare.h" />
+    <ClInclude Include="..\src\mixer\ssmix.h" />
+    <ClInclude Include="..\src\mixer\stdmix.h" />
+    <ClInclude Include="..\src\mixer\vchcrap.h" />
+    <ClInclude Include="..\src\mixer\wrap16.h" />
+    <ClInclude Include="..\src\mixer\wrap8.h" />
+    <ClInclude Include="..\src\unitrkloaders\itshare.h" />
+    <ClInclude Include="..\src\unitrkloaders\sampledecoders\adpcmod\ADPCMod.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\inputsources\munitrk.c" />
+    <ClCompile Include="..\src\inputsources\play_unimod.c" />
+    <ClCompile Include="..\src\inputsources\snglen.c" />
+    <ClCompile Include="..\src\inputsources\unimod.c" />
+    <ClCompile Include="..\src\mdreg.c" />
+    <ClCompile Include="..\src\mdriver.c" />
+    <ClCompile Include="..\src\mixer\asmapi\mi16.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\mi8.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\mn16.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\mn8.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\si16.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\si8.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\sn16.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\asmapi\sn8.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\mixer\nc16.c" />
+    <ClCompile Include="..\src\mixer\nc16ss.c" />
+    <ClCompile Include="..\src\mixer\nc8.c" />
+    <ClCompile Include="..\src\mixer\nc8ss.c" />
+    <ClCompile Include="..\src\mixer\placebo.c" />
+    <ClCompile Include="..\src\mixer\regmix_ss.c" />
+    <ClCompile Include="..\src\mixer\resonancefilter\16.c" />
+    <ClCompile Include="..\src\mixer\resonancefilter\8.c" />
+    <ClCompile Include="..\src\mixer\vc16.c" />
+    <ClCompile Include="..\src\mixer\vc16ss.c" />
+    <ClCompile Include="..\src\mixer\vc8.c" />
+    <ClCompile Include="..\src\mixer\vc8ss.c" />
+    <ClCompile Include="..\src\mixer\virtch.c" />
+    <ClCompile Include="..\src\mixer\wrap16.c" />
+    <ClCompile Include="..\src\mixer\wrap8.c" />
+    <ClCompile Include="..\src\mmio\log.c" />
+    <ClCompile Include="..\src\mmio\mmalloc.c" />
+    <ClCompile Include="..\src\mmio\mmcopy.c" />
+    <ClCompile Include="..\src\mmio\mmerror.c" />
+    <ClCompile Include="..\src\mmio\mmio.c" />
+    <ClCompile Include="..\src\mmio\msw\mmforbid.c" />
+    <ClCompile Include="..\src\mmio\node.c" />
+    <ClCompile Include="..\src\mmio\random.c" />
+    <ClCompile Include="..\src\mmio\wildcard.c" />
+    <ClCompile Include="..\src\mmio\x86\cpudetect.c" />
+    <ClCompile Include="..\src\outputdrivers\drv_nos.c" />
+    <ClCompile Include="..\src\outputdrivers\drv_raw.c" />
+    <ClCompile Include="..\src\outputdrivers\drv_sdl.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\outputdrivers\drv_wav.c" />
+    <ClCompile Include="..\src\outputdrivers\msw\drv_dx6.c" />
+    <ClCompile Include="..\src\sample_loader.c" />
+    <ClCompile Include="..\src\sample_manager.c" />
+    <ClCompile Include="..\src\sndfx.c" />
+    <ClCompile Include="..\src\unitrkloaders\load_669.c" />
+    <ClCompile Include="..\src\unitrkloaders\load_dsm.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_far.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_it.c" />
+    <ClCompile Include="..\src\unitrkloaders\load_m15.c" />
+    <ClCompile Include="..\src\unitrkloaders\load_med.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_mod.c" />
+    <ClCompile Include="..\src\unitrkloaders\load_mtm.c" />
+    <ClCompile Include="..\src\unitrkloaders\load_s3m.c" />
+    <ClCompile Include="..\src\unitrkloaders\load_stm.c" />
+    <ClCompile Include="..\src\unitrkloaders\load_ult.c" />
+    <ClCompile Include="..\src\unitrkloaders\load_uni.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\unitrkloaders\load_xm.c" />
+    <ClCompile Include="..\src\unitrkloaders\mloader.c" />
+    <ClCompile Include="..\src\unitrkloaders\mlreg.c" />
+    <ClCompile Include="..\src\unitrkloaders\npertab.c" />
+    <ClCompile Include="..\src\unitrkloaders\s3m_it.c" />
+    <ClCompile Include="..\src\unitrkloaders\sampledecoders\dec_adpcm.c" />
+    <ClCompile Include="..\src\unitrkloaders\sampledecoders\dec_it214.c" />
+    <ClCompile Include="..\src\unitrkloaders\sampledecoders\dec_raw.c" />
+    <ClCompile Include="..\src\unitrkloaders\sampledecoders\dec_vorbis.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\voiceset.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

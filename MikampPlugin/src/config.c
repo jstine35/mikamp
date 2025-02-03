@@ -406,7 +406,7 @@ static MLCONF l_mod[C_NUMLOADERS];                  // local copy, for cancelabi
 }
 
 
-static BOOL CALLBACK prefsProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam);
+static UINT_PTR CALLBACK prefsProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam);
 
 
 // =====================================================================================
@@ -419,9 +419,9 @@ static BOOL CALLBACK prefsProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lPa
 
 
 
-static BOOL CALLBACK tabProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-static BOOL CALLBACK mixerProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-static BOOL CALLBACK loaderProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+static UINT_PTR CALLBACK tabProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+static UINT_PTR CALLBACK mixerProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+static UINT_PTR CALLBACK loaderProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 static void OnSelChanged(HWND hwndDlg);
 
 // =====================================================================================
@@ -602,7 +602,7 @@ static void OnSelChanged(HWND hwndDlg);
 
 
 // =====================================================================================
-    static BOOL CALLBACK mixerProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+    static UINT_PTR CALLBACK mixerProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // =====================================================================================
 {	
 
@@ -728,7 +728,7 @@ static void OnSelChanged(HWND hwndDlg);
 
 
 // =====================================================================================
-    static BOOL CALLBACK loaderProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+    static UINT_PTR CALLBACK loaderProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // =====================================================================================
 // This is the callback procedure used by each of the three forms under the tab control 
 // on the Preferences dialog box.  It handles all the messages for all of the controls
@@ -948,7 +948,7 @@ static void OnSelChanged(HWND hwndDlg);
 
 
 // =====================================================================================
-    static BOOL CALLBACK tabProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+    static UINT_PTR CALLBACK tabProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // =====================================================================================
 {	
     switch (uMsg)
@@ -1109,7 +1109,7 @@ static void OnSelChanged(HWND hwndDlg);
 
 
 // =====================================================================================
-    static BOOL CALLBACK prefsProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam)
+    static UINT_PTR CALLBACK prefsProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam)
 // =====================================================================================
 // This is the procedure which initializes the various forms that make up the tabs in
 // our preferences box!  This also contains the message handler for the OK and Cancel
@@ -1194,7 +1194,7 @@ static void OnSelChanged(HWND hwndDlg);
 }
 
 
-static BOOL CALLBACK AboutProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam);
+static UINT_PTR CALLBACK AboutProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam);
 
 // =====================================================================================
     void __cdecl about(HWND hwndParent)
@@ -1205,7 +1205,7 @@ static BOOL CALLBACK AboutProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lPa
 
 
 // =====================================================================================
-    static BOOL CALLBACK AboutProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam)
+    static UINT_PTR CALLBACK AboutProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam)
 // =====================================================================================
 {
     if (uMsg == WM_COMMAND && LOWORD(wParam) == IDOK) EndDialog(hwndDlg,0);

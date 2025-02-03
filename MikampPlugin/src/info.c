@@ -15,8 +15,8 @@
 #include <commctrl.h>
 
 
-static BOOL CALLBACK infoProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam);
-static BOOL CALLBACK tabProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam);
+static INT_PTR CALLBACK infoProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam);
+static INT_PTR CALLBACK tabProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM lParam);
 static void OnSelChanged(HWND hwndDlg);
 
 INFOBOX   *infobox_list = NULL;
@@ -118,7 +118,7 @@ INFOBOX   *infobox_list = NULL;
 
 
 // =====================================================================================
-    static BOOL CALLBACK tabProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+    static INT_PTR CALLBACK tabProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // =====================================================================================
 // This is the callback procedure used by each of the three forms under the
 // tab control on the Module info dialog box (sample, instrument, comment
@@ -372,7 +372,6 @@ extern void     infobox_delete(HWND hwnd);
         wsprintf(str,"%d\n%d\n%d of %d\n%d of %d\n%d (%d)",pHdr->seeker->state.bpm, pHdr->seeker->state.sngspd, pHdr->seeker->state.sngpos, pHdr->seeker->mf->numpos, pHdr->seeker->state.patpos, pHdr->seeker->state.numrow, acv, pHdr->maxv);
         SetWindowText(GetDlgItem(hwnd,IDC_INFORIGHT),str);
     }
-    
 }
 
 // =====================================================================================
@@ -437,7 +436,7 @@ extern void     infobox_delete(HWND hwnd);
 
 
 // =====================================================================================
-    static BOOL CALLBACK infoProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+    static INT_PTR CALLBACK infoProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // =====================================================================================
 {
     UNIMOD   *m = NULL;

@@ -1,0 +1,327 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PREFS DIALOG  0, 0, 293, 218
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION
+CAPTION "Mikamp Module Decoder Preferences"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Tab1",MM_PREFTAB,"SysTabControl32",WS_TABSTOP,4,3,285,195
+    DEFPUSHBUTTON   "OK",IDOK,185,201,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,239,201,50,14
+END
+
+IDD_DIALOG1 DIALOGEX 0, 0, 209, 159
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Mikamp Module Decoder"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "Close",IDOK,79,141,50,14
+    GROUPBOX        "Credits",IDC_STATIC,8,55,194,81
+    CTEXT           "Mikamp - an open source module music player\nVersion 3.1.0 [Dec-22-2010]\n\nSupports IT / XM / S3M / MOD / 669 module formats (and more!).",IDC_STATIC,27,9,154,41
+    LTEXT           "Jake Stine (Air)   - lead programmer\nJan Lönnberg    - programmer (main bugfixer)\n\nJean-Paul Mikkers    - Original mikamp founder\nMathew Valente    - quality assurance\nJeffrey Lim    - ImpulseTracker tech support",IDC_STATIC,15,70,177,58
+END
+
+IDD_ID3EDIT DIALOG  0, 0, 273, 228
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Module Info"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_TYPE,179,18,89,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    EDITTEXT        IDC_TITLE,22,18,133,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    DEFPUSHBUTTON   "Close",IDOK,226,211,42,14
+    EDITTEXT        IDC_ID3_FN,3,2,265,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    RTEXT           "Type",IDC_STATIC,160,19,15,8
+    RTEXT           "Title",IDC_STATIC,3,19,14,8
+    LTEXT           "Blah",IDC_INFORIGHT,190,42,74,42
+    LTEXT           "Blah",IDC_INFOLEFT,55,42,75,42
+    CONTROL         "Tab1",IDC_TAB,"SysTabControl32",0x0,3,90,265,118
+    GROUPBOX        "Header Info",IDC_STATIC,3,33,130,52
+    GROUPBOX        "Player Info",IDC_STATIC,138,33,130,52
+    LTEXT           "File Size:\nLength:\nChannels:\nSamples:\nInstruments:",IDC_STATIC,7,42,45,41
+    LTEXT           "BPM:\nSong Spd:\nPosition:\nRow:\nVoices:",IDC_STATIC,142,42,45,41
+END
+
+IDD_INSTRUMENTS DIALOG  0, 0, 262, 103
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_INSTLIST,2,3,124,98,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Envelopes",IDC_STATIC,130,34,129,67
+    LTEXT           "Volume:\nPanning:\nPitch:",IDC_STATIC,133,42,44,24
+    LTEXT           "Static",IDC_INSTENV,180,42,71,25
+    GROUPBOX        "Instrument Header",IDC_STATIC,130,0,129,101
+    LTEXT           "Def. Volume:\nAuto-Vibrato:\nFade out:",IDC_STATIC,133,9,45,25
+    EDITTEXT        TB_SAMPLELIST,133,77,123,21,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL
+    GROUPBOX        "Samples Used",IDC_STATIC,130,67,129,34
+    LTEXT           "Static",IDC_INSTHEAD,182,9,71,25
+END
+
+IDD_SAMPLES DIALOG  0, 0, 262, 103
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_SAMPLIST,2,3,124,98,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Sample Header",IDC_STATIC,129,0,130,44
+    LTEXT           "Static",IDC_SAMPINFO,184,8,71,33
+    LTEXT           "Length:\nQuality:\nLooping:\nAuto-Vibrato:",IDC_STATIC,133,8,48,34
+END
+
+IDD_COMMENT DIALOG  0, 0, 261, 104
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        CEMENT_BOX,2,3,257,98,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+END
+
+IDD_PREFTAB_DECODER DIALOG  0, 0, 282, 176
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_VISIBLE
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_LOOPBOX,9,16,20,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "Unconditional Looping\n(Forces all songs to loop even if they lack specific loop information)",IDC_LOOPALL,
+                    "Button",BS_AUTOCHECKBOX | BS_TOP | BS_MULTILINE | WS_TABSTOP,9,36,146,27
+    CONTROL         "Enable Smart Seeking",IDC_SMARTSEEK,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,169,14,101,11
+    EDITTEXT        IDC_FADEOUT,205,160,49,13,ES_RIGHT | ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "Spin1",IDC_FADESPIN,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,239,148,11,14
+    CONTROL         "Slider1",IDC_PANSEP,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,48,160,123,9
+    LTEXT           "Stereo Separation",IDC_STATIC,4,155,42,18
+    GROUPBOX        "Song Looping",IDC_STATIC,4,2,154,66
+    LTEXT           "Loop count before moving onto the next song in the playlist.",IDC_STATIC,36,14,117,19
+    GROUPBOX        "Seeking",IDC_STATIC,163,2,115,66
+    LTEXT           "Note: Enabling this will incur a considerable delay when loading and seeking on slower machines.",IDC_STATIC,170,31,105,29,WS_DISABLED
+    LTEXT           "0%",IDC_STATIC,48,147,17,9
+    LTEXT           "100%",IDC_STATIC,102,147,21,9
+    LTEXT           "400%",IDC_STATIC,159,147,22,9
+    LTEXT           "sec.",IDC_FADESEC,260,163,14,10,WS_DISABLED
+    CONTROL         "Play Unlisted Patterns\n(Otherwise-unplayed pattern data is tacked onto the end of the song)",IDC_PLAYALL,
+                    "Button",BS_AUTOCHECKBOX | BS_TOP | BS_MULTILINE | WS_DISABLED | WS_TABSTOP,4,76,132,27
+    CONTROL         "Use Resonant Lowpass Filters\n(Used by some Impulse Tracker songs; CPU intensive)",IDC_RESONANCE,
+                    "Button",BS_AUTOCHECKBOX | BS_TOP | BS_MULTILINE | WS_TABSTOP,147,76,131,27
+    CONTROL         "Fadeout for...",IDC_FADECHECK,"Button",BS_AUTOCHECKBOX | BS_TOP | WS_TABSTOP,205,147,69,10
+    CONTROL         "Strip Trailing Silence\n(May cause some songs to end or loop a few seconds prematurely)",IDC_STRIPSILENCE,
+                    "Button",BS_AUTOCHECKBOX | BS_TOP | BS_MULTILINE | WS_TABSTOP,4,109,131,26
+END
+
+IDD_PREFTAB_MIXER DIALOGEX 0, 0, 282, 172
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_TRANSPARENT
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Output mode",IDC_STATIC,4,2,135,117
+    CONTROL         "Stereo Output\n(Uncheck this to force mono, which lowers CPU usage slightly)",OUTMODE_STEREO,
+                    "Button",BS_AUTOCHECKBOX | BS_LEFT | BS_TOP | BS_MULTILINE | WS_TABSTOP,8,15,130,25
+    CONTROL         "16-Bit Output\n(Uncheck this for compatability with older soundcards)",OUTMODE_16BIT,
+                    "Button",BS_AUTOCHECKBOX | BS_LEFT | BS_TOP | BS_MULTILINE | WS_TABSTOP,8,44,129,26
+    CONTROL         "Surround Sound\n(Enables support for surround sound decoders on modules that utilize it)",OUTMODE_SURROUND,
+                    "Button",BS_AUTOCHECKBOX | BS_LEFT | BS_TOP | BS_MULTILINE | WS_TABSTOP,8,74,129,26
+    CONTROL         "Interpolation\n(Disable for lower-quality sound and 20% improvment in mixer efficency)",OQ_INTERP,
+                    "Button",BS_AUTOCHECKBOX | BS_TOP | BS_MULTILINE | WS_TABSTOP,148,44,120,35
+    CONTROL         "Micro Volume-Ramping\n(Helps remove clicks and pops from interpolated sound)",OQ_NOCLICK,
+                    "Button",BS_AUTOCHECKBOX | BS_TOP | BS_MULTILINE | WS_TABSTOP,148,83,120,27
+    GROUPBOX        "Output quality",IDC_STATIC,143,2,135,168
+    LTEXT           "Note: Try lower sample rates before disabling interpolation for slower machines.  It sounds better that way.",IDC_STATIC,149,128,123,30
+    GROUPBOX        "Max Voices (polyphony)",IDC_STATIC,4,122,135,48
+    LTEXT           "Select the one that best matches your CPU speed.",IDC_STATIC,8,149,121,18
+    CONTROL         "Reverse Stereo",OUTMODE_REVERSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,104,125,10
+    COMBOBOX        IDC_VOICES,7,133,119,88,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        OQ_QUALITY,148,23,119,76,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Mixing Rate:",IDC_STATIC,149,12,60,9
+END
+
+IDD_PREFTAB_GENERAL DIALOGEX 0, 0, 282, 151
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_TRANSPARENT
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "Slider1",IDC_PREFS_PRIORITY_DECODE,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,20,15,83,9
+    CONTROL         "Prompt to save to disk",IDC_SAVESTR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,133,12,95,11
+    GROUPBOX        "Decode Thread Priority",IDC_STATIC,4,2,115,38
+    LTEXT           "Normal",IDC_STATIC,13,29,23,8
+    LTEXT           "Higher",IDC_STATIC,53,29,22,8
+    LTEXT           "Highest",IDC_STATIC,87,29,25,8
+    GROUPBOX        "Streaming",IDC_STATIC,127,2,115,25
+END
+
+IDD_PREFTAB_LOADER DIALOGEX 0, 0, 282, 178
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_TRANSPARENT
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDLDR_LIST,4,11,118,69,LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_TABSTOP
+    CONTROL         "Slider1",IDLDR_PANPOS,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,14,109,96,11
+    LTEXT           "Mono",IDC_STATIC,8,96,19,8
+    LTEXT           "Full Stereo",IDC_STATIC,83,96,36,9
+    CONTROL         "Enabled\n(When disabled, this filetype is ignored by Mikamp)",IDLDR_ENABLED,
+                    "Button",BS_3STATE | BS_TOP | BS_MULTILINE | WS_TABSTOP,133,46,144,27
+    GROUPBOX        "Default Panning",IDC_STATIC,4,86,118,89
+    PUSHBUTTON      "Reset",IDC_DEFPAN,30,160,65,11
+    LTEXT           "",IDLDR_DESCRIPTION,133,2,143,37
+    CONTROL         "Disable DMP Panning Effects (8xx)\n(Select this for songs that seem to incorrectly pan to the left speaker)",IDLDR_EFFOPT1,
+                    "Button",BS_3STATE | BS_TOP | BS_MULTILINE | WS_TABSTOP,133,90,137,27
+    CTEXT           "Default panning is only set at load-time and can be overridden by the song during replay",IDC_STATIC,8,127,108,27
+    GROUPBOX        "Advanced Effects Options",IDC_STATIC,128,78,150,97
+    CONTROL         "Disable Resonance Filter Effects (Zxx)",IDLDR_EFFOPT2,
+                    "Button",BS_3STATE | BS_TOP | WS_TABSTOP,132,123,138,10
+    CTEXT           "(It is recommended to not change advanced options unless you really know what you are doing)",IDC_STATIC,142,145,119,27
+    LTEXT           "Available Loaders:",IDC_STATIC,4,2,80,9
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_PREFS, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 289
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 215
+    END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 202
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 155
+    END
+
+    IDD_ID3EDIT, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 268
+        TOPMARGIN, 2
+        BOTTOMMARGIN, 225
+    END
+
+    IDD_INSTRUMENTS, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 259
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 101
+    END
+
+    IDD_SAMPLES, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 259
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 101
+    END
+
+    IDD_COMMENT, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 259
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 101
+    END
+
+    IDD_PREFTAB_DECODER, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 278
+        TOPMARGIN, 2
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_PREFTAB_MIXER, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 278
+        VERTGUIDE, 184
+        TOPMARGIN, 2
+        BOTTOMMARGIN, 170
+    END
+
+    IDD_PREFTAB_GENERAL, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 278
+        TOPMARGIN, 2
+        BOTTOMMARGIN, 149
+    END
+
+    IDD_PREFTAB_LOADER, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 278
+        TOPMARGIN, 2
+        BOTTOMMARGIN, 175
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -276,12 +276,12 @@ typedef union _INT_MOB
 {   ULONG      u;
     SLONG      s;
 
-    struct _WORD_PAIR
+    struct // _WORD_PAIR
     {   WORD_MOB  loword;
         WORD_MOB  hiword;
     };
 
-    struct _BYTE_BUNCH
+    struct // _BYTE_BUNCH
     {   UBYTE     byte_a, byte_b,
                   byte_c, byte_d;
     };

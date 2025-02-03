@@ -346,7 +346,6 @@ MMEXPORT int      Player_GetVolume(MPLAYER *ps);
 MMEXPORT void     Player_SetVolume(MPLAYER *mp, int volume);
 MMEXPORT void     Player_VolumeFade(MPLAYER *ps, int startvol, int destvol, long duration);
 MMEXPORT void     Player_QuickFade(MPLAYER *ps, int start, int dest, int speed);
-MMEXPORT void     Player_QuickFadeEx(MPLAYER *ps, int start, int dest, int speed, void (*callback), void *handle);
 MMEXPORT void     Player_VolumeFadeEx(MPLAYER *ps, int startvol, int destvol, long starttime, int whence, long duration);
 
 MMEXPORT BOOL     Player_Playing(MPLAYER *mp);

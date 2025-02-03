@@ -2511,45 +2511,6 @@ void Player_QuickFade(MPLAYER *ps, int start, int dest, int speed)
     ps_unforbid();
 }
 
-// _____________________________________________________________________________________
-// This is a quick and dirty player fading feature, intended for use in video games.  
-// This fade is *not* suitable for module players since it does not have a wide range of
-// fade speeds, and it is timed to the BPM of a song (end-user players would want to be 
-// time-based).
-// 
-// Extended Functionality : Allows the user to bind a callback.  This can be used to
-//    stop the song, trigger in-game events, and other things when the song fade completes.
-//
-// NOTE : If either value is negative (start/dest) then the current value for the song
-//        is used.  If speed is negative, then you're stupid, and the command fails.
-//
-void Player_QuickFadeEx(MPLAYER *ps, int start, int dest, int speed, void (*callback)(void *handle), void *handle)
-{
-    if(!ps || (speed < 0)) return;
-
-    ps_forbid();
-
-    if(start >= 0)
-        Voiceset_SetVolume(ps->vs, start);
-    else 
-        start = Voiceset_GetVolume(ps->vs);
-
-    if(dest != start)
-    {
-        if(dest < start)  speed *= -1;
-
-        ps->fadedest        = (dest >= 0) ? dest : ps->vs->volume;
-        ps->fadespeed       = speed;
-
-        ps->fadepostfunc    = callback;
-        ps->fadepostvoid    = handle;
-    } else
-    {
-        if(callback) callback(handle);
-    }
-
-    ps_unforbid();
-}
 
 // _____________________________________________________________________________________
 // The big and bad advanced volume fader for Mikamp.  It fades evenly, reguardless of

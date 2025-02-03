@@ -128,7 +128,7 @@ INFOBOX   *infobox_list = NULL;
     {   case WM_INITDIALOG:
 		{
 			HWND   hwndLB;
-		    DLGHDR *pHdr = (DLGHDR *)GetWindowLong(GetParent(hwndDlg), GWL_USERDATA);
+		    DLGHDR *pHdr = (DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
 			UNIMOD *m = pHdr->module;
 			char   sbuf[10280];
 
@@ -189,7 +189,7 @@ INFOBOX   *infobox_list = NULL;
 
                 int   moo = SendMessage((HWND)lParam, LB_GETCURSEL, 0, 0);
 			    char  sbuf[1024], st1[64], st2[20], st3[20];
-			    DLGHDR *pHdr = (DLGHDR *)GetWindowLong(GetParent(hwndDlg), GWL_USERDATA);
+			    DLGHDR *pHdr = (DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
 				UNIMOD *m = pHdr->module;
 
 				switch (LOWORD(wParam))
@@ -295,7 +295,7 @@ INFOBOX   *infobox_list = NULL;
     static void OnSelChanged(HWND hwndDlg) 
 // =====================================================================================
 { 
-    DLGHDR *pHdr = (DLGHDR *) GetWindowLong(hwndDlg, GWL_USERDATA); 
+    DLGHDR *pHdr = (DLGHDR *) GetWindowLongPtrA(hwndDlg, GWLP_USERDATA); 
     int iSel = TabCtrl_GetCurSel(pHdr->hwndTab); 
 
 	if(pHdr->hwndDisplay)  ShowWindow(pHdr->hwndDisplay,SW_HIDE);
@@ -313,11 +313,11 @@ extern MPLAYER *get_player(UNIMOD *othermf);
 extern void     infobox_delete(HWND hwnd);
 
 // =====================================================================================
-    static void CALLBACK UpdateInfoRight(HWND hwnd, UINT uMsg, UINT ident, DWORD systime)
+    static void CALLBACK UpdateInfoRight(HWND hwnd, UINT uMsg, UINT_PTR ident, DWORD systime)
 // =====================================================================================
 {
     char        str[256];
-    DLGHDR     *pHdr = (DLGHDR *)GetWindowLong(hwnd, GWL_USERDATA);
+    DLGHDR     *pHdr = (DLGHDR *)GetWindowLongPtrA(hwnd, GWLP_USERDATA);
 	MPLAYER    *mp;
     int         acv;           // current active voices.
     
@@ -388,7 +388,7 @@ extern void     infobox_delete(HWND hwnd);
     dialog = CreateDialog(mikamp.hDllInstance,MAKEINTRESOURCE(IDD_ID3EDIT),hwnd,infoProc);
     pHdr->hwndTab = GetDlgItem(dialog,IDC_TAB);
 
-    SetWindowLong(dialog, GWL_USERDATA, (LONG) pHdr); 
+    SetWindowLongPtr(dialog, GWLP_USERDATA, (LONG_PTR)pHdr); 
     SetWindowText(GetDlgItem(dialog,IDC_ID3_FN),pHdr->module->filename);
 
     m = pHdr->module;
@@ -423,7 +423,7 @@ extern void     infobox_delete(HWND hwnd);
     void info_killseeker(HWND hwnd, UNIMOD *curmf)
 // =====================================================================================
 {
-    DLGHDR   *pHdr = (DLGHDR *)GetWindowLong(hwnd, GWL_USERDATA);
+    DLGHDR   *pHdr = (DLGHDR *)GetWindowLongPtrA(hwnd, GWLP_USERDATA);
     
     if(pHdr->seeker)
     {   if(curmf == pHdr->module)
@@ -472,7 +472,7 @@ extern void     infobox_delete(HWND hwnd);
         break;
 
         case WM_DESTROY:
-            pHdr = (DLGHDR *)GetWindowLong(hwndDlg, GWL_USERDATA);
+            pHdr = (DLGHDR *)GetWindowLongPtrA(hwndDlg, GWLP_USERDATA);
             KillTimer(hwndDlg, 1);  // Kill the player info box updates
             if(pHdr)
             {

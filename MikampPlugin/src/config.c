@@ -472,7 +472,7 @@ static void OnSelChanged(HWND hwndDlg);
     static void OnSelChanged(HWND hwndDlg)
 // =====================================================================================
 { 
-    CFG_DLGHDR *pHdr = (CFG_DLGHDR *) GetWindowLong(hwndDlg, GWL_USERDATA);
+    CFG_DLGHDR *pHdr = (CFG_DLGHDR *) GetWindowLongPtrA(hwndDlg, GWLP_USERDATA);
     int iSel = TabCtrl_GetCurSel(pHdr->hwndTab);
 
 	if(pHdr->hwndDisplay)  ShowWindow(pHdr->hwndDisplay,SW_HIDE);
@@ -615,7 +615,7 @@ static void OnSelChanged(HWND hwndDlg);
         // Initialize all of the controls on each of those forms!
         {   
             HWND        hwndMisc;
-		    CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLong(GetParent(hwndDlg), GWL_USERDATA);
+		    CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
 
             CheckDlgButton(hwndDlg,OUTMODE_16BIT,   config_8bit         ? BST_UNCHECKED : BST_CHECKED);
             CheckDlgButton(hwndDlg,OUTMODE_STEREO, (config_nch==2)      ? BST_CHECKED : BST_UNCHECKED);
@@ -743,7 +743,7 @@ static void OnSelChanged(HWND hwndDlg);
         // form created. Initialize all of the controls on each of those forms!
         {   
             HWND        hwndMisc;
-		    CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLong(GetParent(hwndDlg), GWL_USERDATA);
+		    CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
 
             uint   i;
 
@@ -960,7 +960,7 @@ static void OnSelChanged(HWND hwndDlg);
         // Initialize all of the controls on each of those forms!
         {   
             HWND        hwndMisc;
-		    CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLong(GetParent(hwndDlg), GWL_USERDATA);
+		    CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
 
             switch(lParam)
             {
@@ -1122,7 +1122,7 @@ static void OnSelChanged(HWND hwndDlg);
         // --------------------------------------------------------------
         {
             CFG_DLGHDR *pHdr = (CFG_DLGHDR *) LocalAlloc(LPTR, sizeof(CFG_DLGHDR));
-            SetWindowLong(hwndDlg, GWL_USERDATA, (LONG) pHdr); 
+            SetWindowLongPtr(hwndDlg, GWLP_USERDATA, (LONG_PTR) pHdr); 
           	pHdr->hwndTab = GetDlgItem(hwndDlg,MM_PREFTAB);
             pHdr->left   = 8;  pHdr->top      = 30;
  
@@ -1140,7 +1140,7 @@ static void OnSelChanged(HWND hwndDlg);
                     // Send an IDOK command to both tabcontrol children to let them know
                     // that the world is about to end!
                     
-                    pHdr = (CFG_DLGHDR *)GetWindowLong(hwndDlg, GWL_USERDATA);
+                    pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(hwndDlg, GWLP_USERDATA);
                     SendMessage(pHdr->apRes[0], WM_COMMAND, (WPARAM)IDOK, (LPARAM)IDD_PREFTAB_MIXER);
                     SendMessage(pHdr->apRes[1], WM_COMMAND, (WPARAM)IDOK, (LPARAM)IDD_PREFTAB_DECODER);
                     SendMessage(pHdr->apRes[2], WM_COMMAND, (WPARAM)IDOK, (LPARAM)IDD_PREFTAB_LOADER);

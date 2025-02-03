@@ -84,8 +84,8 @@
 // mikamp that is an actual character string uses this type.  Things that
 // want to be bytes use the std c 'char' type.
 
-#ifndef VOID
-typedef unsigned char   CHAR;
+#ifndef CHAR
+typedef char   CHAR;
 #endif
 
 // finally got tired of typing in 'unsigned' all the time!

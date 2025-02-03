@@ -167,7 +167,7 @@ void Player_PreProcessRow(MPLAYER *ps, MPLAYER *destps);
     if(state->voice)
         memcpy(ps->state.voice, state->voice, sizeof(MP_VOICE) * ps->numvoices);
 
-    if(state->pos_played);
+    if(state->pos_played)
     {   uint  i;
         for(i=0; i<ps->mf->numpos; i++)
             memcpy(ps->state.pos_played[i], state->pos_played[i], ((ps->mf->pattrows[ps->mf->positions[i]]/32)+1) * sizeof(ULONG));

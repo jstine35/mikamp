@@ -5,7 +5,7 @@
 
 // -------------------------------------------------------------------------------------
 //
-static void __inline MP_WipePosPlayed(MPLAYER *ps)
+static void _mm_inline MP_WipePosPlayed(MPLAYER *ps)
 {
     if(ps->state.pos_played)
     {   uint   i;
@@ -14,26 +14,26 @@ static void __inline MP_WipePosPlayed(MPLAYER *ps)
     }
 }
 
-static BOOL __inline MP_PosPlayed(MPLAYER *ps)
+static BOOL _mm_inline MP_PosPlayed(MPLAYER *ps)
 {
     if(!ps->state.pos_played) return 0;
     return (ps->state.pos_played[ps->state.sngpos][(ps->state.patpos/32)] & (1<<(ps->state.patpos&31)));
 }
 
 
-static void __inline MP_SetPosPlayed(MPLAYER *ps)
+static void _mm_inline MP_SetPosPlayed(MPLAYER *ps)
 {
     if(ps->state.pos_played) ps->state.pos_played[ps->state.sngpos][(ps->state.patpos/32)] |= (1<<(ps->state.patpos&31));
 }
 
-static void __inline MP_UnsetPosPlayed(MPLAYER *ps)
+static void _mm_inline MP_UnsetPosPlayed(MPLAYER *ps)
 {
     if(ps->state.pos_played) ps->state.pos_played[ps->state.sngpos][(ps->state.patpos/32)] &= ~(1<<(ps->state.patpos&31));
 }
 
 // -------------------------------------------------------------------------------------
 //
-static void __inline MP_LoopSong(MPLAYER *ps, const UNIMOD *pf)
+static void _mm_inline MP_LoopSong(MPLAYER *ps, const UNIMOD *pf)
 {
     if((pf->reppos >= (int)pf->numpos) || (pf->reppos == 0))
     {

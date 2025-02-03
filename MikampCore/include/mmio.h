@@ -62,10 +62,6 @@
 
 MMEXPORT uint _mm_cpudetect(void);
 
-MMEXPORT void _mm_memcpy_quad(void *dst, const void *src, const int count);
-MMEXPORT void _mm_memcpy_long(void *dst, const void *src, const int count);
-MMEXPORT void _mm_memcpy_word(void *dst, const void *src, const int count);
-
 
 // Miscellaneous Macros 
 // --------------------
@@ -73,7 +69,7 @@ MMEXPORT void _mm_memcpy_word(void *dst, const void *src, const int count);
 
 // boundschecker macro.  I do a lot of bounds checking ;)
 
-#define _mm_boundscheck(v,a,b)  ((v > b) ? b : ((v < a) ? a : v))
+#define _mm_boundscheck(v,a,b)  (((v) > (b)) ? (b) : (((v) < (a)) ? (a) : (v)))
 
 #ifndef MIN
 #define MIN(a,b) (((a)<(b)) ? (a) : (b))
@@ -90,17 +86,17 @@ MMEXPORT void _mm_memcpy_word(void *dst, const void *src, const int count);
 
 #ifdef MM_BIG_ENDIAN
 
-#define _mm_HI_SLONG(x) ((SLONG *)&x)
-#define _mm_LO_SLONG(x) ((SLONG *)&x + 1)
-#define _mm_HI_ULONG(x) ((ULONG *)&x)
-#define _mm_LO_ULONG(x) ((ULONG *)&x + 1)
+#define _mm_HI_SLONG(x) ((SLONG *)&(x))
+#define _mm_LO_SLONG(x) ((SLONG *)&(x) + 1)
+#define _mm_HI_ULONG(x) ((ULONG *)&(x))
+#define _mm_LO_ULONG(x) ((ULONG *)&(x) + 1)
 
 #else
 
-#define _mm_HI_SLONG(x) ((SLONG *)&x + 1)
-#define _mm_LO_SLONG(x) ((SLONG *)&x)
-#define _mm_HI_ULONG(x) ((ULONG *)&x + 1)
-#define _mm_LO_ULONG(x) ((ULONG *)&x)
+#define _mm_HI_SLONG(x) ((SLONG *)&(x) + 1)
+#define _mm_LO_SLONG(x) ((SLONG *)&(x))
+#define _mm_HI_ULONG(x) ((ULONG *)&(x) + 1)
+#define _mm_LO_ULONG(x) ((ULONG *)&(x))
 
 #endif
 

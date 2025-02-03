@@ -126,7 +126,7 @@ static BOOL checkover(MM_ALLOC *type, MM_BLOCKINFO *block, BOOL doassert)
 
 // _____________________________________________________________________________________
 //
-static void __inline recurse_checkallblocks(MM_ALLOC *type)
+static void _mm_inline recurse_checkallblocks(MM_ALLOC *type)
 {
     int            cruise = type->blocklist;
     MM_ALLOC      *typec  = type->children;
@@ -382,7 +382,7 @@ static MM_ALLOC *createglobal(void)
 
 // _____________________________________________________________________________________
 //
-static ULONG __inline *mymalloc(MM_ALLOC *type, uint size)
+static ULONG _mm_inline *mymalloc(MM_ALLOC *type, uint size)
 {
 #ifdef _DEBUG
     if(type->checkplease)
@@ -397,7 +397,7 @@ static ULONG __inline *mymalloc(MM_ALLOC *type, uint size)
 
 // _____________________________________________________________________________________
 //
-static ULONG __inline *myrealloc(MM_ALLOC *type, ULONG *old_blk, uint size)
+static ULONG _mm_inline *myrealloc(MM_ALLOC *type, ULONG *old_blk, uint size)
 {
 #ifdef _DEBUG
     if(type->checkplease)
@@ -532,7 +532,7 @@ static void fillblock(MM_BLOCKINFO *block, BOOL wipe)
 // _____________________________________________________________________________________
 // adds the block 'type' to the specified block 'parent'
 //
-static void __inline _addtolist(MM_ALLOC *parent, MM_ALLOC *type)
+static void _mm_inline _addtolist(MM_ALLOC *parent, MM_ALLOC *type)
 {
     if(!parent)
     {   if(!globalalloc) globalalloc = createglobal();
@@ -626,7 +626,7 @@ MMEXPORT void _mmalloc_closeall(void)
 
 // _____________________________________________________________________________________
 //
-static void __inline recurse_passive_close(MM_ALLOC *type)
+static void _mm_inline recurse_passive_close(MM_ALLOC *type)
 {
     MM_ALLOC     *typec;
 
@@ -647,7 +647,7 @@ static void __inline recurse_passive_close(MM_ALLOC *type)
 // which have been properly marked for termination.  This call processes the block 
 // and all children, calling shutdown procedures-- but not freeing blocks.
 //
-MMEXPORT void __inline _mmalloc_passive_close(MM_ALLOC *type)
+MMEXPORT void _mm_inline _mmalloc_passive_close(MM_ALLOC *type)
 {
     if(type && !type->killswitch)
         recurse_passive_close(type);
@@ -657,7 +657,7 @@ MMEXPORT void __inline _mmalloc_passive_close(MM_ALLOC *type)
 // frees all the blocks of the given type block handle.  No recursive action. (WOW)
 // Does not unload Type or remove it from the parental linked list.
 //
-static void __inline _forcefree(MM_ALLOC *type)
+static void _mm_inline _forcefree(MM_ALLOC *type)
 {
     int         cruise = type->blocklist;
     while(cruise != -1)

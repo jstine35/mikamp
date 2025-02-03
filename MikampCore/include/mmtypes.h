@@ -36,6 +36,12 @@
 #define   inline
 #endif
 
+#if defined(__clang__)
+#   define _mm_inline      __attribute__((__always_inline__))
+#else
+#   define _mm_inline
+#endif
+
 
 // THE WARNINGS!  THEY ARE FINALLY GONE!!!
 // Visual C, the boon devil of my existence, conceeds defeat with the discovery

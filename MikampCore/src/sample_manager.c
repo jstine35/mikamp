@@ -33,7 +33,6 @@
 #include "mminline.h"
 
 #include <string.h>
-#include <assert.h>
 
 // _____________________________________________________________________________________
 // Run through list of managed samples and set all bound sample/driver handles to -1!

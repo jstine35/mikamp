@@ -329,7 +329,7 @@ void _mm_splitpath(const CHAR *fullpath, CHAR *path, CHAR *fname)
     if(fullpath)
     {
         int    i;
-        const   flen = strlen(fullpath);
+        const int  flen = strlen(fullpath);
 
         if(path) strcpy(path, fullpath);
 

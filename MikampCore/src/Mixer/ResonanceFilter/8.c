@@ -20,7 +20,7 @@
 
 // _____________________________________________________________________________________
 //
-static SLONG __inline filter(long sroot, VC_RESFILTER *r8)
+static SLONG _mm_inline filter(long sroot, VC_RESFILTER *r8)
 {
 
     r8->speed += (((sroot<<10) - r8->pos) * r8->cofactor) >> VC_COFACTOR;

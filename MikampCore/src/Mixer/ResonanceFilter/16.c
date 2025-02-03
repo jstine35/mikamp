@@ -21,7 +21,7 @@
 
 // _____________________________________________________________________________________
 //
-static int __inline filter(SWORD sroot, VC_RESFILTER *r16)
+static int _mm_inline filter(SWORD sroot, VC_RESFILTER *r16)
 {
     
     r16->speed += (((sroot<<10) - r16->pos) * r16->cofactor) >> VC_COFACTOR;

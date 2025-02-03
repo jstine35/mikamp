@@ -60,7 +60,7 @@ MM_NODE *_mm_node_create(MM_ALLOC *allochandle, MM_NODE *insafter, void *data)
 // This should be called prior to FOR loops and WHILE loops, when the node or other
 // nodes in the list are subject to removal.
 //
-static void _mm_node_process(MM_NODE *node)
+void _mm_node_process(MM_NODE *node)
 {
     if(node)
     {

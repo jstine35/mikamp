@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-static long __inline _mm_timeoverflow(ulong newtime, ulong oldtime)
+static long _mm_inline _mm_timeoverflow(ulong newtime, ulong oldtime)
 {
     if(newtime < oldtime) return (0xfffffffful - oldtime) + newtime;
     return newtime - oldtime;       // return timediff, with overflow checks!

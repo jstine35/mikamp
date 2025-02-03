@@ -40,7 +40,7 @@ static UBYTE  _mm_cpybuf[COPY_BUFSIZE];
 
 // _____________________________________________________________________________________
 //
-    static void __inline mfp_init(MMSTREAM *mfp)
+    static void _mm_inline mfp_init(MMSTREAM *mfp)
 {
 }
 
@@ -223,7 +223,7 @@ long _mm_ftell(MMSTREAM *stream)
 
 // _____________________________________________________________________________________
 //
-BOOL __inline _mm_feof(MMSTREAM *stream)
+BOOL _mm_inline _mm_feof(MMSTREAM *stream)
 {
     if(!stream) return 1;
     if(stream->fp) return _my_feof(stream->fp);
@@ -441,7 +441,7 @@ void streamwrite16( UWORD data, MMSTREAM *fp )
 	}
 	else
 	{
-		*(UWORD*)fp->dp[fp->seekpos] = data;
+		*(UWORD*)(fp->dp + fp->seekpos) = data;
 		fp->seekpos += 2;
 	}
 }
@@ -454,7 +454,7 @@ void streamwrite32( ULONG data, MMSTREAM *fp )
 	}
 	else
 	{
-		*(ULONG*)fp->dp[fp->seekpos] = data;
+		*(ULONG*)(fp->dp + fp->seekpos) = data;
 		fp->seekpos += 4;
 	}
 }
@@ -592,7 +592,7 @@ UWORD streamread16( MMSTREAM* fp )
 		fread(&result, 2, 1, fp->fp);
 	else
 	{
-		result = *(UWORD*)fp->dp[fp->seekpos];
+		result = *(UWORD*)(fp->dp + fp->seekpos);
 		fp->seekpos += 2;
 	}
 	return result;
@@ -605,7 +605,7 @@ ULONG streamread32( MMSTREAM* fp )
 		fread(&result, 4, 1, fp->fp);
 	else
 	{
-		result = *(ULONG*)fp->dp[fp->seekpos];
+		result = *(ULONG*)(fp->dp + fp->seekpos);
 		fp->seekpos += 4;
 	}
 	return result;

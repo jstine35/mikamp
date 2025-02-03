@@ -29,7 +29,6 @@
 #include "mminline.h"
 
 #include <string.h>
-#include <assert.h>
 
 static SL_DECOMPRESS_API   *sl_loadlist;
 

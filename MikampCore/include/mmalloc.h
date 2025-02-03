@@ -273,7 +273,7 @@ MMEXPORT CHAR   *_mmstr_newext(CHAR *path, const CHAR *ext);
 #define _mmlogd4(a,b,c,d,e)    __mmlogd()
 #define _mmlogd5(a,b,c,d,e,f)  __mmlogd()
 
-static void __inline __mmlogd(void)
+static void _mm_inline __mmlogd(void)
 {
 }
 

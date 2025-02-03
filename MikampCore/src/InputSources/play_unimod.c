@@ -93,7 +93,7 @@ static void nextrow(MPLAYER *ps)
 
 // _____________________________________________________________________________________
 //
-static void __inline getnote(MP_CONTROL *a, UNITRK_NOTE *retnote)
+static void _mm_inline getnote(MP_CONTROL *a, UNITRK_NOTE *retnote)
 {
     if(a->row[0] & TFLG_NOTE)
     {   retnote->note = a->row[1];
@@ -459,7 +459,7 @@ static int find_empty_voice(MPLAYER *ps, int curchan)  // returns mp_control ind
 // Takes the given endpoints and values, and finds the value of the point represented
 // by 'p'.  
 //
-static int __inline Interpolate(int p, int p1, int p2, int v1, int v2)
+static int _mm_inline Interpolate(int p, int p1, int p2, int v1, int v2)
 {
     int dp, dv, di;
 
@@ -473,19 +473,19 @@ static int __inline Interpolate(int p, int p1, int p2, int v1, int v2)
 }
 
 
-uint __inline getlinearperiod(UBYTE note, ULONG fine)
+uint _mm_inline getlinearperiod(UBYTE note, ULONG fine)
 {
     return ((12L*12*16*8)-((ULONG)note*16*8)) - fine + 128;
 }
 
-uint __inline getnewperiod(UBYTE note)
+uint _mm_inline getnewperiod(UBYTE note)
 {
     return ((12L*12*16*8)-((ULONG)note*16*8));
 }
 
 // _____________________________________________________________________________________
 //
-static uint __inline getlogperiod(UBYTE note, ULONG fine)
+static uint _mm_inline getlogperiod(UBYTE note, ULONG fine)
 {
     UBYTE   n, o;
     uint    p1, p2;
@@ -503,7 +503,7 @@ static uint __inline getlogperiod(UBYTE note, ULONG fine)
 
 // _____________________________________________________________________________________
 //
-static uint __inline getoldperiod(UBYTE note, ULONG speed)
+static uint _mm_inline getoldperiod(UBYTE note, ULONG speed)
 {
     UBYTE n, o;
     ULONG period;
@@ -517,7 +517,7 @@ static uint __inline getoldperiod(UBYTE note, ULONG speed)
     return period;
 }
 
-static ULONG __inline getfrequency(uint flags, ULONG period, ULONG speed);
+static ULONG _mm_inline getfrequency(uint flags, ULONG period, ULONG speed);
 
 // _____________________________________________________________________________________
 //
@@ -533,14 +533,14 @@ static uint GetPeriod(UBYTE flags, UBYTE note, ULONG speed)
 
 // _____________________________________________________________________________________
 //
-static int __inline InterpolateEnv(int p, ENVPT *a, ENVPT *b)
+static int _mm_inline InterpolateEnv(int p, ENVPT *a, ENVPT *b)
 {
     return(Interpolate(p,a->pos,b->pos,a->val,b->val));
 }
 
 // _____________________________________________________________________________________
 //
-static int __inline DoPan(int envpan, int pan)
+static int _mm_inline DoPan(int envpan, int pan)
 {
     // the old XM compatable way?  or is it wrong for XMs too?!
     //return(pan + ((envpan * (128-abs(pan-128))) / 256));
@@ -656,7 +656,7 @@ static int ProcessEnvelope(MPLAYER *ps, ENVPR *t, UBYTE flg, SWORD v)
 
 // _____________________________________________________________________________________
 //
-void __inline DoEnvelopeControl(INT_MOB dat, UBYTE *flag, unsigned int envlen, ENVPR *env)
+void _mm_inline DoEnvelopeControl(INT_MOB dat, UBYTE *flag, unsigned int envlen, ENVPR *env)
 {
     if(dat.byte_b)
         *flag |= EF_ON;
@@ -671,7 +671,7 @@ void __inline DoEnvelopeControl(INT_MOB dat, UBYTE *flag, unsigned int envlen, E
 // _____________________________________________________________________________________
 // XM linear period to frequency conversion
 //
-static ULONG __inline getfrequency(uint flags, ULONG period, ULONG speed)
+static ULONG _mm_inline getfrequency(uint flags, ULONG period, ULONG speed)
 {
 
     // Original XM equation:

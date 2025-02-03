@@ -8,7 +8,7 @@
 #define VC_COFACTOR    16
 
 // =====================================================================================
-    static void __inline VC_CalcResonance(VIRTCH *vc, VINFO *vnf)
+    static void _mm_inline VC_CalcResonance(VIRTCH *vc, VINFO *vnf)
 // =====================================================================================
 // I backwards engineered Lim's resonance values, and this is what I came up with:
 // cutoff * (freq / 294912)

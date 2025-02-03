@@ -23,7 +23,7 @@
 // to alloc, then new assfiles are made room for.  Assfiles are fun little pets.  You
 // should stop down at the local ass shop and pick a couple up for yourself.
 //
-void __inline assfile_alloc(MM_ALLOC *allochandle, ASSFILE *loglist)
+void _mm_inline assfile_alloc(MM_ALLOC *allochandle, ASSFILE *loglist)
 {
     if(loglist->count >= loglist->alloc)
     {

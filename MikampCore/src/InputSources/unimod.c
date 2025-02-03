@@ -371,7 +371,7 @@ UNIMOD *Unimod_LoadMem(MDRIVER *md, void *module)
 // contents are considered during the check.
 // TODO: add a flag so that I can optionally include the global track in the check.
 //
-BOOL __inline MF_PatternInuse(UNIMOD *mf, uint pattern)
+BOOL _mm_inline MF_PatternInuse(UNIMOD *mf, uint pattern)
 {
 
     if(pattern < mf->numpat)

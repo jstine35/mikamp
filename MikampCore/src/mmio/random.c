@@ -65,7 +65,7 @@ static ulong    globseed;
 // _____________________________________________________________________________________
 // generates a random bit!
 //
-BOOL __inline rand_getbit(void)
+BOOL _mm_inline rand_getbit(void)
 {
     if(globseed & IB18)
     {   globseed = ((globseed - MASK) << 1) | IB1;
@@ -126,7 +126,7 @@ int rand_getrange( DE_RAND *handle, int max, int bits )
 // _____________________________________________________________________________________
 // generates a random bit!  Used to generate the noise sample.
 //
-BOOL __inline getbit(ulong *iseed)
+BOOL _mm_inline getbit(ulong *iseed)
 {
     if(*iseed & IB18)
     {   *iseed = ((*iseed - MASK) << 1) | IB1;

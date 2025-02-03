@@ -260,7 +260,7 @@ void Voiceset_Free(MD_VOICESET *vs)
 
 // _____________________________________________________________________________________
 //
-static void __inline recurse_set_vdesc(MD_VOICESET *vs, MD_VDESC *vdesc, uint voices)
+static void _mm_inline recurse_set_vdesc(MD_VOICESET *vs, MD_VDESC *vdesc, uint voices)
 {
     MD_VOICESET    *cruise = vs->children;
 
@@ -397,7 +397,7 @@ int Voiceset_SetNumVoices(MD_VOICESET *vs, uint voices)
 // of the voices will occur, leaving the voices in the exact same state until resumed 
 // with vs_enableoutput.
 //
-static void __inline vs_disableoutput(MD_VOICESET *vs)
+static void _mm_inline vs_disableoutput(MD_VOICESET *vs)
 {
     uint   i;
     for(i=0; i<vs->voices; i++)
@@ -415,7 +415,7 @@ static void __inline vs_disableoutput(MD_VOICESET *vs)
 
 // _____________________________________________________________________________________
 //
-static void __inline vs_enableoutput(MD_VOICESET *vs)
+static void _mm_inline vs_enableoutput(MD_VOICESET *vs)
 {
     uint   i;
     for(i=0; i<vs->voices; i++)
@@ -430,7 +430,7 @@ static void __inline vs_enableoutput(MD_VOICESET *vs)
 // _____________________________________________________________________________________
 // stops all voices, and reinitializes the player-update timer (countdown)
 //
-static void __inline vs_reset(MD_VOICESET *vs)
+static void _mm_inline vs_reset(MD_VOICESET *vs)
 {
     uint    i;
     for(i=0; i<vs->voices; i++)
@@ -932,7 +932,7 @@ two functions.
 
 // _____________________________________________________________________________________
 //
-static int __inline get_max_volume(MD_VOICESET *vs)
+static int _mm_inline get_max_volume(MD_VOICESET *vs)
 {
 	if(vs->owner)
     	return (vs->volume * get_max_volume(vs->owner)) / 128;

@@ -370,7 +370,7 @@ static void Mix32To8(VIRTCH *vc, SBYTE *dste, SLONG *srce, SLONG count)
 
 // _____________________________________________________________________________________
 //
-static ULONG __inline samples2bytes( VIRTCH *vc, ULONG samples )
+static ULONG _mm_inline samples2bytes( VIRTCH *vc, ULONG samples )
 {
     samples *= vc->bitdepth * vc->channels;
     return samples;
@@ -378,7 +378,7 @@ static ULONG __inline samples2bytes( VIRTCH *vc, ULONG samples )
 
 // _____________________________________________________________________________________
 //
-static ULONG __inline bytes2samples( VIRTCH *vc, ULONG bytes )
+static ULONG _mm_inline bytes2samples( VIRTCH *vc, ULONG bytes )
 {
     bytes /= vc->bitdepth * vc->channels;
     return bytes;
@@ -388,7 +388,7 @@ static ULONG __inline bytes2samples( VIRTCH *vc, ULONG bytes )
 // Completely cuts a note so that it cannot be resumed or anything (usually done when
 // the sample boudn to the voice has reached it's end and has nothing more to play).
 //
-static void __inline fullstop( VINFO *vnf )
+static void _mm_inline fullstop( VINFO *vnf )
 {
     vnf->onhold       = TRUE;
     vnf->samplehandle = -1;
@@ -899,7 +899,7 @@ void VC_WriteSamples( MDRIVER *md, SBYTE *buf, long todo )
                     {
                         vnf->increment = ((INT64S)(vnf->frq) << FRACBITS) / (INT64S)vc->mixspeed;
                         vnf->increment -= 3;
-                        if(vnf->flags & SL_REVERSE) vnf->increment =- vnf->increment;
+                        if(vnf->flags & SL_REVERSE) vnf->increment = -vnf->increment;
 
                         vc->sample[vnf->samplehandle].mixer->CalculateVolumes(vc, vnf);
 
@@ -1121,7 +1121,7 @@ VIRTCH *VC_Init( MM_ALLOC *parent )
     VC_RegisterMixer(vc, &M16_STEREO_INTERP);
 #endif
 
-#endif VC_NO_MIXERS
+#endif // VC_NO_MIXERS
 
     return vc;
 }
@@ -1246,7 +1246,7 @@ ulong VC_VoiceGetFrequency(MD_DEVICE *md, uint voice)
 // _____________________________________________________________________________________
 // Implementation of the Mikamp Device Driver API
 //
-ulong __inline VC_VoiceGetPosition(MD_DEVICE *md, uint voice)
+ulong _mm_inline VC_VoiceGetPosition(MD_DEVICE *md, uint voice)
 {
     return(md->vc->vinf[voice].current >> FRACBITS);
 }

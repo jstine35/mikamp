@@ -1055,8 +1055,6 @@ static void OnSelChanged(HWND hwndDlg);
                             //if(IsDlgButtonChecked(hwndDlg,IDC_CPU_SIMD))  config_cpu = CPU_SIMD;
 
 	            			config_savestr  = IsDlgButtonChecked(hwndDlg,IDC_SAVESTR)   ? 1 : 0;
-                            
-                            set_priority();
                         break;
                     }
                 }

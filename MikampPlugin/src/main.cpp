@@ -110,7 +110,6 @@ int cpp_sucks_feof(FILE *stream)
     return 0;
 }
 
-
 void infobox_setmodule(HWND hwnd);
 
 // _____________________________________________________________________________________
@@ -352,7 +351,6 @@ int __cdecl play(char *fn)
 
     killDecodeThread=0;
     mpeg_thread_handle = (HANDLE) CreateThread(NULL,0,(LPTHREAD_START_ROUTINE) decodeThread,(void *) &killDecodeThread,0,(ulong *)&mpeg_threadid);
-    set_priority();
     paused = 0;
 
     return 0; 
@@ -623,7 +621,6 @@ __declspec( dllexport ) In_Module * __cdecl winampGetInModule2()
     return &mikamp;
 }
 
-
 // _____________________________________________________________________________________
 //
 DWORD WINAPI __stdcall decodeThread(volatile void *b)
@@ -661,23 +658,5 @@ DWORD WINAPI __stdcall decodeThread(volatile void *b)
     }
 
     return 0;
-}
-
-// _____________________________________________________________________________________
-//
-void set_priority(void) 
-{
-    int p;
-    switch ((config_priority>>4) & 3)
-    {
-        default: p = THREAD_PRIORITY_NORMAL; break;
-        case 1: p = THREAD_PRIORITY_ABOVE_NORMAL; break;
-        case 2: p = THREAD_PRIORITY_HIGHEST; break;
-    }
-
-    if (mpeg_thread_handle != INVALID_HANDLE_VALUE)
-    {
-        SetThreadPriority(mpeg_thread_handle,p);
-    }
 }
 

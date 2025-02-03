@@ -89,8 +89,6 @@ extern int       file_length, paused;
 
 // config.c shizat
 // ---------------
-extern void  set_priority(void);
-
 extern void __cdecl config(HWND hwndParent);
 extern void __cdecl about(HWND hwndParent);
 

@@ -14,9 +14,6 @@
  
 */
 
-// [TODO] : Make this driver slightly more generalized so that it doesn't rely on the
-//   mikamp global structure.
-
 #include <windows.h>
 
 #include "mikamp.h"
@@ -31,7 +28,7 @@
 
 typedef struct AMP_LOCALINFO
 {
-    SBYTE   RAW_DMABUF[(BUFSIZE*1024*2) + 64];  // added 64 for mmx mixer (it's not exact :)
+    SBYTE   AMP_DMABUF[(BUFSIZE*1024*2) + 64];  // added 64 for mmx mixer (it's not exact :)
     int     block_len, bytes_per_sec;
 
 } AMP_LOCALINFO;
@@ -39,14 +36,14 @@ typedef struct AMP_LOCALINFO
 
 // _____________________________________________________________________________________
 //
-static BOOL RAW_IsThere( void )
+static BOOL AMP_IsThere( void )
 {
     return 1;
 }
 
 // _____________________________________________________________________________________
 //
-static BOOL RAW_Init( MDRIVER *md )
+static BOOL AMP_Init( MDRIVER *md )
 {
     AMP_LOCALINFO  *hwdata;
     
@@ -66,7 +63,7 @@ static BOOL RAW_Init( MDRIVER *md )
 
 // _____________________________________________________________________________________
 //
-static void RAW_Exit( MDRIVER *md )
+static void AMP_Exit( MDRIVER *md )
 {
     VC_Exit( md->device.vc );
     mikamp.outMod->Close();
@@ -74,7 +71,7 @@ static void RAW_Exit( MDRIVER *md )
 
 // _____________________________________________________________________________________
 //
-static void RAW_Update(MDRIVER *md)
+static void AMP_Update(MDRIVER *md)
 {
     AMP_LOCALINFO  *hwdata = md->device.local;
     VIRTCH         *vc     = md->device.vc;
@@ -88,7 +85,7 @@ static void RAW_Update(MDRIVER *md)
     	int o = 0;
 
         l -= l % hwdata->block_len;
-        VC_WriteBytes(md, hwdata->RAW_DMABUF, l);
+        VC_WriteBytes(md, hwdata->AMP_DMABUF, l);
 
         while (o < l)
         {
@@ -99,13 +96,13 @@ static void RAW_Update(MDRIVER *md)
             	int t;
                 int k = vc->bitdepth * vc->channels;
 
-                t = mikamp.dsp_dosamples((short *)(hwdata->RAW_DMABUF+o), a / k, vc->bitdepth*8, vc->channels, vc->mixspeed) * k;
-                mikamp.outMod->Write(hwdata->RAW_DMABUF+o,t);
+                t = mikamp.dsp_dosamples((short *)(hwdata->AMP_DMABUF+o), a / k, vc->bitdepth*8, vc->channels, vc->mixspeed) * k;
+                mikamp.outMod->Write(hwdata->AMP_DMABUF+o,t);
 			} else
-                mikamp.outMod->Write(hwdata->RAW_DMABUF+o,a);
+                mikamp.outMod->Write(hwdata->AMP_DMABUF+o,a);
 
-			mikamp.SAAddPCMData(hwdata->RAW_DMABUF+o,vc->channels,vc->bitdepth*8,decode_pos_ms/64);
-			mikamp.VSAAddPCMData(hwdata->RAW_DMABUF+o,vc->channels,vc->bitdepth*8,decode_pos_ms/64);
+			mikamp.SAAddPCMData(hwdata->AMP_DMABUF+o,vc->channels,vc->bitdepth*8,decode_pos_ms/64);
+			mikamp.VSAAddPCMData(hwdata->AMP_DMABUF+o,vc->channels,vc->bitdepth*8,decode_pos_ms/64);
 
 			decode_pos_ms += (a*1000*64) / hwdata->bytes_per_sec;
 			o+=a;
@@ -115,7 +112,7 @@ static void RAW_Update(MDRIVER *md)
 
 // _____________________________________________________________________________________
 //
-static BOOL RAW_PlayStart( MDRIVER *md )
+static BOOL AMP_PlayStart( MDRIVER *md )
 {
     AMP_LOCALINFO  *hwdata = md->device.local;
     VIRTCH         *vc     = md->device.vc;
@@ -138,7 +135,7 @@ static BOOL RAW_PlayStart( MDRIVER *md )
     return TRUE;
 }
 
-static void RAW_PlayStop( MDRIVER *md )
+static void AMP_PlayStop( MDRIVER *md )
 {
     mikamp.outMod->Close();
     VC_PlayStop( md );
@@ -175,12 +172,12 @@ MD_DEVICE drv_amp =
     VC_GetSampleFormat,
 
     // Detection and Initialization
-    RAW_IsThere,
-    RAW_Init,
-    RAW_Exit,
-    RAW_Update,
-    RAW_PlayStart,
-    RAW_PlayStop,
+    AMP_IsThere,
+    AMP_Init,
+    AMP_Exit,
+    AMP_Update,
+    AMP_PlayStart,
+    AMP_PlayStop,
     VC_Preempt,
 
     NULL,

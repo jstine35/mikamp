@@ -54,62 +54,6 @@ void mmerr( MM_ERRINFO *info )
 
 WReader       *wreader;
 
-// _____________________________________________________________________________________
-//
-int cpp_sucks_fread(void *buffer, size_t size, size_t count, FILE *stream)
-{
-    bool   why;
-    return wreader->Read((char *)buffer, size*count, &why);
-}
-
-// _____________________________________________________________________________________
-//
-int cpp_sucks_fwrite(const void *buffer, size_t size, size_t count, FILE *stream)
-{
-    return 0;
-}
-
-// _____________________________________________________________________________________
-//
-int cpp_sucks_fgetc(FILE *stream)
-{
-    bool   why;
-    char   c;
-
-    wreader->Read(&c, 1, &why);
-
-    return c;
-}
-
-// _____________________________________________________________________________________
-//
-int cpp_sucks_fputc(int c, FILE *stream)
-{
-    return 0;
-}
-
-// _____________________________________________________________________________________
-//
-int cpp_sucks_fseek(FILE *stream, long offset, int origin)
-{
-    bool   why;
-    return wreader->Seek(offset, &why);
-}
-
-// _____________________________________________________________________________________
-//
-int cpp_sucks_ftell(FILE *stream)
-{
-    return wreader->GetLength();
-}
-
-// _____________________________________________________________________________________
-//
-int cpp_sucks_feof(FILE *stream)
-{
-    return 0;
-}
-
 void infobox_setmodule(HWND hwnd);
 
 // _____________________________________________________________________________________
@@ -137,19 +81,6 @@ void __cdecl init(void)
     ML_RegisterLoader(&load_m15);
 
     MD_RegisterDriver(&drv_amp);
-
-    /*{
-    HINSTANCE      dll;
-    reader_source *resrc;
-    CHAR          *t;
-
-    dll = LoadLibrary("read_file.dll");
-    readerSource = (int (__cdecl *)(struct HINSTANCE__ *,reader_source ** ))GetProcAddress(dll, "readerSource");
-    readerSource(mikamp.hDllInstance, &resrc);
-
-    wreader = resrc->create();
-    t = wreader->GetDescription();
-    }*/
 
 }
 

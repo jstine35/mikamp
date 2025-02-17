@@ -8,12 +8,8 @@
  Module: wrap8.c
 
   Basic common wrapper functions for all Mikamp-standard 8-bit mixers (both
-  C and assembly versions).  The Init/Deinit functions create the 65-entry
-  lookup table used to increase 8 bit mixing performance on pre-Pentium 2
-  class CPUs.
+  C and assembly versions).
 
-  - Init
-  - Exit
   - CalculateVolumes
   - RampVolume
   
@@ -26,52 +22,6 @@ VOLINFO8       v8;
 VC_RESFILTER  *r8;
 
 static int  alloc;
-
-/*
-// =====================================================================================
-    BOOL VC_Lookup8_Init(VMIXER *mixer)
-// =====================================================================================
-{
-    int   t;
-    
-    if(voltab) { alloc++; return 0; }    // quit if already allocated
-    
-    // Set up the volume tables for the 8 bit sample mixer
-    // Chart is 0 - 64 (65 entries)
-
-    alloc = 1;
-    if((voltab = (long **)_mm_calloc(65,sizeof(SLONG *))) == NULL) return 1;
-    for(t=0; t<65; t++)
-       if((voltab[t] = (long *)_mm_calloc(256,sizeof(SLONG))) == NULL) return 1;
-
-    for(t=0; t<65; t++)
-    {   long volmul = (65536l*t) / BIT8_VOLFAC;
-        int  c;
-        for(c=-128; c<128; c++)
-            voltab[t][(UBYTE)c] = (SLONG)c*volmul;
-    }
-
-    return 0;
-}
-
-
-// =====================================================================================
-    void VC_Lookup8_Exit(VMIXER *mixer)
-// =====================================================================================
-{
-    if(voltab)
-    {   
-        alloc--;
-        if(alloc==0)
-        {   int t;
-
-            _mmlogd("Virtch > Unloading 8 bit mixer volume table");
-            for(t=0; t<65; t++) _mm_free(voltab[t], NULL);
-            _mm_free(voltab, NULL);
-        }
-    }
-}
-*/
 
 // =====================================================================================
     void VC_Volcalc8_Mono(VIRTCH *vc, VINFO *vnf)

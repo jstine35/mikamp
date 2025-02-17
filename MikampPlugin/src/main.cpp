@@ -15,6 +15,7 @@
 
 #include "main.h"
 #include "rf.h"
+#include "virtch.h"
 
 // Static Globals!
 // ---------------
@@ -105,8 +106,6 @@ UNIMOD *get_unimod(char *file)
 	else
 	    return mf;
 }
-
-#include "virtch.h"
 
 // _____________________________________________________________________________________
 //

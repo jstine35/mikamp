@@ -31,9 +31,6 @@
     <Filter Include="Source Files\Mixer\Resonance Filter">
       <UniqueIdentifier>{3629b8e7-3123-4b8f-a886-50261a785bb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Mixer\Assembly %28x86%29">
-      <UniqueIdentifier>{b888960c-1e9b-4daa-9ddd-a6beb7793149}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Players">
       <UniqueIdentifier>{160e6a46-a277-410a-9ec9-cfb4e63fc2f6}</UniqueIdentifier>
     </Filter>
@@ -265,30 +262,6 @@
     </ClCompile>
     <ClCompile Include="..\src\mixer\resonancefilter\8.c">
       <Filter>Source Files\Mixer\Resonance Filter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mixer\asmapi\mi16.c">
-      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mixer\asmapi\mi8.c">
-      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mixer\asmapi\mn16.c">
-      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mixer\asmapi\mn8.c">
-      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mixer\asmapi\si16.c">
-      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mixer\asmapi\si8.c">
-      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mixer\asmapi\sn16.c">
-      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mixer\asmapi\sn8.c">
-      <Filter>Source Files\Mixer\Assembly %28x86%29</Filter>
     </ClCompile>
     <ClCompile Include="..\src\inputsources\play_unimod.c">
       <Filter>Source Files\Players\Unimod Player</Filter>

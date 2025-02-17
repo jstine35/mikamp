@@ -155,7 +155,6 @@
     <ClCompile Include="..\src\mmio\mmerror.c" />
     <ClCompile Include="..\src\mmio\mmio.c" />
     <ClCompile Include="..\src\mmio\node.c" />
-    <ClCompile Include="..\src\mmio\random.c" />
     <ClCompile Include="..\src\mmio\wildcard.c" />
     <ClCompile Include="..\src\mmio\x86\cpudetect.c" />
     <ClCompile Include="..\src\outputdrivers\drv_nos.c" />

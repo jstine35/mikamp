@@ -323,9 +323,6 @@
     <ClCompile Include="..\src\mmio\node.c">
       <Filter>Source Files\mmio</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mmio\random.c">
-      <Filter>Source Files\mmio</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mmio\wildcard.c">
       <Filter>Source Files\mmio</Filter>
     </ClCompile>

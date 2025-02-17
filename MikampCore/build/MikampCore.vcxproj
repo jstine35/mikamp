@@ -76,7 +76,6 @@
     <ClInclude Include="..\include\mikamp.h" />
     <ClInclude Include="..\include\mmalloc.h" />
     <ClInclude Include="..\include\mmerror.h" />
-    <ClInclude Include="..\include\mmforbid.h" />
     <ClInclude Include="..\include\mminline.h" />
     <ClInclude Include="..\include\mmio.h" />
     <ClInclude Include="..\include\mmtypes.h" />
@@ -155,7 +154,6 @@
     <ClCompile Include="..\src\mmio\mmcopy.c" />
     <ClCompile Include="..\src\mmio\mmerror.c" />
     <ClCompile Include="..\src\mmio\mmio.c" />
-    <ClCompile Include="..\src\mmio\msw\mmforbid.c" />
     <ClCompile Include="..\src\mmio\node.c" />
     <ClCompile Include="..\src\mmio\random.c" />
     <ClCompile Include="..\src\mmio\wildcard.c" />

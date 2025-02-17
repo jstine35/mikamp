@@ -25,7 +25,6 @@
 */
 
 #include "mikamp.h"
-#include "mmforbid.h"
 #include "mminline.h"
 
 #include <string.h>
@@ -100,11 +99,6 @@ BOOL SampleLoader_Start( SAMPLE_LOADER *sload, SL_SAMPLE *s )
     if( !sload->buffer ) sload->buffer = _mm_malloc( &sload->allochandle, 131072 );
     if( !sload->buffer ) return FALSE;
     
-    /* Legacy mutex code, no longer needed thanks to sample_loader encapsulation
-    if( !sload->mmcs ) sload->mmcs = _mmforbid_init();
-    if( !sload->mmcs ) { assert( FALSE ); }  // programmer warning! this is worthy of investigation when it fails.
-    _mmforbid_enter( mmcs );*/
-
     // Initialize Variables for Incremental Loading
     // --------------------------------------------
 

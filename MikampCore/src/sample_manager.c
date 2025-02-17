@@ -29,7 +29,6 @@
 */
 
 #include "mikamp.h"
-#include "mmforbid.h"
 #include "mminline.h"
 
 #include <string.h>

@@ -2353,9 +2353,6 @@ MPLAYER *Player_Create(const UNIMOD *mf, uint flags)
     if(mf->numsmp)
         ps->usesmp = (BOOL *)_mm_calloc(ps->allochandle, mf->numsmp, sizeof(BOOL));
 
-
-    ps->mutex = ps_forbid_init();
-
     return ps;
 }
 
@@ -2452,9 +2449,6 @@ void Player_Register(MD_VOICESET *vs, MPLAYER *ps, uint maxchan)
 void Player_Free(MPLAYER *ps)
 {
     if(!ps) return;
-
-    ps_forbid_deinit();
-    ps->mutex = NULL;
 
     _mmalloc_close(ps->allochandle);
 }

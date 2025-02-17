@@ -81,9 +81,6 @@
     <ClInclude Include="..\include\mmerror.h">
       <Filter>Header Files\mmio</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\mmforbid.h">
-      <Filter>Header Files\mmio</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\mminline.h">
       <Filter>Header Files\mmio</Filter>
     </ClInclude>
@@ -318,9 +315,6 @@
       <Filter>Source Files\mmio</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mmio\mmerror.c">
-      <Filter>Source Files\mmio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mmio\msw\mmforbid.c">
       <Filter>Source Files\mmio</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mmio\mmio.c">

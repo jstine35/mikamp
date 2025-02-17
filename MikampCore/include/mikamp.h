@@ -247,7 +247,6 @@ typedef struct SAMPLE_LOADER
     int            delta_old, delta_new;
     int            ditherval;
     SWORD         *buffer;
-    //MM_FORBID     *mmcs;        // mutex lock, not needed thanks to encapsulation
 
 } SAMPLE_LOADER;
 

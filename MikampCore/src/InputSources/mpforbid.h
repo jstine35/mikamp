@@ -52,14 +52,16 @@ static void _mm_inline MP_LoopSong(MPLAYER *ps, const UNIMOD *pf)
 }
 
 
-// Use the forbid API when you want to modify any of the ps->sngpos, ps->patpos etc.
-// variables and clear it when you're done. This prevents getting strange results
-// due to intermediate interrupts.
+// TODO: Remove ps_forbid entirely. Rationale: Legacy multithreaded api, a throwback to the earliest
+// editions of MikMod which internally tried to run UniMod decoding and mixing on a thread. This
+// simplified locking model was not robust to the needs of asyncronous sound systems. If redone, it
+// should use instead a message queue that posts changes to the player state rather than modifying the
+// player state variables directly.
 
-#define ps_forbid_init()    _mmforbid_init();
-#define ps_forbid_deinit()  _mmforbid_deinit(ps->mutex);
-#define ps_forbid()         _mmforbid_enter(ps->mutex);
-#define ps_unforbid()       _mmforbid_exit(ps->mutex);
+#define ps_forbid_init()    ((void)0)
+#define ps_forbid_deinit()  ((void)0)
+#define ps_forbid()         ((void)0)
+#define ps_unforbid()       ((void)0)
 
 
 #endif

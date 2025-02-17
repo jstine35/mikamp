@@ -102,10 +102,6 @@ typedef struct DS_LOCALINFO
 
     SBYTE  *nullbuf;            // null buffer used for mixing "lost bits" of music
 
-    // Air : Mutex removed because mikamp's driver model is now
-    //       inherently thread safe.
-    //MM_FORBID *mutex;
-
 } DS_LOCALINFO;
 
 // _____________________________________________________________________________________
@@ -292,7 +288,6 @@ static void DS_Update(MDRIVER *md)
 
     if( !hwdata->dorefresh ) return;
 
-    //_mmforbid_enter( hwdata->mutex );
 	IDirectSoundBuffer_GetCurrentPosition( hwdata->bb, &play, &write );
 
 	diff = (int)write - hwdata->lastwritecursor;
@@ -354,7 +349,6 @@ static void DS_Update(MDRIVER *md)
 		if( hwdata->lastwrite >= hwdata->bufsize )
 			hwdata->lastwrite -= hwdata->bufsize;
 	}
-    //_mmforbid_exit( hwdata->mutex );
 }
 
 // _____________________________________________________________________________________
@@ -370,7 +364,6 @@ static void DS_WipeBuffers( MDRIVER *md )
         void    *ptr1;
         HRESULT  h;
 
-        //_mmforbid_enter( hwdata->mutex );
         h = IDirectSoundBuffer_Lock( hwdata->bb,0,0,&ptr1,&ptr1len, NULL, NULL, DSBLOCK_ENTIREBUFFER );
         if( h == DSERR_BUFFERLOST )
         {
@@ -383,7 +376,6 @@ static void DS_WipeBuffers( MDRIVER *md )
             VC_SilenceBytes(md, ptr1, ptr1len);
             IDirectSoundBuffer_Unlock(hwdata->bb,ptr1,ptr1len,0,0);
         }
-        //_mmforbid_exit( hwdata->mutex );
     }
 }
 

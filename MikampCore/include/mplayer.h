@@ -15,7 +15,6 @@
 #pragma once
 
 #include "uniform.h"
-#include "mmforbid.h"
 
 
 #define MUTE_EXCLUSIVE  32000
@@ -286,7 +285,6 @@ typedef struct MPLAYER
     long          songlen;       // length of the song in milliseconds.
 
     MD_VOICESET  *vs;            // voiceset this player instance is attached to.
-    MM_FORBID    *mutex;         // multithread mutex jazz..
     MM_ALLOC     *allochandle;
     MM_ALLOC     *statealloc;
 

@@ -2,17 +2,8 @@
 
  Mikamp Sound System
 
-  By Jake Stine of Divine Entertainment (2000)
-
- Support:
-  If you find problems with this code, send mail to:
-    air@divent.org
-
- Distribution / Code rights:
-  Use this source code in any fashion you see fit.  Giving me credit where
-  credit is due is optional, depending on your own levels of integrity and
-  honesty.
-
+ This is free and unencumbered software released into the public domain.
+ The Unlicense : See LICENSE.txt file included with this source distribution
  -----------------------------------------
  Module: wrap8.c
 

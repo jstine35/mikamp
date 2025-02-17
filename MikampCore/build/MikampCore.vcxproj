@@ -91,6 +91,7 @@
     <ClInclude Include="..\src\mixer\resonancefilter\resshare.h" />
     <ClInclude Include="..\src\mixer\ssmix.h" />
     <ClInclude Include="..\src\mixer\stdmix.h" />
+    <ClInclude Include="..\src\Mixer\trace_riff_wav.h" />
     <ClInclude Include="..\src\mixer\vchcrap.h" />
     <ClInclude Include="..\src\mixer\wrap16.h" />
     <ClInclude Include="..\src\mixer\wrap8.h" />
@@ -113,10 +114,12 @@
     <ClCompile Include="..\src\mixer\regmix_ss.c" />
     <ClCompile Include="..\src\mixer\resonancefilter\16.c" />
     <ClCompile Include="..\src\mixer\resonancefilter\8.c" />
+    <ClCompile Include="..\src\Mixer\trace_riff_wav.c" />
     <ClCompile Include="..\src\mixer\vc16.c" />
     <ClCompile Include="..\src\mixer\vc16ss.c" />
     <ClCompile Include="..\src\mixer\vc8.c" />
     <ClCompile Include="..\src\mixer\vc8ss.c" />
+    <ClCompile Include="..\src\Mixer\vch-trace.cpp" />
     <ClCompile Include="..\src\mixer\virtch.c" />
     <ClCompile Include="..\src\mixer\wrap16.c" />
     <ClCompile Include="..\src\mixer\wrap8.c" />

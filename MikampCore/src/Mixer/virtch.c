@@ -33,11 +33,17 @@
 */
 
 #include "vchcrap.h"
+#include "vch-trace-wav.h"
+#include "mmenv.h"
 
 #include <stddef.h>
 #include <string.h>
 
 int   rvolsel, lvolsel;
+
+#if !defined(MIKAMP_REG_DEFAULT_MIXERS)
+#   define MIKAMP_REG_DEFAULT_MIXERS 1
+#endif
 
 // _____________________________________________________________________________________
 //
@@ -734,6 +740,7 @@ void VC_WriteSamples(MDRIVER* md, SBYTE* buf, long todo)
 
                 case SF_BITS_16:
                     Mix32To16(vc, (SWORD *) buffer, vc->TICKBUF, count);
+                    TraceRiffWav_WriteDataInt16(g_trace_wav_finalmix, (SWORD*)buffer, count * sizeof(SWORD));
                 break;
             }
             buffer += samples2bytes(vc, portion);
@@ -895,11 +902,9 @@ void VC_GetVolume(MD_DEVICE *md, MMVOLUME *volume)
 //
 VIRTCH *VC_Init( MM_ALLOC *parent )
 {
-    VIRTCH    *vc;
-
     _mmlog("Mikamp > virtch > Entering Initialization Sequence.");
-    
-    vc  = _mmobj_new( parent, VIRTCH );
+
+    VIRTCH* vc  = _mmobj_new( parent, VIRTCH );
 
     vc->volume.front.left  = 
     vc->volume.front.right = 
@@ -912,11 +917,13 @@ VIRTCH *VC_Init( MM_ALLOC *parent )
     vc->bitdepth = SF_BITS_16;
     vc->channels = MD_STEREO;
     vc->cpu      = CPU_NONE;
-    
-    if((vc->sample = _mmobj_array(vc, vc->samplehandles=64, VSAMPLE)) == NULL) return 0;
+
+    // samplehandles is an alloc size, and can grow at runtime.
+    vc->samplehandles = 64;
+    if((vc->sample  = _mmobj_array(vc, vc->samplehandles, VSAMPLE)) == NULL) return 0;
     if((vc->TICKBUF = _mmobj_array(vc, (TICKLSIZE+32), SLONG)) == NULL) return 0;
 
-    //SampleManager_Signed( vc->sampleman );
+    _vc_trace_init(vc);
 
     _mmlog( "Mikamp > virtch > Initialization successful!" );
 

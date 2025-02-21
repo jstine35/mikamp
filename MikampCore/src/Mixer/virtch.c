@@ -39,6 +39,10 @@
 
 int   rvolsel, lvolsel;
 
+#if !defined(MIKAMP_REG_DEFAULT_MIXERS)
+#   define MIKAMP_REG_DEFAULT_MIXERS 1
+#endif
+
 // _____________________________________________________________________________________
 //
 void VC_RegisterMixer( VIRTCH *vc, VMIXER *mixer )
@@ -141,40 +145,6 @@ static int getfreehandle(VIRTCH *vc)
 
     return handle;
 }
-
-/*static void (*calculate_volumes)(VINFO *vnf);
-static void volcalc_Quad(VINFO *vnf)
-{
-    // this isn't complete yet.  It requires new lvoltab/rvoltab for the rear
-    // speakers, and some other changes!
-
-    vnf->vol.front.left = vnf->volume.front.left * vc->volume.front.left;
-    vnf->vol.front.right = vnf->volume.front.right * vc->volume.front.right;
-    vnf->vol.rear.left  = vnf->volume.rear.left  * vc->volume.rear.left;
-    vnf->vol.rear.right  = vnf->volume.rear.right  * vc->volume.rear.right;
-
-    if(vnf->panflg & VC_SURROUND)
-    {   lvoltab = rvoltab = voltab[(vnf->vol.front.left+1) / BIT8_TBLSCL];
-        lvolsel = rvolsel = vnf->vol.front.left / BIT16_VOLFAC;
-    } else
-    {   lvolsel = vnf->vol.front.left / BIT16_VOLFAC;
-        rvolsel = vnf->vol.front.right / BIT16_VOLFAC;
-        lvoltab = voltab[vnf->vol.front.left / BIT8_TBLSCL];
-        rvoltab = voltab[vnf->vol.front.right / BIT8_TBLSCL];
-        //_mmlog("  Virtch : %-3d, %-3d",vnf->vol.front.left/ BIT8_TBLSCL, vnf->vol.front.right/ BIT8_TBLSCL);
-    }
-
-    // declicker: Set us up to volramp!
-    if((vc->mode & DMODE_NOCLICK) && !vnf->volramp)
-    {   if((vnf->vol.front.left != vnf->oldvol.front.left) || (vnf->vol.front.right != vnf->oldvol.front.right))
-        {   vnf->volramp = vc->mixspeed / 2048;
-            vnf->lvolinc = ((vnf->vol.front.left - vnf->oldvol.front.left) / (int)vnf->volramp);
-            vnf->rvolinc = ((vnf->vol.front.right - vnf->oldvol.front.right) / (int)vnf->volramp);
-            //_mmlog("vols:  %-5d, %-5d  %-5d, %-5d   volincs: %-7d, %-7d",vnf->lvol, vnf->loldvol, vnf->rvol, vnf->roldvol, vnf->lvolinc, vnf->rvolinc);
-        }
-    }
-}*/
-
 
 #include "mminline.h"
 
@@ -750,176 +720,170 @@ void VC_Preempt( MD_DEVICE *md )
 
 // _____________________________________________________________________________________
 //
-void VC_WriteSamples( MDRIVER *md, SBYTE *buf, long todo )
+void VC_WriteSamples(MDRIVER* md, SBYTE* buf, long todo)
 {
-    VIRTCH  *vc;
-    
-    if(vc=md->device.vc)
+    VIRTCH* vc = md->device.vc;
+    if (!vc) return;
+
+    while(todo)
     {
-        int       left;
-        uint      portion, count;
-        SBYTE    *buffer;
-        uint      t;
+        // Check if the mdriver has asked for a preemption into the MD_Player
+        if(vc->preemption || (vc->TICKLEFT==0))
+        {   ulong  timepass;
 
-        while(todo)
-        {
-            // Check if the mdriver has asked for a preemption into the MD_Player
-            if(vc->preemption || (vc->TICKLEFT==0))
-            {   ulong  timepass;
+            vc->preemption = 0;
 
-                vc->preemption = 0;
+            // timepass : get the amount of time that has passed since the
+            // last MD_Player update (could be volatile thanks to player
+            // preemption!)
 
-                // timepass : get the amount of time that has passed since the
-                // last MD_Player update (could be volatile thanks to player
-                // preemption!)
+            timepass = ((INT64U)(vc->TICK - vc->TICKLEFT) * 100000UL) / vc->mixspeed;
 
-                timepass = ((INT64U)(vc->TICK - vc->TICKLEFT) * 100000UL) / vc->mixspeed;
+            // ADD ONE: Effectively causes the math to round up, instead of down,
+            // which prevents us from returning, and in turn getting back, really
+            // small values that stall the system!  No accuracy is lost, however,
+            // since MD_Player is smart and tracks over/undertimings.
 
-                // ADD ONE: Effectively causes the math to round up, instead of down,
-                // which prevents us from returning, and in turn getting back, really
-                // small values that stall the system!  No accuracy is lost, however,
-                // since MD_Player is smart and tracks over/undertimings.
+            vc->TICK = vc->TICKLEFT = (((INT64U)(MD_Player(md, timepass)) * vc->mixspeed) / 100000ul) + 1;
+        }
 
-                vc->TICK = vc->TICKLEFT = (((INT64U)(MD_Player(md, timepass)) * vc->mixspeed) / 100000ul) + 1;
-            }
-
-            left = MIN(vc->TICKLEFT, todo);
+        int left = MIN(vc->TICKLEFT, todo);
         
-            buffer    = buf;
-            vc->TICKLEFT -= left;
-            todo     -= left;
+        SBYTE* buffer = buf;
 
-            buf += samples2bytes(vc,left);
+        vc->TICKLEFT -= left;
+        todo         -= left;
 
-            while(left)
-            {
-                VINFO *vnf;
+        buf += samples2bytes(vc,left);
 
-                portion = MIN( left, vc->samplesthatfit );
-                count   = portion * vc->channels;
+        while(left)
+        {
+            VINFO *vnf;
+
+            uint portion = MIN( left, vc->samplesthatfit );
+            uint count   = portion * vc->channels;
             
-                memset(vc->TICKBUF, 0, count<<2);
+            memset(vc->TICKBUF, 0, count<<2);
 
-                // Mix in the old channels that are being ramped to 0 volume first...
+            // Mix in the old channels that are being ramped to 0 volume first...
 
-                if(vc->mode & DMODE_NOCLICK)
-                {   uint   tpor, mddiv = RAMPLEN_NOTECUT;
+            if(vc->mode & DMODE_NOCLICK)
+            {   uint   tpor, mddiv = RAMPLEN_NOTECUT;
 
-                    tpor = MIN(mddiv, portion);
-                    vnf  = vc->vold;
+                tpor = MIN(mddiv, portion);
+                vnf  = vc->vold;
 
-                    for(t=0; t<vc->clickcnt; t++, vnf++)
-                    {
-                        if(!vnf->onhold) // && vnf->handle->mixer)
-                        {   // always ramp to 0 (special coded where vnf->lvol and vnf->rvol
-                            // are assumed to always be 0, and ramp using a very fast speed.
-                            // Otherwise, the two samples will blend together and a proper
-                            // '0' base is never reached!
-
-                            if(!vnf->volramp)
-                            {   memset(&vnf->volume,0,sizeof(MMVOLUME));
-                                vnf->volramp = mddiv;
-                                vc->sample[vnf->samplehandle].mixer->CalculateVolumes(vc, vnf);
-                            }
-
-                            if(vnf->volramp && vnf->increment)
-                                AddChannel(vc, vc->TICKBUF, tpor, vnf);
-
-                            if(!vnf->volramp) vnf->onhold = TRUE;
-                        }
-                    }
-
-                    // Only reset the declicker if we didn't do a partial mix.
-
-                    if(tpor>=mddiv) vc->clickcnt = 0;
-                }
-
-                // Now mix in the real deal...
-
-                vnf = vc->vinf;
-                for(t=0; t<vc->numchn; t++, vnf++)
+                for(uint t=0; t<vc->clickcnt; t++, vnf++)
                 {
-                    // Check for notes to kick.  Only kick them if
-                    // they have a valid mixer attached to them.
+                    if(!vnf->onhold) // && vnf->handle->mixer)
+                    {   // always ramp to 0 (special coded where vnf->lvol and vnf->rvol
+                        // are assumed to always be 0, and ramp using a very fast speed.
+                        // Otherwise, the two samples will blend together and a proper
+                        // '0' base is never reached!
 
-                    if(vnf->kick)
-                    {   vnf->current = (INT64S)(vnf->start) << FRACBITS;
-                        vnf->kick    = 0;
-                        vnf->volramp = 0;
-
-                        if(vc->mode & DMODE_NOCLICK)
-                        {
-                            // check the first four samples of the sample.  If they are properly
-                            // formed, then don't declick!
-
-                            if(!vnf->onhold)
-                            {   
-                                VSAMPLE   *handle = &vc->sample[vnf->samplehandle];
-                                switch( handle->bitdepth )
-                                {
-                                    case SF_BITS_8:
-                                    {
-                                        uint  i;
-                                        SBYTE *src = handle->data;
-                                        src += vnf->start;
-                                
-                                        for(i=0; i<4; i++)
-                                        {
-                                            if((src[i] < -6) || (src[i] > 6))
-                                            {
-                                                vnf->volramp = RAMPLEN_NOTEKICK;
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    case SF_BITS_16:
-                                    {
-                                        uint  i;
-                                        SWORD *src = (SWORD *)handle->data;
-                                        src += vnf->start;
-
-                                        for(i=0; i<4; i++)
-                                        {
-                                            if((src[i] < -1000) || (src[i] > 1000))
-                                            {
-                                                vnf->volramp = RAMPLEN_NOTEKICK;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
+                        if(!vnf->volramp)
+                        {   memset(&vnf->volume,0,sizeof(MMVOLUME));
+                            vnf->volramp = mddiv;
+                            vc->sample[vnf->samplehandle].mixer->CalculateVolumes(vc, vnf);
                         }
-                        memset( &vnf->oldvol,0,sizeof(MMVOLUME) );
-                    }
 
-                    if(vnf->frq && !vnf->onhold) // && vnf->handle->mixer)
-                    {
-                        vnf->increment = ((INT64S)(vnf->frq) << FRACBITS) / (INT64S)vc->mixspeed;
-                        vnf->increment -= 3;
-                        if(vnf->flags & SL_REVERSE) vnf->increment = -vnf->increment;
+                        if(vnf->volramp && vnf->increment)
+                            AddChannel(vc, vc->TICKBUF, tpor, vnf);
 
-                        vc->sample[vnf->samplehandle].mixer->CalculateVolumes(vc, vnf);
-
-                        AddChannel(vc, vc->TICKBUF, portion, vnf);
+                        if(!vnf->volramp) vnf->onhold = TRUE;
                     }
                 }
 
-                switch( vc->bitdepth )
-                {
-                    case SF_BITS_8:
-                        Mix32To8(vc, (SBYTE *) buffer, vc->TICKBUF, count);
-                    break;
+                // Only reset the declicker if we didn't do a partial mix.
 
-                    case SF_BITS_16:
-                        Mix32To16(vc, (SWORD *) buffer, vc->TICKBUF, count);
-                    break;
-                }
-                buffer += samples2bytes(vc, portion);
-                left   -= portion;
+                if(tpor>=mddiv) vc->clickcnt = 0;
             }
+
+            // Now mix in the real deal...
+
+            vnf = vc->vinf;
+            for(uint t=0; t<vc->numchn; t++, vnf++)
+            {
+                // Check for notes to kick.  Only kick them if
+                // they have a valid mixer attached to them.
+
+                if(vnf->kick)
+                {   vnf->current = (INT64S)(vnf->start) << FRACBITS;
+                    vnf->kick    = 0;
+                    vnf->volramp = 0;
+
+                    if(vc->mode & DMODE_NOCLICK)
+                    {
+                        // check the first four samples of the sample.  If they are properly
+                        // formed, then don't declick!
+
+                        if(!vnf->onhold)
+                        {   
+                            VSAMPLE   *handle = &vc->sample[vnf->samplehandle];
+                            switch( handle->bitdepth )
+                            {
+                                case SF_BITS_8:
+                                {
+                                    uint  i;
+                                    SBYTE *src = handle->data;
+                                    src += vnf->start;
+                                
+                                    for(i=0; i<4; i++)
+                                    {
+                                        if((src[i] < -6) || (src[i] > 6))
+                                        {
+                                            vnf->volramp = RAMPLEN_NOTEKICK;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                case SF_BITS_16:
+                                {
+                                    uint  i;
+                                    SWORD *src = (SWORD *)handle->data;
+                                    src += vnf->start;
+
+                                    for(i=0; i<4; i++)
+                                    {
+                                        if((src[i] < -1000) || (src[i] > 1000))
+                                        {
+                                            vnf->volramp = RAMPLEN_NOTEKICK;
+                                            break;
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    memset( &vnf->oldvol,0,sizeof(MMVOLUME) );
+                }
+
+                if(vnf->frq && !vnf->onhold) // && vnf->handle->mixer)
+                {
+                    vnf->increment = ((INT64S)(vnf->frq) << FRACBITS) / (INT64S)vc->mixspeed;
+                    vnf->increment -= 3;
+                    if(vnf->flags & SL_REVERSE) vnf->increment = -vnf->increment;
+
+                    vc->sample[vnf->samplehandle].mixer->CalculateVolumes(vc, vnf);
+
+                    AddChannel(vc, vc->TICKBUF, portion, vnf);
+                }
+            }
+
+            switch( vc->bitdepth )
+            {
+                case SF_BITS_8:
+                    Mix32To8(vc, (SBYTE *) buffer, vc->TICKBUF, count);
+                break;
+
+                case SF_BITS_16:
+                    Mix32To16(vc, (SWORD *) buffer, vc->TICKBUF, count);
+                break;
+            }
+            buffer += samples2bytes(vc, portion);
+            left   -= portion;
         }
     }
 }
@@ -950,9 +914,10 @@ void VC_SilenceBytes(MDRIVER *md, SBYTE *buf, long todo)
 //
 ULONG VC_WriteBytes( MDRIVER *md, SBYTE *buf, long todo )
 {
-    if(!md->device.vc) return 0;
+    if (!md) return 0;
+    if (!md->device.vc) return 0;
 
-    if(md->device.vc->numchn == 0)
+    if (md->device.vc->numchn == 0)
     {   VC_SilenceBytes(md,buf,todo);
         return todo;
     }
@@ -1101,27 +1066,18 @@ VIRTCH *VC_Init( MM_ALLOC *parent )
 
     _mmlog( "Mikamp > virtch > Initialization successful!" );
 
-#ifndef VC_NO_MIXERS
-
+#if MIKAMP_REG_DEFAULT_MIXERS
     VC_RegisterMixer(vc, &RF_M8_MONO_INTERP);
     VC_RegisterMixer(vc, &RF_M16_MONO_INTERP);
     VC_RegisterMixer(vc, &RF_M8_STEREO_INTERP);
     VC_RegisterMixer(vc, &RF_M16_STEREO_INTERP);
 
-#ifdef CPU_INTEL
-    VC_RegisterMixer(vc, &ASM_M8_MONO_INTERP);
-    VC_RegisterMixer(vc, &ASM_M16_MONO_INTERP);
-    VC_RegisterMixer(vc, &ASM_M8_STEREO_INTERP);
-    VC_RegisterMixer(vc, &ASM_M16_STEREO_INTERP);
-
-#else
     VC_RegisterMixer(vc, &M8_MONO_INTERP);
     VC_RegisterMixer(vc, &M16_MONO_INTERP);
     VC_RegisterMixer(vc, &M8_STEREO_INTERP);
     VC_RegisterMixer(vc, &M16_STEREO_INTERP);
 #endif
 
-#endif // VC_NO_MIXERS
 
     return vc;
 }

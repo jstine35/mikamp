@@ -493,7 +493,7 @@ static CHAR capnstupid[3072];
 In_Module mikamp = 
 {
     IN_VER,
-    "Mikamp Module Music Decoder 3.1.0"
+    "Mikamp Module Music Decoder 3.2.0"
 #ifdef __alpha
     "(AXP)"
 #else

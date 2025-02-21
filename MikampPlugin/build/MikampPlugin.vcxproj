@@ -43,13 +43,13 @@
     <OutDir>.obj/Debug/</OutDir>
     <IntDir>.obj/Debug/</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>in_mod.dll</TargetName>
+    <TargetName>in_mod</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.obj/Release/</OutDir>
     <IntDir>.obj/Release/</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>in_mod.dll</TargetName>
+    <TargetName>in_mod</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

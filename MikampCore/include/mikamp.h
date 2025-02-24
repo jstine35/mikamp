@@ -365,9 +365,9 @@ struct _MD_DEVICE
     // Below is the 'private' stuff, to be used by the MDRIVER and the
     // driver modules themselves [commenting is my version of C++ private]
 
-    struct _MD_DEVICE  *next;
-    struct _VIRTCH     *vc;        // optional software mixer handle --initialized by the driver if/when needed.
-    void               *local;     // local data storage unit.  unit or loose it.  hahaha.. hr.. ugh.
+    struct _MD_DEVICE*  next;
+    struct _VIRTCH*     vc;        // software mixer handle (optional) -- some hardware soundcard drivers may skip this
+    void*               local;     // local data storage unit.  unit or loose it.  hahaha.. hr.. ugh.
 
     // sample loading and information
 
@@ -377,8 +377,8 @@ struct _MD_DEVICE
     void    (*SampleUnLoad)    (struct _MD_DEVICE *md, uint handle);
     ULONG   (*FreeSampleSpace) (struct _MD_DEVICE *md, int type);
     ULONG   (*RealSampleLength)(struct _MD_DEVICE *md, SM_SAMPLE *s);
-    uint    (*GetSampleCaps)   ( struct _MDRIVER *md, enum MD_CAPS captype );
-    uint    (*GetSampleFormat) ( struct _MDRIVER *md, int handle );
+    uint    (*GetSampleCaps)   (struct _MDRIVER *md, enum MD_CAPS captype);
+    uint    (*GetSampleFormat) (struct _MDRIVER *md, int handle);
 
     // detection / initialization / general util
 

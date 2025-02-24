@@ -49,6 +49,7 @@ static BOOL AMP_Init( MDRIVER *md )
     
     hwdata        = _mmobj_allocblock( md, AMP_LOCALINFO );
     md->device.vc = VC_Init( &md->allochandle );
+
     if(!md->device.vc)
     {
         mikamp.outMod->Close();
@@ -57,6 +58,9 @@ static BOOL AMP_Init( MDRIVER *md )
     }
 
     md->device.local = hwdata;
+
+    // drv_amp only needs the standard module mixer set. It does not need stereo samples
+    VC_RegisterModuleMixers(md->device.vc);
 
     return TRUE;
 }

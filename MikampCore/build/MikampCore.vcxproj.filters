@@ -293,5 +293,8 @@
     <ClCompile Include="..\src\mmio\node.c">
       <Filter>Source Files\mmio</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Mixer\regmix_mods.c">
+      <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

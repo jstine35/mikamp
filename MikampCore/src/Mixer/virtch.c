@@ -39,10 +39,6 @@
 
 int   rvolsel, lvolsel;
 
-#if !defined(MIKAMP_REG_DEFAULT_MIXERS)
-#   define MIKAMP_REG_DEFAULT_MIXERS 1
-#endif
-
 // _____________________________________________________________________________________
 //
 void VC_RegisterMixer( VIRTCH *vc, VMIXER *mixer )
@@ -937,19 +933,6 @@ VIRTCH *VC_Init( MM_ALLOC *parent )
     //SampleManager_Signed( vc->sampleman );
 
     _mmlog( "Mikamp > virtch > Initialization successful!" );
-
-#if MIKAMP_REG_DEFAULT_MIXERS
-    VC_RegisterMixer(vc, &RF_M8_MONO_INTERP);
-    VC_RegisterMixer(vc, &RF_M16_MONO_INTERP);
-    VC_RegisterMixer(vc, &RF_M8_STEREO_INTERP);
-    VC_RegisterMixer(vc, &RF_M16_STEREO_INTERP);
-
-    VC_RegisterMixer(vc, &M8_MONO_INTERP);
-    VC_RegisterMixer(vc, &M16_MONO_INTERP);
-    VC_RegisterMixer(vc, &M8_STEREO_INTERP);
-    VC_RegisterMixer(vc, &M16_STEREO_INTERP);
-#endif
-
 
     return vc;
 }

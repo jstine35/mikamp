@@ -177,6 +177,7 @@ extern BOOL    VC_PlayStart( MDRIVER *md );
 extern void    VC_PlayStop( MDRIVER *md );
 extern void    VC_RegisterMixer(VIRTCH *vc, VMIXER *mixer);
 extern void    VC_RegisterStereoMixers(VIRTCH *vc);
+extern void    VC_RegisterModuleMixers(VIRTCH *vc);
 
 extern void    VC_SetVolume(MD_DEVICE *md, const MMVOLUME *volume);
 extern void    VC_GetVolume(MD_DEVICE *md, MMVOLUME *volume);

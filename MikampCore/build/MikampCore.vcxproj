@@ -70,7 +70,6 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\assfile.h" />
     <ClInclude Include="..\include\log.h" />
     <ClInclude Include="..\include\mdsfx.h" />
     <ClInclude Include="..\include\mikamp.h" />
@@ -123,7 +122,6 @@
     <ClCompile Include="..\src\mmio\mmerror.c" />
     <ClCompile Include="..\src\mmio\mmio.c" />
     <ClCompile Include="..\src\mmio\node.c" />
-    <ClCompile Include="..\src\mmio\wildcard.c" />
     <ClCompile Include="..\src\mmio\x86\cpudetect.c" />
     <ClCompile Include="..\src\outputdrivers\drv_nos.c" />
     <ClCompile Include="..\src\outputdrivers\drv_raw.c" />

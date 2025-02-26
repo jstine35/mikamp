@@ -66,9 +66,6 @@
     <ClInclude Include="..\include\virtch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\assfile.h">
-      <Filter>Header Files\mmio</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\log.h">
       <Filter>Header Files\mmio</Filter>
     </ClInclude>
@@ -294,9 +291,6 @@
       <Filter>Source Files\mmio</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mmio\node.c">
-      <Filter>Source Files\mmio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mmio\wildcard.c">
       <Filter>Source Files\mmio</Filter>
     </ClCompile>
   </ItemGroup>

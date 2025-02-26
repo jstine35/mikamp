@@ -159,7 +159,7 @@ MMSTREAM *_mm_fopen(const CHAR *fname, const CHAR *attrib)
             //              fname, _sys_errlist[errno]);
 
             //_mmerr_set(MMERR_OPENING_FILE, "Error opening file!", sbuf);
-            _mmlogd2("Error opening file: %s > %s",fname, _sys_errlist[errno]);
+            _mmlogd("Error opening file: %s > %s",fname, _sys_errlist[errno]);
             return NULL;
         }
 

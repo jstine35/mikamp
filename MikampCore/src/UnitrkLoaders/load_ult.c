@@ -147,7 +147,7 @@ BOOL ULT_Load(ULT_HANDLE *handle, UNIMOD *of, MMSTREAM *mmfile)
     }
 
     if((mh->id[14]<'1') || (mh->id[14]>'4'))
-    {   _mmlogd1("load_ult > Unsupported file type: %d",mh->id[14]);
+    {   _mmlogd("load_ult > Unsupported file type: %d",mh->id[14]);
         return 0;
     }
 

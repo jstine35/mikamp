@@ -567,7 +567,7 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
         ph.packsize =_mm_read_I_UWORD(mmfile);
 
         if(ph.packing || (ph.numrows > 16384)) 
-        {   _mmlogd2("load_xm > Failure: Invalid packing (%d) and/or numrows (%d)", ph.packing, ph.numrows);
+        {   _mmlogd("load_xm > Failure: Invalid packing (%d) and/or numrows (%d)", ph.packing, ph.numrows);
             return 0;
         }
 
@@ -591,7 +591,7 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
         }
 
         if(_mm_feof(mmfile))
-	    {   _mmlogd1("load_xm > Failure: Unexpected end of file reading pattern %d",t);
+	    {   _mmlogd("load_xm > Failure: Unexpected end of file reading pattern %d",t);
             return 0;
         }
 
@@ -635,7 +635,7 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
         if(ih.size > 28) ih.numsmp   = _mm_read_I_UWORD(mmfile);
 
         if((ih.type == 255) && (ih.numsmp > 32))
-        {   _mmlogd3("load_xm > Found Invalid sample header at %d (type=%d numsmp=%d)",t, ih.type, ih.numsmp);
+        {   _mmlogd("load_xm > Found Invalid sample header at %d (type=%d numsmp=%d)",t, ih.type, ih.numsmp);
             of->numins = t+1;
             break;
         }
@@ -680,7 +680,7 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
                 for(u=headend-_mm_ftell(mmfile); u; u--)  _mm_read_UBYTE(mmfile);    
 
                 if(_mm_feof(mmfile))
-        	    {   _mmlogd1("load_xm > Failure: Unexpected end of file reading instrument header %d",t);
+        	    {   _mmlogd("load_xm > Failure: Unexpected end of file reading instrument header %d",t);
                     return 0;
                 }
     
@@ -778,7 +778,7 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
                     next += (s->reserved==0xAD) ? (((s->length+1)/2)+16) : s->length;
 
                     if(_mm_feof(mmfile))
-                	{   _mmlogd1("load_xm > Failure: Unexpected end of file loading sample header %d.",u);
+                	{   _mmlogd("load_xm > Failure: Unexpected end of file loading sample header %d.",u);
                         return 0;
                     }
                 }

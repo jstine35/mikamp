@@ -256,26 +256,6 @@ MMEXPORT int     _mmstr_filecmp(const CHAR *str1, const CHAR *str2);
 MMEXPORT CHAR   *_mmstr_pathcat(CHAR *dest, const CHAR *src);
 MMEXPORT CHAR   *_mmstr_newext(CHAR *path, const CHAR *ext);
 
-#ifdef MM_LOG_VERBOSE
-
-#define _mmlogd         _mmlog
-#define _mmlogd1        _mmlog
-#define _mmlogd2        _mmlog
-#define _mmlogd3        _mmlog
-#define _mmlogd4        _mmlog
-#define _mmlogd5        _mmlog
-
-#else
-
-#define _mmlogd(a)             __mmlogd()
-#define _mmlogd1(a,b)          __mmlogd()
-#define _mmlogd2(a,b,c)        __mmlogd()
-#define _mmlogd3(a,b,c,d)      __mmlogd()
-#define _mmlogd4(a,b,c,d,e)    __mmlogd()
-#define _mmlogd5(a,b,c,d,e,f)  __mmlogd()
-
-static void _mm_inline __mmlogd(void)
-{
-}
-
-#endif
+// meant to be for noisy debug logs.
+// existing usage is inconsistent with concept of "debug" logs and so it's enabled globally for the time being.
+#define _mmlogd(...)         _mmlog(__VA_ARGS__)

@@ -961,7 +961,7 @@ BOOL VC_SetSoftVoices(VIRTCH *vc, uint voices)
 
     // reallocate the stuff to the new values.
     
-    _mmlogd2("Virtch > Reallocating voices.  Old = %d, New = %d", vc->numchn, voices);
+    _mmlogd("Virtch > Reallocating voices.  Old = %d, New = %d", vc->numchn, voices);
 
     if((vc->vinf = (VINFO *)_mm_realloc(&vc->allochandle, vc->vinf, sizeof(VINFO) * (voices+1))) == NULL) return 1;
     if(vc->mode & DMODE_NOCLICK)

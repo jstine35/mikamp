@@ -305,7 +305,7 @@ UNIMOD *Unimod_Load( MDRIVER *md, const CHAR *filename )
     MMSTREAM *fp;
     UNIMOD  *mf;
     
-    _mmlogd1( "Mikamp > unimod_load > Loading Module : %s",filename );
+    _mmlogd( "Mikamp > unimod_load > Loading Module : %s",filename );
 
     if( ( fp = _mm_fopen( filename,"rb" ) ) == NULL ) return NULL;
     if( mf = Unimod_LoadFP( md, fp, fp, MD_ALLOC_STATIC ) )

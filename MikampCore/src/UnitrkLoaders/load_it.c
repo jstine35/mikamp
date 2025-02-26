@@ -965,7 +965,7 @@ BOOL IT_Load(IT_HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
         memset(h->last,255,sizeof(ITNOTE) * 64);
         for(t=0; t<of->numpat; t++)
         {   // seek to pattern position
-            //_mmlogd1("Loading Pattern %d", t);
+            //_mmlogd("Loading Pattern %d", t);
 
             if(h->paraptr[h->mh.insnum+h->mh.smpnum+t] == 0)  // No parapointer = pattern of 64 rows, EMPTY
             {   
@@ -990,7 +990,7 @@ BOOL IT_Load(IT_HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
                 _mm_read_I_ULONG(mmfile);
 
 
-                //_mmlogd2(" > Stuff : %d %d", packlen, of->pattrows[t]);
+                //_mmlogd(" > Stuff : %d %d", packlen, of->pattrows[t]);
 
                 if(!IT_ReadPattern(mmfile, h, of->pattrows[t], gxx_memory)) return 0;
                 utrk_dup_pattern(h->ut, of);

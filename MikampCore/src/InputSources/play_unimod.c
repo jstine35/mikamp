@@ -1498,7 +1498,7 @@ uint Player_HandleTick(MD_VOICESET *vs, MPLAYER *ps)
 
             // reset a->row track stuff to new song position.
             pseek(ps);
-            _mmlogd1("\nSONG POSITION CHANGE: %d\n", ps->state.sngpos);
+            _mmlogd("\nSONG POSITION CHANGE: %d\n", ps->state.sngpos);
         } else
             // no position jump, so go to the next row in the current pattern.
             if(!ps->state.patdly2) nextrow(ps);

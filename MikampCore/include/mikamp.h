@@ -296,7 +296,7 @@ enum MD_CAPS            // for fetching driver capabilities
 enum MD_OPTIONS
 {
     MD_OPT_MIXSPEED,            // mixing output (44100 or 48000 is usual default)
-    MD_OPT_BITDEPTH,            // bitdepth output (16 bit default)
+    MD_OPT_BITDEPTH,            // bitdepth output / 8 (1 = 8 bits , 2 = 16 bits) [16 bit default]
     MD_OPT_CHANNELS,            // set mono, stereo, quadsound, etc.
     MD_OPT_FLAGS,
     MD_OPT_LATENCY,             // force latency (largely unsupported)

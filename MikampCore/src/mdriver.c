@@ -346,7 +346,7 @@ BOOL Mikamp_DeviceConfig_Exit( MDRIVER *md )
         _mmlog( "Mikamp > Initialized %s driver.", md->device.Name );
         _mmlog( "       > %dkhz / %d bits / %s ",
             md->mixspeed,
-            md->bitdepth,
+            md->bitdepth * 8,
             md_label_channels[md->channels] );
 
         Mikamp_ThrowEvent( md, MDEVT_MODE_CHANGED );

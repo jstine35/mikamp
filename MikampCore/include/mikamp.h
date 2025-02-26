@@ -388,7 +388,6 @@ struct _MD_DEVICE
     void    (*Update)          ( struct _MDRIVER *md );      // update driver (for polling-based updates).
     BOOL    (*PlayStart)       ( struct _MDRIVER *md );
     void    (*PlayStop)        ( struct _MDRIVER *md );
-    void    (*Preempt)         (struct _MD_DEVICE *md);    // request update preemption and player resync
 
     BOOL    (*SetHardVoices)   (struct _MDRIVER *md, uint num);
     BOOL    (*SetSoftVoices)   (struct _MDRIVER *md, uint num);

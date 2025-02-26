@@ -606,7 +606,6 @@ MD_DEVICE drv_ds =
     DS_Update,
     DS_PlayStart,
     DS_PlayStop,
-    VC_Preempt,
 
     NULL,
     DS_SetSoftVoices,

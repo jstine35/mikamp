@@ -578,15 +578,6 @@ static void AddChannel( VIRTCH *vc, SLONG *ptr, SLONG todo, VINFO *vnf ) //, int
 }
 
 // _____________________________________________________________________________________
-// Preempt the mixer as soon as possible to allow the mdriver to update
-// the player status and timings.
-//
-void VC_Preempt( MD_DEVICE *md )
-{
-    if( md->vc ) md->vc->preemption = 1;
-}
-
-// _____________________________________________________________________________________
 //
 void VC_WriteSamples(MDRIVER* md, SBYTE* buf, long todo)
 {
@@ -595,17 +586,12 @@ void VC_WriteSamples(MDRIVER* md, SBYTE* buf, long todo)
 
     while(todo)
     {
-        // Check if the mdriver has asked for a preemption into the MD_Player
-        if(vc->preemption || (vc->TICKLEFT==0))
-        {   ulong  timepass;
-
-            vc->preemption = 0;
-
+        if(vc->TICKLEFT == 0) {   
             // timepass : get the amount of time that has passed since the
             // last MD_Player update (could be volatile thanks to player
             // preemption!)
 
-            timepass = ((INT64U)(vc->TICK - vc->TICKLEFT) * 100000UL) / vc->mixspeed;
+            ulong timepass = ((INT64U)(vc->TICK - vc->TICKLEFT) * 100000UL) / vc->mixspeed;
 
             // ADD ONE: Effectively causes the math to round up, instead of down,
             // which prevents us from returning, and in turn getting back, really

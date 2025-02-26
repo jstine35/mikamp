@@ -503,14 +503,7 @@ void Voiceset_Reset(MD_VOICESET *vs)
 //
 void Voiceset_PlayStart(MD_VOICESET *vs)
 {
-    if(!(vs->flags & MDVS_PLAYER))
-    {
-        // set the player flag, and preempt the mixer to get this thing going
-        // as soon as possible!
-
-        vs->flags |= MDVS_PLAYER;
-        vs->md->device.Preempt(&vs->md->device);
-    }
+    if (vs) vs->flags |= MDVS_PLAYER;
 }
 
 // _____________________________________________________________________________________

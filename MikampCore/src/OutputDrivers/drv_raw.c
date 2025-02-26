@@ -123,7 +123,6 @@ MD_DEVICE drv_raw =
     RAW_Update,
     VC_PlayStart,
     VC_PlayStop,
-    VC_Preempt,
 
     NULL,
     RAW_SetSoftVoices,

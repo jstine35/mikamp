@@ -328,7 +328,6 @@ MD_DEVICE drv_sdl =
     sdl_Init,
     sdl_Exit,
     sdl_Update,
-    VC_Preempt,
 
     NULL,
     sdl_SetSoftVoices,

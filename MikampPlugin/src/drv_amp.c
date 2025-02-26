@@ -182,7 +182,6 @@ MD_DEVICE drv_amp =
     AMP_Update,
     AMP_PlayStart,
     AMP_PlayStop,
-    VC_Preempt,
 
     NULL,
     AMP_SetSoftVoices,

@@ -150,7 +150,6 @@ struct _VIRTCH
 
     long       TICK, TICKLEFT, TICKREMAIN, samplesthatfit;
     SLONG     *TICKBUF;
-    volatile BOOL preemption;         // see explaination of preemption in the mikamp docs.
 
     VMIXER    *mixerlist;             // registered mixers available for use
 
@@ -169,7 +168,6 @@ extern "C" {
 
 extern VIRTCH *VC_Init( MM_ALLOC *parent );
 extern void    VC_Exit(VIRTCH *vc);
-extern void    VC_Preempt(MD_DEVICE *md);
 extern BOOL    VC_SetSoftVoices(VIRTCH *vc, uint num);
 extern void    VC_SetOption( MDRIVER *md, enum MD_OPTIONS option, uint value );
 extern uint    VC_GetOption( MDRIVER *md, enum MD_OPTIONS option );

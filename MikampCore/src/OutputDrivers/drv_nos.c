@@ -85,11 +85,6 @@ void NS_PlayStop( MDRIVER *md )
 }
 
 
-static void NS_Preempt(MD_DEVICE *device)
-{
-}
-
-
 static BOOL NS_SetHardVoices(MDRIVER *md, uint num)
 {
     return 0;
@@ -242,7 +237,6 @@ MD_DEVICE drv_nos =
     NS_Update,
     NS_PlayStart,
     NS_PlayStop,
-    NS_Preempt,
 
     NS_SetHardVoices,
     NS_SetSoftVoices,

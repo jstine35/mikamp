@@ -153,66 +153,7 @@ static int getfreehandle(VIRTCH *vc)
 static void Mix32To16(VIRTCH *vc, SWORD *dste, SLONG *srce, SLONG count)
 {
     SLONG x1, x2;
-    int           remain;
-
-#ifdef CPU_INTEL
-    if(vc->cpu >= CPU_MMX)
-    {
-        __asm
-        {
-            mov         eax, count
-            mov         edi, dste
-            mov         ecx, eax
-            mov         esi, srce
-            shr         ecx, 4                // counter / 16 (ecx)
-            jz          getOuttaHere
-
-        mainLoop:
-
-            movq        mm7, [esi]
-            movq        mm6, [esi+8]
-            psrad       mm7, BITSHIFT
-            movq        mm5, [esi+16]
-            psrad       mm6, BITSHIFT
-            movq        mm4, [esi+24]
-            psrad       mm5, BITSHIFT
-            movq        mm3, [esi+32]
-            psrad       mm4, BITSHIFT
-            movq        mm2, [esi+40]
-            psrad       mm3, BITSHIFT
-            movq        mm1, [esi+48]
-            psrad       mm2, BITSHIFT
-            movq        mm0, [esi+56]
-            psrad       mm1, BITSHIFT
-            add         esi, 64
-            psrad       mm0, BITSHIFT
-
-            add         edi, 32
-            packssdw    mm7, mm6         // left/right or backwards?
-            packssdw    mm5, mm4
-            movq        [edi-32], mm7
-            packssdw    mm3, mm2
-            movq        [edi-24], mm5
-            packssdw    mm1, mm0
-
-            movq        [edi-16], mm3
-            movq        [edi-8], mm1
-
-            dec         ecx
-            jnz         mainLoop
-
-            emms
-
-        getOuttaHere:
-            and         eax, 15
-            mov         dste, edi
-            mov         srce, esi
-            mov         count, eax
-        }
-    }
-
-#endif
-    remain = count & 1;
+    int remain = count & 1;
 
     for(count>>=1; count; count--)
     {
@@ -242,77 +183,8 @@ static void Mix32To16(VIRTCH *vc, SWORD *dste, SLONG *srce, SLONG count)
 //
 static void Mix32To8(VIRTCH *vc, SBYTE *dste, SLONG *srce, SLONG count)
 {
-    register int   x1, x2;
-    int   remain;
-    
-#ifdef CPU_INTEL
-    if(vc->cpu >= CPU_MMX)
-    {
-        static unsigned long q128[2] = { 0x80808080, 0x80808080 };
-        __asm
-        {
-            mov         eax, count
-            mov         edi, dste
-            mov         ecx, eax
-            mov         esi, srce
-            shr         ecx, 4                // counter / 16 (ecx)
-            jz          getOuttaHere
-
-        // if the order of this code looks confusing, that is because it
-        // is.  In order to do good pipelinging in MMX, I have to write
-        // ass backwards code.  Live with it. :)
-        
-        mainLoop:
-            movq        mm7, [esi]
-            movq        mm6, [esi+8]
-            psrad       mm7, (BITSHIFT + 8)
-            movq        mm5, [esi+16]
-            psrad       mm6, (BITSHIFT + 8)
-            movq        mm4, [esi+24]
-            psrad       mm5, (BITSHIFT + 8)
-            movq        mm3, [esi+32]
-            psrad       mm4, (BITSHIFT + 8)
-            movq        mm2, [esi+40]
-            psrad       mm3, (BITSHIFT + 8)
-            movq        mm1, [esi+48]
-            psrad       mm2, (BITSHIFT + 8)
-            movq        mm0, [esi+56]
-
-            psrad       mm1, (BITSHIFT + 8)
-            psrad       mm0, (BITSHIFT + 8)
-            add         esi, 64
-
-            packssdw    mm7, mm6         // left/right or backwards
-            add         edi, 16
-            packssdw    mm5, mm4
-            packssdw    mm3, mm2
-            packsswb    mm7, mm5
-
-            packssdw    mm1, mm0
-
-            packsswb    mm3, mm1            
-            paddb       mm7, q128        // convert -128..127 to 0..255
-
-            movq        [edi-16], mm7
-            paddb       mm3, q128        // convert -128..127 to 0..255
-
-            movq        [edi-8], mm3
-
-            dec         ecx
-            jnz         mainLoop
-
-            emms
-
-        getOuttaHere:
-            and         eax, 15
-            mov         dste, edi
-            mov         srce, esi
-            mov         count, eax
-        }
-    }
-
-#endif
-    remain = count & 1;
+    int   x1, x2;
+    int   remain = count & 1;
 
     for(count>>=1; count; count--)
     {   

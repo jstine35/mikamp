@@ -18,7 +18,7 @@ class WReader
 	/* GetDescription
 	** Retrieves your plug-in's text description
 	*/
-	virtual char *GetDescription() { return "Unknown"; };
+	virtual char *GetDescription() { return (char*)"Unknown"; };
 
 	/* Open
 	** Used to open a file, return 0 on success

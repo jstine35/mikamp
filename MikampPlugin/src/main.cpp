@@ -171,7 +171,7 @@ int __cdecl play(char *fn)
 			is_tempfile=1;		
 		}
 		
-		if (httpRetrieveFile(mikamp.hMainWindow,fn,t_file,"Retrieving MOD-type file"))
+		if (httpRetrieveFile(mikamp.hMainWindow,fn,t_file,(char*)"Retrieving MOD-type file"))
 		{
 			is_tempfile=0;
 			t_file[0]=0;
@@ -493,7 +493,7 @@ static CHAR capnstupid[3072];
 In_Module mikamp = 
 {
     IN_VER,
-    "Mikamp Module Music Decoder 3.2.0"
+    (char*)"Mikamp Module Music Decoder 3.2.0"
 #ifdef __alpha
     "(AXP)"
 #else

@@ -117,6 +117,9 @@
     <ClInclude Include="..\src\mixer\wrap8.h">
       <Filter>Source Files\Includes %28private%29</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\mmenv.h">
+      <Filter>Source Files\Includes %28private%29</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\mdreg.c">
@@ -295,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Mixer\regmix_mods.c">
       <Filter>Source Files\Mixer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mmio\mmenv.cpp">
+      <Filter>Source Files\mmio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

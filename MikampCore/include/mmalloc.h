@@ -1,6 +1,7 @@
 
-// OBSOLETE : Most or all of this module should be removed and replaced with C++ object-style
-// memory management.
+// OBSOLETE : Most or all of this module. :)
+// TODO : remove embedded naming persistence and use a global std::unordered_map to
+//        associate debug names with pointers.
 
 #pragma once
 

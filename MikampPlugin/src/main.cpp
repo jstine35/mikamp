@@ -16,6 +16,7 @@
 #include "main.h"
 #include "rf.h"
 #include "virtch.h"
+#include "mmenv.h"
 
 // Static Globals!
 // ---------------
@@ -50,7 +51,7 @@ void mmerr( MM_ERRINFO *info )
 
     sprintf( whee,"File: %s\n,Error: %s",curfn, info->desc );
     if( info->num != MMERR_OPENING_FILE )
-	    MessageBox( NULL, whee, "Module Error",0 );
+        MessageBox( NULL, whee, "Module Error",0 );
 }
 
 WReader       *wreader;
@@ -62,6 +63,8 @@ void infobox_setmodule(HWND hwnd);
 void __cdecl init(void)
 {
     _mmerr_sethandler( &mmerr );
+
+    _mmenv_init();
 
 #ifdef MM_LOG_VERBOSE
     log_init("c:\\temp\\in_mod", LOG_SILENT);
@@ -542,10 +545,9 @@ In_Module mikamp =
 	NULL // outmod
 };
 
-extern "C" __declspec( dllexport ) In_Module * __cdecl winampGetInModule2();
-
 // _____________________________________________________________________________________
 //
+extern "C"
 __declspec( dllexport ) In_Module * __cdecl winampGetInModule2()
 {
     return &mikamp;

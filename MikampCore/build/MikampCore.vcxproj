@@ -48,15 +48,19 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;MIKAMP_STATIC;_CRT_SECURE_NO_WARNINGS%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader />
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -65,8 +69,6 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;MIKAMP_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader />
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -74,6 +76,7 @@
     <ClInclude Include="..\include\mdsfx.h" />
     <ClInclude Include="..\include\mikamp.h" />
     <ClInclude Include="..\include\mmalloc.h" />
+    <ClInclude Include="..\include\mmenv.h" />
     <ClInclude Include="..\include\mmerror.h" />
     <ClInclude Include="..\include\mminline.h" />
     <ClInclude Include="..\include\mmio.h" />
@@ -120,6 +123,7 @@
     <ClCompile Include="..\src\mmio\log.c" />
     <ClCompile Include="..\src\mmio\mmalloc.c" />
     <ClCompile Include="..\src\mmio\mmcopy.c" />
+    <ClCompile Include="..\src\mmio\mmenv.cpp" />
     <ClCompile Include="..\src\mmio\mmerror.c" />
     <ClCompile Include="..\src\mmio\mmio.c" />
     <ClCompile Include="..\src\mmio\node.c" />

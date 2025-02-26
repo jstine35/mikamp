@@ -28,6 +28,10 @@ static char       t_file[MAX_PATH];
 static int        mpeg_threadid=0,killDecodeThread=0;
 static HANDLE     mpeg_thread_handle=INVALID_HANDLE_VALUE;
 
+static bool       g_trace_alloc;
+static bool       g_trace_stdout = 1;
+static bool       g_trace_outputdebugstring = 1;
+
 static int (__cdecl *readerSource)(HINSTANCE hIns, reader_source **s);
 
 // Public Globals!
@@ -41,15 +45,13 @@ int               decode_pos_ms;
 DWORD WINAPI __stdcall decodeThread(volatile void *b);
 
 
-#include "log.h"
-
 void b(char *s) { MessageBox(NULL,s,s,0); }
 
 void mmerr( MM_ERRINFO *info )
 {
     CHAR  whee[2048];
 
-    sprintf( whee,"File: %s\n,Error: %s",curfn, info->desc );
+    sprintf_s(whee, "File: %s\n,Error: %s", curfn, info->desc );
     if( info->num != MMERR_OPENING_FILE )
         MessageBox( NULL, whee, "Module Error",0 );
 }
@@ -58,17 +60,50 @@ WReader       *wreader;
 
 void infobox_setmodule(HWND hwnd);
 
+void plugin_print(const CHAR *fmt, ... ) {
+    if (g_trace_stdout) {
+        va_list argptr;
+        va_start(argptr, fmt);
+        vfprintf(stdout, fmt, argptr);
+        fputc('\n', stdout);        // TODO: redo _mmlog as a macro and bake \n in there.
+        fflush(stdout);
+        va_end(argptr);
+    }
+
+    if (g_trace_outputdebugstring) {
+        char msg[1024];
+        va_list argptr;
+        va_start(argptr, fmt);
+        vsprintf_s(msg, fmt, argptr); 
+        va_end(argptr);
+        ::OutputDebugStringA(msg);
+        ::OutputDebugStringA("\n");
+    }
+}
+
+
 // _____________________________________________________________________________________
 //
 void __cdecl init(void)
 {
     _mmerr_sethandler( &mmerr );
 
+
+    _mmlog_init(plugin_print, plugin_print, plugin_print);
+
+    // TODO: move mmenv_init to DllMain
     _mmenv_init();
 
-#ifdef MM_LOG_VERBOSE
-    log_init("c:\\temp\\in_mod", LOG_SILENT);
+#ifndef _DEBUG
+    g_trace_stdout = 0;
+    g_trace_outputdebugstring = 0;
 #endif
+
+    if (auto* want_mmlog = _mmenv_get("--verbose")) {
+        g_trace_stdout = (want_mmlog[0] != '0');
+        g_trace_outputdebugstring = g_trace_stdout;
+    }
+
     config_read();
 
     ML_RegisterLoader(&load_it);
@@ -280,7 +315,9 @@ int __cdecl play(char *fn)
 
     Player_Start(mp);
 
-    _mmalloc_report(NULL);
+    if (g_trace_alloc) {
+        _mmalloc_report(NULL);
+    }
 
     killDecodeThread=0;
     mpeg_thread_handle = (HANDLE) CreateThread(NULL,0,(LPTHREAD_START_ROUTINE) decodeThread,(void *) &killDecodeThread,0,(ulong *)&mpeg_threadid);

@@ -36,7 +36,7 @@ typedef struct MM_BLOCKINFO
 // -------------------------------------------------------------------------------------
 // An allocation handle for use with the mmio allocation functions.
 //
-typedef struct MM_ALLOC
+typedef struct _MM_ALLOC
 {
 #ifdef _DEBUG
     BOOL               checkplease;
@@ -44,8 +44,8 @@ typedef struct MM_ALLOC
     int                blocklist;
     uint               ident;            // blocktype identifier!
 
-    struct MM_ALLOC   *next, *prev;      // you know what a linked list is.
-    struct MM_ALLOC   *children, *parent;
+    struct _MM_ALLOC  *next, *prev;      // you know what a linked list is.
+    struct _MM_ALLOC  *children, *parent;
 
     BOOL               killswitch;
     BOOL               processing;       // Set TRUE if we're in list-processing callback state

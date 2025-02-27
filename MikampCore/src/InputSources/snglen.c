@@ -30,7 +30,7 @@ void Player_PreProcessRow(MPLAYER *ps, MPLAYER *destps);
 {
     if(destps && (ps->state.sngpos != ps->old_sngpos))
     {   
-        _mmlogd("Preprocess Saving State : %d",ps->state.sngpos);
+        //_mmlogd("Preprocess Saving State : %d",ps->state.sngpos);
 
         // save the state at the start of each pattern or pattern jump,
         // as long as it's jumping to a new pattern..

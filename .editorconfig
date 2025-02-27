@@ -1,0 +1,50 @@
+root = true
+
+[*]
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# python requires tab characters
+[*.{py}]
+indent_style = space
+
+# as of windows 11, cmd tolerates LF-only batch files well. This improves interop
+# with MSYS2 and WSL.
+[*.{cmd,bat}]
+indent_style = space
+insert_final_newline = true
+
+# sh scripts need to have LF endings for best behavior on MSYS2/Cygwin
+[*.{sh}]
+indent_style = space
+insert_final_newline = true
+
+[Makefile]
+indent_style = space
+insert_final_newline = true
+
+[*.{mk}]
+indent_style = space
+insert_final_newline = true
+
+##### Visual Studio Section #####
+
+# Visual studio's XML-ish stuff should always be 2-width soft tabs with CRLF
+# (the IDE will force them to this anytime they're modified, last checked in vs2022)
+[*.{vcxproj,csproj,props,targets}]
+indent_style = space
+indent_size = 2
+end_of_line = crlf
+trim_trailing_whitespace = true
+
+# but visual studio's solutions are 4-width hard tabs with CRLF
+# (the IDE will force them to this anytime they're modified, last checked in vs2022)
+[*.{sln}]
+indent_style = tab
+indent_size = 4
+end_of_line = crlf
+
+##### END - Visual Studio Section #####

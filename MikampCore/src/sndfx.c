@@ -48,7 +48,7 @@ MD_SAMPLE *mdsfx_loadwavheader( MDRIVER *md, MMSTREAM *mmfp, uint *format, enum 
         memcmp(wh.rID,"RIFF",4) ||
         memcmp(wh.wID,"WAVE",4))
     {
-	    _mmlog("Mikamp > mwav > Failure: Not a vaild RIFF waveformat!");
+        _mmlog("Mikamp > mwav > Failure: Not a vaild RIFF waveformat!");
         return NULL;
     }
 

@@ -136,13 +136,13 @@ static MDRIVER  *md;
 //
 UNIMOD *get_unimod(char *file)
 {
-	// if the requested file is the same one we have loaded,
-	// then just reference the in-memory *mf!
-	
-	if(lstrcmpi(file, lastfn))
-		return NULL;
-	else
-	    return mf;
+    // if the requested file is the same one we have loaded,
+    // then just reference the in-memory *mf!
+    
+    if(lstrcmpi(file, lastfn))
+        return NULL;
+    else
+        return mf;
 }
 
 // _____________________________________________________________________________________
@@ -153,73 +153,73 @@ int __cdecl play(char *fn)
 
     strcpy(lastfn,fn);
     strcpy(curfn,fn);
-	if (strstr(fn,"://"))
-	{
+    if (strstr(fn,"://"))
+    {
 
 #define IPC_GETHTTPGETTER 240
 
-		int (__cdecl *httpRetrieveFile)(HWND hwnd, char *url, char *file, char *dlgtitle);
-		char p[MAX_PATH];
-		int t = SendMessage(mikamp.hMainWindow,WM_USER,0,IPC_GETHTTPGETTER);
-		
-		if (!t || t==1)
-		{
-			t_file[0]=0;
-	        MessageBox(mikamp.hMainWindow,"URLs only supported in Winamp 2.10+","Error (in_mod.dll)",0);
-	        return -1;	
-		}
-		
-		httpRetrieveFile = (int (__cdecl *)(struct HWND__ *,char *,char *,char *))t;
-		t_file[0]=0;
-		if (config_savestr)
-		{
-			char *p;
-			OPENFILENAME l;
+        int (__cdecl *httpRetrieveFile)(HWND hwnd, char *url, char *file, char *dlgtitle);
+        char p[MAX_PATH];
+        int t = SendMessage(mikamp.hMainWindow,WM_USER,0,IPC_GETHTTPGETTER);
+        
+        if (!t || t==1)
+        {
+            t_file[0]=0;
+            MessageBox(mikamp.hMainWindow,"URLs only supported in Winamp 2.10+","Error (in_mod.dll)",0);
+            return -1;  
+        }
+        
+        httpRetrieveFile = (int (__cdecl *)(struct HWND__ *,char *,char *,char *))t;
+        t_file[0]=0;
+        if (config_savestr)
+        {
+            char *p;
+            OPENFILENAME l;
 
-			p = fn+strlen(fn);
-			while (*p != '/' && p >= fn) p--;
-			strcpy(t_file,++p);
+            p = fn+strlen(fn);
+            while (*p != '/' && p >= fn) p--;
+            strcpy(t_file,++p);
 
-			l.lStructSize       = sizeof(l);
-			l.hwndOwner         = mikamp.hMainWindow;
-			l.hInstance         = NULL;
-			l.lpstrFilter       = "All files\0*.*\0";
-			l.lpstrCustomFilter = NULL;
-			l.nMaxCustFilter    = 0;
-			l.nFilterIndex      = 0;
-			l.lpstrFile         = t_file;
-			l.nMaxFile          = MAX_PATH-1;
-			l.lpstrFileTitle    = 0;;
-			l.nMaxFileTitle     = 0;
-			l.lpstrInitialDir   = NULL;
-			l.lpstrTitle        = "Save MOD";
-			l.lpstrDefExt       = "mod";
-			l.Flags             = OFN_HIDEREADONLY|OFN_EXPLORER|OFN_OVERWRITEPROMPT; 	        
+            l.lStructSize       = sizeof(l);
+            l.hwndOwner         = mikamp.hMainWindow;
+            l.hInstance         = NULL;
+            l.lpstrFilter       = "All files\0*.*\0";
+            l.lpstrCustomFilter = NULL;
+            l.nMaxCustFilter    = 0;
+            l.nFilterIndex      = 0;
+            l.lpstrFile         = t_file;
+            l.nMaxFile          = MAX_PATH-1;
+            l.lpstrFileTitle    = 0;;
+            l.nMaxFileTitle     = 0;
+            l.lpstrInitialDir   = NULL;
+            l.lpstrTitle        = "Save MOD";
+            l.lpstrDefExt       = "mod";
+            l.Flags             = OFN_HIDEREADONLY|OFN_EXPLORER|OFN_OVERWRITEPROMPT;            
 
-			if (!GetSaveFileName(&l)) 
-			{
-				t_file[0]=0;
-			}
-		}
-		
-		if (!t_file[0])
-		{
-			GetTempPath(sizeof(p),p);
-			GetTempFileName(p,"mod",0,t_file);
-			is_tempfile=1;		
-		}
-		
-		if (httpRetrieveFile(mikamp.hMainWindow,fn,t_file,(char*)"Retrieving MOD-type file"))
-		{
-			is_tempfile=0;
-			t_file[0]=0;
-			return -1;
-		}
-		fn = t_file;
-	} else 
-	{	t_file[0] = 0;
-		is_tempfile = 0;
-	}
+            if (!GetSaveFileName(&l)) 
+            {
+                t_file[0]=0;
+            }
+        }
+        
+        if (!t_file[0])
+        {
+            GetTempPath(sizeof(p),p);
+            GetTempFileName(p,"mod",0,t_file);
+            is_tempfile=1;      
+        }
+        
+        if (httpRetrieveFile(mikamp.hMainWindow,fn,t_file,(char*)"Retrieving MOD-type file"))
+        {
+            is_tempfile=0;
+            t_file[0]=0;
+            return -1;
+        }
+        fn = t_file;
+    } else 
+    {   t_file[0] = 0;
+        is_tempfile = 0;
+    }
 
 
     // Initialize MDRVER
@@ -227,8 +227,8 @@ int __cdecl play(char *fn)
 
     md = Mikamp_InitializeEx();
 
-	if( config_interp & 1 ) md_mode |= DMODE_INTERP;
-	if( config_interp & 2 ) md_mode |= DMODE_NOCLICK;
+    if( config_interp & 1 ) md_mode |= DMODE_INTERP;
+    if( config_interp & 2 ) md_mode |= DMODE_NOCLICK;
     if( config_nch==3 )     md_mode |= DMODE_SURROUND;
     if( config_resonance )  md_mode |= DMODE_RESONANCE;
 
@@ -251,10 +251,10 @@ int __cdecl play(char *fn)
         VC_RegisterMixer(md->device.vc, &RF_M8_STEREO);
         VC_RegisterMixer(md->device.vc, &RF_M16_STEREO);
 
-		VC_RegisterMixer(md->device.vc, &M8_MONO);
-		VC_RegisterMixer(md->device.vc, &M16_MONO);
-		VC_RegisterMixer(md->device.vc, &M8_STEREO);
-		VC_RegisterMixer(md->device.vc, &M16_STEREO);
+        VC_RegisterMixer(md->device.vc, &M8_MONO);
+        VC_RegisterMixer(md->device.vc, &M16_MONO);
+        VC_RegisterMixer(md->device.vc, &M8_STEREO);
+        VC_RegisterMixer(md->device.vc, &M16_STEREO);
 
         //VC_RegisterMixer(md->device.vc, &ASM_M8_MONO);
         //VC_RegisterMixer(md->device.vc, &ASM_M16_MONO);
@@ -308,7 +308,7 @@ int __cdecl play(char *fn)
     if(config_playflag & CPLAYFLG_FADEOUT) Player_VolumeFadeEx(mp, MP_VOLUME_CUR, 0, config_fadeout, MP_SEEK_END, config_fadeout);
     mf->songlen = mp->songlen;
 
-	decode_pos_ms = 0;
+    decode_pos_ms = 0;
 
     mikamp.outMod->SetVolume(-666);
     mikamp.SetInfo(mf->numchn*10000, config_srate/1000, (config_nch > 1) ? 2 : 1, 1);
@@ -335,7 +335,7 @@ int  __cdecl ispaused(void) { return paused; }
 //
 void __cdecl stop(void)
 {
-	if (mpeg_thread_handle != INVALID_HANDLE_VALUE)
+    if (mpeg_thread_handle != INVALID_HANDLE_VALUE)
     {   killDecodeThread=1;
         if (WaitForSingleObject(mpeg_thread_handle,2000) == WAIT_TIMEOUT)
         {   MessageBox(NULL,"error asking thread to die!\n","error killing decode thread",0);
@@ -345,11 +345,11 @@ void __cdecl stop(void)
         CloseHandle(mpeg_thread_handle);
         mpeg_threadid = 0;
         mpeg_thread_handle = INVALID_HANDLE_VALUE;
-		if (is_tempfile && t_file[0])
-		{	t_file[0]   = 0;
-			is_tempfile = 0;
-			DeleteFile(t_file);
-		}
+        if (is_tempfile && t_file[0])
+        {   t_file[0]   = 0;
+            is_tempfile = 0;
+            DeleteFile(t_file);
+        }
     }
 
     Player_Free(mp); mp = NULL;
@@ -389,7 +389,7 @@ int __cdecl getoutputtime(void)
 
 void __cdecl setoutputtime(int time_in_ms)
 {
-	seek_needed = time_in_ms;
+    seek_needed = time_in_ms;
 }
 
 void __cdecl setvolume(int volume) { mikamp.outMod->SetVolume(volume); }
@@ -480,26 +480,26 @@ void __cdecl getfileinfo(char *filename, char *title, int *length_in_ms)
     if(!m || strcmp(filename, mf->filename))
     {   if (!lstrcmpi(filename,lastfn) && t_file[0]) filename = t_file;
         strcpy(curfn,filename);
-		m = Unimod_LoadInfo(filename);
+        m = Unimod_LoadInfo(filename);
         if(!m) return;
         if(config_playflag & CPLAYFLG_STRIPSILENCE) Unimod_StripSilence(m, SILENCE_THRESHOLD);
     }
 
     if (m)
-	{   char *p = m->songname;
-		
-	    if (p)
-		{	while (*p == ' ') p++;
-			if (!*p) 
-			{	if (!*filename) filename=lastfn;
+    {   char *p = m->songname;
+        
+        if (p)
+        {   while (*p == ' ') p++;
+            if (!*p) 
+            {   if (!*filename) filename=lastfn;
                 strcpy(curfn,filename);
-			    p = filename+strlen(filename);
-		        while (p >= filename && *p != '\\') p--;
-			    if (title) strcpy(title,++p);
-			} else if (title) strcpy(title,m->songname);
-		}
+                p = filename+strlen(filename);
+                while (p >= filename && *p != '\\') p--;
+                if (title) strcpy(title,++p);
+            } else if (title) strcpy(title,m->songname);
+        }
 
-		if (m != mf)
+        if (m != mf)
         {   if(length_in_ms)
             {   MPLAYER *ptmp;
 
@@ -513,10 +513,10 @@ void __cdecl getfileinfo(char *filename, char *title, int *length_in_ms)
         } else
         {   if(length_in_ms && mp) *length_in_ms = mp->songlen;
         }
-	} else 
-	{   if (title) strcpy(title,filename);
-		if (length_in_ms) *length_in_ms = -1000;
-	}
+    } else 
+    {   if (title) strcpy(title,filename);
+        if (length_in_ms) *length_in_ms = -1000;
+    }
 
 }
 
@@ -551,7 +551,7 @@ In_Module mikamp =
 
     capnstupid,
     1,  // is_seekable
-	1,  // uses_output_plug
+    1,  // uses_output_plug
     config,
     about,
     init,
@@ -572,14 +572,14 @@ In_Module mikamp =
     setvolume,
     setpan,
 
-	0,0,0,0,0,0,0,0,0, // vis stuff
+    0,0,0,0,0,0,0,0,0, // vis stuff
 
     0,0, // dsp shit
 
     eq_set,
 
     NULL,        // setinfo
-	NULL // outmod
+    NULL // outmod
 };
 
 // _____________________________________________________________________________________
@@ -603,11 +603,11 @@ DWORD WINAPI __stdcall decodeThread(volatile void *b)
             seek_needed=-1;
             Player_SetPosTime(mp,a);
             mikamp.outMod->Flush(a);
-			decode_pos_ms = a*64;
+            decode_pos_ms = a*64;
             if( paused ) mikamp.outMod->Pause(1);
         }
         
-		if (!Player_Active(mp))
+        if (!Player_Active(mp))
         {
             if (!has_flushed)
             {   has_flushed=1;
@@ -617,7 +617,7 @@ DWORD WINAPI __stdcall decodeThread(volatile void *b)
             {   PostMessage(mikamp.hMainWindow,WM_WA_MPEG_EOF,0,0);
                 return 0;
             } else mikamp.outMod->CanWrite(); // make sure plug-in can do any extra processing needed
-		    Sleep(10);
+            Sleep(10);
 
         } else
         {

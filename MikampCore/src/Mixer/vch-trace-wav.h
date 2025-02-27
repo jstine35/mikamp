@@ -7,7 +7,7 @@
 #endif
 
 #if WANT_TRACE_WAVFILE
-#	include "trace_riff_wav.h"
+#   include "trace_riff_wav.h"
 #endif
 
 #ifdef __cplusplus

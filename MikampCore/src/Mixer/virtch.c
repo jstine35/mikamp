@@ -141,7 +141,7 @@ static int getfreehandle(VIRTCH *vc)
         t = vc->samplehandles;
         vc->samplehandles += 32;
         if((vc->sample = (VSAMPLE *)_mm_realloc(&vc->allochandle, vc->sample, sizeof(VSAMPLE) * vc->samplehandles)) == NULL) return -1;
-	
+    
         memset(&vc->sample[t], 0, sizeof(VSAMPLE) * 32);
     }
 
@@ -1106,14 +1106,14 @@ void VC_VoicePlay(MD_DEVICE *md, uint voice, uint handle, long start, uint size,
 
         vc->vinf[voice].start = start;
 
-		//zero 8.26.00 
-		//i dont see why these would hurt anything. they make sense, if you ask me,
-		//and fix some bugs
-		vc->vinf[voice].volramp   = 0;
-		vc->vinf[voice].current   = 0;
-		vc->vinf[voice].increment = 0;
+        //zero 8.26.00 
+        //i dont see why these would hurt anything. they make sense, if you ask me,
+        //and fix some bugs
+        vc->vinf[voice].volramp   = 0;
+        vc->vinf[voice].current   = 0;
+        vc->vinf[voice].increment = 0;
         vc->vinf[voice].kick      = 1;
-		//--
+        //--
 
         //vc->vinf[voice].resfilter.speed = 0;
         //vc->vinf[voice].resfilter.pos   = 0;
@@ -1174,7 +1174,7 @@ void VC_VoiceStop(MD_DEVICE *md, uint voice)
     vc->vinf[voice].onhold       = TRUE;
     //vc->vinf[voice].samplehandle = -1;
     //vc->vinf[voice].volramp=0;
-	//vc->vinf[voice].current=0;
+    //vc->vinf[voice].current=0;
 }
 
 // _____________________________________________________________________________________
@@ -1239,8 +1239,8 @@ void VC_SampleUnload( MD_DEVICE *md, uint handle )
         //_mmlog("Unloading Sample %d : %x", handle, vc->sample[handle].data);
 
         vc->clickcnt = 0; /* Prevent declicker from trying to access unloaded samples
-			 that have been stopped but not declicked! We really ought to check whether
-			 a sample is in use before unloading it. */
+             that have been stopped but not declicked! We really ought to check whether
+             a sample is in use before unloading it. */
 
         _mmobj_free( vc, vc->sample[handle].data );
 

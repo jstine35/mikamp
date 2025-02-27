@@ -63,7 +63,7 @@ void __cdecl Mix16StereoSS_NoClick(SWORD *srce, SLONG *dest, INT64S index, INT64
 //
 void __cdecl Mix16StereoSSI_NoClick(SWORD *srce, SLONG *dest, INT64S index, INT64S increment, SLONG todo)
 {
-	for(; todo; todo--)
+    for(; todo; todo--)
     {   SLONG  sroot;
 
         v16.left.vol   += v16.left.inc;

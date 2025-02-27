@@ -547,7 +547,7 @@ typedef struct UNIMOD
     uint        chanvol[64];    // 64 initial channel volumes
     BOOL        muted[64];      // 64 muting flags (I really should change this to a struct)
 
-    int		pansep;		// Panning separation (0=mono, 128=full stereo).
+    int     pansep;     // Panning separation (0=mono, 128=full stereo).
 
     CHAR       *songname;       // name of the song
     CHAR       *filename;       // name of the file this song came from (optional)

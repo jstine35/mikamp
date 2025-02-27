@@ -417,14 +417,14 @@ void XM_ReadNote(UTRK_WRITER *ut, XMNOTE *ninf, MMSTREAM *mmfile)
         case 'L'-55:                    // L - set envelope position
             effdat.param.hiword.u = ninf->dat;
             effdat.param.byte_b   = TRUE;
-	    effdat.param.byte_a   = 0; /* Works better like this! */
+        effdat.param.byte_a   = 0; /* Works better like this! */
             effdat.effect         = UNI_ENVELOPE_CONTROL;
             effdat.framedly       = UFD_RUNONCE;
             utrk_write_local(ut, &effdat, UNIMEM_NONE);
             // do exact same thing to panning envelope too ?
 /*            effdat.param.byte_a   = 1;
               utrk_write_local(ut, &effdat, UNIMEM_NONE);
-	      No. */
+          No. */
         break;
 
         case 'P'-55:                    // P - panning slide
@@ -591,7 +591,7 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
         }
 
         if(_mm_feof(mmfile))
-	    {   _mmlogd("load_xm > Failure: Unexpected end of file reading pattern %d",t);
+        {   _mmlogd("load_xm > Failure: Unexpected end of file reading pattern %d",t);
             return 0;
         }
 
@@ -617,9 +617,9 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
         XMINSTHEADER ih;
         int          headend;
 
-		ih.type		= 0;
-		ih.numsmp	= 0;
-		
+        ih.type     = 0;
+        ih.numsmp   = 0;
+        
         memset(d->samplenumber,255,120);
 
         // read instrument header
@@ -680,7 +680,7 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
                 for(u=headend-_mm_ftell(mmfile); u; u--)  _mm_read_UBYTE(mmfile);    
 
                 if(_mm_feof(mmfile))
-        	    {   _mmlogd("load_xm > Failure: Unexpected end of file reading instrument header %d",t);
+                {   _mmlogd("load_xm > Failure: Unexpected end of file reading instrument header %d",t);
                     return 0;
                 }
     
@@ -738,7 +738,7 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
                 for(p=0; p<12; p++)
                 {
                     d->panenv[p].val = (pth.panenv[p].val-32) * 4;
-		    if(d->panenv[p].val != 0) inuse = 1; /* Should work better here. */
+            if(d->panenv[p].val != 0) inuse = 1; /* Should work better here. */
                     d->panenv[p].pos = pth.panenv[p].pos;
                 }
 
@@ -778,7 +778,7 @@ BOOL XM_Load(XMHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
                     next += (s->reserved==0xAD) ? (((s->length+1)/2)+16) : s->length;
 
                     if(_mm_feof(mmfile))
-                	{   _mmlogd("load_xm > Failure: Unexpected end of file loading sample header %d.",u);
+                    {   _mmlogd("load_xm > Failure: Unexpected end of file loading sample header %d.",u);
                         return 0;
                     }
                 }

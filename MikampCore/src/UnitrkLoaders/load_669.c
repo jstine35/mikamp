@@ -107,8 +107,8 @@ static BOOL S69_LoadPatterns(UNIMOD *of, MMSTREAM *modfp,S69HEADER *mh)
         of->pattrows[t] = mh->breaks[t]+1;
 
         utrk_reset(of->ut);
-    	utrk_settrack(of->ut,0);
-	    pt_write_effect(of->ut,0xf,mh->tempos[t]);
+        utrk_settrack(of->ut,0);
+        pt_write_effect(of->ut,0xf,mh->tempos[t]);
         for(t2=64; t2; t2--)
         {
             for(t3=0; t3<8; t3++)
@@ -147,21 +147,21 @@ static BOOL S69_LoadPatterns(UNIMOD *of, MMSTREAM *modfp,S69HEADER *mh)
                         effdat.framedly = 0;
                         utrk_write_local(of->ut, &effdat, TRANMEM);
                     break;
-		  
+          
                     case 1: /* Pitch slide down... */
                         effdat.param.s  = ((lo*157)>>2);
                         effdat.effect   = UNI_PITCHSLIDE;
                         effdat.framedly = 0;
                         utrk_write_local(of->ut, &effdat, TRANMEM);
                     break;
-		  
+          
                     case 2:
                         effdat.effect   = UNI_PORTAMENTO_TRAN;
                         effdat.framedly = 0;
                         effdat.param.u  = (lo*157);
                         utrk_write_local(of->ut, &effdat, TRANMEM);
                     break;
-		  
+          
                     case 3:
                         effdat.param.u   = 8066+10*lo;
                         effdat.effect    = UNI_SETSPEED_TRAN; /* Seems to increase by approx. 10 Hz/step. */
@@ -260,22 +260,22 @@ BOOL S69_Load(S69HEADER *mh, UNIMOD *of, MMSTREAM *modfp)
     of->numsmp    = mh->nos;
     of->numtrk    = of->numchn*of->numpat;
     of->flags     = UF_LINEAR_FREQ; /* Remember, Tran can't have seen FT2 when
-				       he wrote 669. "Linear" means "every pitch
-				       step is an equally large frequency change",
-				       not the proportional system in FT2. */
+                       he wrote 669. "Linear" means "every pitch
+                       step is an equally large frequency change",
+                       not the proportional system in FT2. */
     of->memsize=TRANMEM_LAST;
     of->reppos=mh->looporder;
 
     /* Panning in UNIS669 has 16 steps (0 left - 15 right).
        Panning defaults to 4 and 11.
-	
-	0 1 2 3 4 5 6 7 8 9 A B C D E F
+    
+    0 1 2 3 4 5 6 7 8 9 A B C D E F
      -128              0              128
 
-	We make each step 17 Mikamp units, making the initial
-	values (4-7.5)*32=-60 and (11-7.5)*32=60.
+    We make each step 17 Mikamp units, making the initial
+    values (4-7.5)*32=-60 and (11-7.5)*32=60.
 
-	*/
+    */
 
     for(t=0;t<8;t++)
       of->panning[t] = (t&1) ? (60) : (-60);
@@ -310,30 +310,30 @@ BOOL S69_Load(S69HEADER *mh, UNIMOD *of, MMSTREAM *modfp)
         q->speed     = 8066;
         
         /* Experiments show that UNIS669 is tuned to roughly 8097 Hz
-		    +/- 2 Hz. 
-		    A pitch bend of 1 up from this is 8098 Hz +/- 2 Hz, a
-		    A pitch bend of 4 up from this is 8185 Hz +/- 2 Hz, a
-		    pitch bend of 8 up from this is 8349 Hz +/- 2 Hz. 
-		    (warning: GUS frequency accuracy approx. 40 Hz)
-    		
-		    Pitch bend of 16 is 8694 Hz +/- 2 Hz
-		    Pitch bend of 32 is 9310 Hz +/- 2 Hz
-		    Pitch bend of 64 is 10601 Hz +/- 2 Hz.
-		    Pitch bend of 128 is 13087 Hz  +/- 2 Hz.
-		    Pitch bend of 256 is 18176 Hz +/- 5 Hz.
-		    Pitch bend of 512 is 28149 Hz +/- 10 Hz.
-		    Pitch bend of 1024 is 48268 Hz  +/- 20 Hz.
+            +/- 2 Hz. 
+            A pitch bend of 1 up from this is 8098 Hz +/- 2 Hz, a
+            A pitch bend of 4 up from this is 8185 Hz +/- 2 Hz, a
+            pitch bend of 8 up from this is 8349 Hz +/- 2 Hz. 
+            (warning: GUS frequency accuracy approx. 40 Hz)
+            
+            Pitch bend of 16 is 8694 Hz +/- 2 Hz
+            Pitch bend of 32 is 9310 Hz +/- 2 Hz
+            Pitch bend of 64 is 10601 Hz +/- 2 Hz.
+            Pitch bend of 128 is 13087 Hz  +/- 2 Hz.
+            Pitch bend of 256 is 18176 Hz +/- 5 Hz.
+            Pitch bend of 512 is 28149 Hz +/- 10 Hz.
+            Pitch bend of 1024 is 48268 Hz  +/- 20 Hz.
 
-		    WTF? Does "linear pitch slides" mean that each
-		    slide step is a constant frequency amount?
+            WTF? Does "linear pitch slides" mean that each
+            slide step is a constant frequency amount?
 
-		    Those numbers seem to suggest a frequency step of about
-		    39.25 Hz... Specifically, 8066 Hz middle C (C-3 in 669
-		    parlance) and 39.26 Hz frequency step. The deviations
-		    appear to be caused by quantisation in the GUS routines.
+            Those numbers seem to suggest a frequency step of about
+            39.25 Hz... Specifically, 8066 Hz middle C (C-3 in 669
+            parlance) and 39.26 Hz frequency step. The deviations
+            appear to be caused by quantisation in the GUS routines.
 
-		    I have no idea what sort of numbers the original Composer
-		    669 uses, 'cos it doesn't run on my system.
+            I have no idea what sort of numbers the original Composer
+            669 uses, 'cos it doesn't run on my system.
         */ 
         q->length    = s.length;
         q->loopstart = s.loopbeg;

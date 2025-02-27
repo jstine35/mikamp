@@ -79,14 +79,14 @@ static void AMP_Update(MDRIVER *md)
 {
     AMP_LOCALINFO  *hwdata = md->device.local;
     VIRTCH         *vc     = md->device.vc;
-	int             l;
+    int             l;
 
     if ((l=mikamp.outMod->CanWrite()) > hwdata->block_len*16) l = hwdata->block_len*16;
     if (mikamp.dsp_isactive()) l>>=1;
 
     if (l > hwdata->block_len)
     {
-    	int o = 0;
+        int o = 0;
 
         l -= l % hwdata->block_len;
         VC_WriteBytes(md, hwdata->AMP_DMABUF, l);
@@ -97,20 +97,20 @@ static void AMP_Update(MDRIVER *md)
             
             if( mikamp.dsp_isactive() )
             {
-            	int t;
+                int t;
                 int k = vc->bitdepth * vc->channels;
 
                 t = mikamp.dsp_dosamples((short *)(hwdata->AMP_DMABUF+o), a / k, vc->bitdepth*8, vc->channels, vc->mixspeed) * k;
                 mikamp.outMod->Write(hwdata->AMP_DMABUF+o,t);
-			} else
+            } else
                 mikamp.outMod->Write(hwdata->AMP_DMABUF+o,a);
 
-			mikamp.SAAddPCMData(hwdata->AMP_DMABUF+o,vc->channels,vc->bitdepth*8,decode_pos_ms/64);
-			mikamp.VSAAddPCMData(hwdata->AMP_DMABUF+o,vc->channels,vc->bitdepth*8,decode_pos_ms/64);
+            mikamp.SAAddPCMData(hwdata->AMP_DMABUF+o,vc->channels,vc->bitdepth*8,decode_pos_ms/64);
+            mikamp.VSAAddPCMData(hwdata->AMP_DMABUF+o,vc->channels,vc->bitdepth*8,decode_pos_ms/64);
 
-			decode_pos_ms += (a*1000*64) / hwdata->bytes_per_sec;
-			o+=a;
-		}
+            decode_pos_ms += (a*1000*64) / hwdata->bytes_per_sec;
+            o+=a;
+        }
     } else Sleep(1);
 }
 
@@ -122,16 +122,16 @@ static BOOL AMP_PlayStart( MDRIVER *md )
     VIRTCH         *vc     = md->device.vc;
 
     int     z;
-	int     a = 576 * vc->bitdepth * vc->channels;
+    int     a = 576 * vc->bitdepth * vc->channels;
 
     hwdata->block_len     = a;
-	hwdata->bytes_per_sec = vc->mixspeed * vc->bitdepth * vc->channels;
+    hwdata->bytes_per_sec = vc->mixspeed * vc->bitdepth * vc->channels;
 
     z = mikamp.outMod->Open( vc->mixspeed, vc->channels, vc->bitdepth * 8, -1, -1 );
     if( z < 0 ) return FALSE;
 
-	mikamp.SAVSAInit( z, vc->mixspeed );
-	mikamp.VSASetInfo( vc->mixspeed, vc->channels );
+    mikamp.SAVSAInit( z, vc->mixspeed );
+    mikamp.VSASetInfo( vc->mixspeed, vc->channels );
 
     mikamp.outMod->SetVolume(-666);
     VC_PlayStart( md );

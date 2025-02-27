@@ -376,7 +376,7 @@ BOOL IT_ReadPattern(MMSTREAM *mmfile, IT_HANDLE *h, UWORD patrows, int gxx_memor
                 } else if((volpan>=193) && (volpan<=202))      // portamento to note
                 {   eff.param.u   = portatable[volpan-193]*8;
                     eff.effect    = UNI_PORTAMENTO;
-		    //                    eff.framedly += 1;
+            //                    eff.framedly += 1;
                     if(eff.param.u)
                         utrk_write_local(h->ut, &eff, gxx_memory);
                     else
@@ -553,14 +553,14 @@ BOOL IT_Load(IT_HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
         //  (nothing would EVER be that high)
 
         if(_mm_feof(mmfile))
-	    {   _mmlog("load_it > Failure: Unexpected end of file reading sample header %d",t);
+        {   _mmlog("load_it > Failure: Unexpected end of file reading sample header %d",t);
             return 0;
         }
 
-		if((s.c5spd > 0x7fffffL) || (s.length > 0xfffffffUL))
-	    {   _mmlog("load_it > Failure: Invalid data in sample %d. c5spd = %d; length = %d",t,s.c5spd, s.length);
+        if((s.c5spd > 0x7fffffL) || (s.length > 0xfffffffUL))
+        {   _mmlog("load_it > Failure: Invalid data in sample %d. c5spd = %d; length = %d",t,s.c5spd, s.length);
             return 0;
-		}
+        }
 
         q->samplename  = DupStr(of->allochandle, s.sampname,26);
         q->seekpos     = s.sampoffset;
@@ -708,7 +708,7 @@ BOOL IT_Load(IT_HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
             }
  
             if(_mm_feof(mmfile))
-		    {   _mmlog("load_it > Failure: Unexpected end of file reading instrument header %d",t);
+            {   _mmlog("load_it > Failure: Unexpected end of file reading instrument header %d",t);
                 return 0;
             }
 

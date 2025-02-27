@@ -61,7 +61,7 @@ void __cdecl Mix8StereoSS_NoClick(SBYTE *srce, SLONG *dest, INT64S index, INT64S
 //
 void __cdecl Mix8StereoSSI_NoClick(SBYTE *srce, SLONG *dest, INT64S index, INT64S increment, SLONG todo)
 {
-	for(; todo; todo--)
+    for(; todo; todo--)
     {   SLONG  sroot;
 
         v8.left.vol   += v8.left.inc;

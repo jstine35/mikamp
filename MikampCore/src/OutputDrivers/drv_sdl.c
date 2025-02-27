@@ -34,18 +34,18 @@ void sdl_FillAudio(void *userdata, Uint8 *stream, int len);
 
 typedef struct MMSDL_LOCALINFO
 {
-	uint  sdlMode;
-	uint  sdlMixspeed;
-	uint  sdlChannels;
+    uint  sdlMode;
+    uint  sdlMixspeed;
+    uint  sdlChannels;
 
-	uint requested_latency;
+    uint requested_latency;
 
-	uint dorefresh;
+    uint dorefresh;
 
-	Uint8 *sdlBuffer;
-	uint sdlBufferLength;
+    Uint8 *sdlBuffer;
+    uint sdlBufferLength;
 
-	volatile uint CurrBufPlayPos,CurrBufWritePos,CurrBufContent;
+    volatile uint CurrBufPlayPos,CurrBufWritePos,CurrBufContent;
 } MMSDL_LOCALINFO;
 
 // =====================================================================================
@@ -163,39 +163,39 @@ static void sdl_Update(MDRIVER *md)
       
       if(diff!=0)
         {
-	  ptr1=hwdata->sdlBuffer+hwdata->CurrBufWritePos;
-	  if (hwdata->CurrBufWritePos+diff>=hwdata->sdlBufferLength)
-	    {
-	      ptr1len=hwdata->sdlBufferLength-hwdata->CurrBufWritePos;
-	      ptr2=hwdata->sdlBuffer;
-	      ptr2len=diff-ptr1len;
-	      hwdata->CurrBufWritePos+=ptr1len;
-	    }
-	  else
-	    {
-	      ptr1len=diff;
-	      ptr2=NULL;
-	      ptr2len=0;
-	      hwdata->CurrBufWritePos=0;
-	    }
+      ptr1=hwdata->sdlBuffer+hwdata->CurrBufWritePos;
+      if (hwdata->CurrBufWritePos+diff>=hwdata->sdlBufferLength)
+        {
+          ptr1len=hwdata->sdlBufferLength-hwdata->CurrBufWritePos;
+          ptr2=hwdata->sdlBuffer;
+          ptr2len=diff-ptr1len;
+          hwdata->CurrBufWritePos+=ptr1len;
+        }
+      else
+        {
+          ptr1len=diff;
+          ptr2=NULL;
+          ptr2len=0;
+          hwdata->CurrBufWritePos=0;
+        }
 
-	  written=VC_WriteBytes(md, ptr1,ptr1len);
+      written=VC_WriteBytes(md, ptr1,ptr1len);
 
-	  SDL_LockAudio(); /* Just to be thread-safe... */
-	  hwdata->CurrBufContent+=written;
-	  SDL_UnlockAudio();
+      SDL_LockAudio(); /* Just to be thread-safe... */
+      hwdata->CurrBufContent+=written;
+      SDL_UnlockAudio();
 
-	  if ((ptr2!=NULL)&&(written==ptr1len))
-	    {	      
-	      written=VC_WriteBytes(md, ptr2,ptr2len);
+      if ((ptr2!=NULL)&&(written==ptr1len))
+        {         
+          written=VC_WriteBytes(md, ptr2,ptr2len);
 
-	      SDL_LockAudio(); /* Just to be thread-safe... */
-	      hwdata->CurrBufContent+=written;
-	      SDL_UnlockAudio();
+          SDL_LockAudio(); /* Just to be thread-safe... */
+          hwdata->CurrBufContent+=written;
+          SDL_UnlockAudio();
 
-	      hwdata->CurrBufWritePos=ptr2len;
-	    }
-	}
+          hwdata->CurrBufWritePos=ptr2len;
+        }
+    }
       else return;
     }
 }
@@ -210,11 +210,11 @@ static void sdl_Update(MDRIVER *md)
     if(hwdata->dorefresh)
     {
       /* We can't do anything about the data that's been sent to SDL, so we
-	 wipe the driver's buffer. */
+     wipe the driver's buffer. */
       if (hwdata->sdlMode&DMODE_16BITS)
-	memset(hwdata->sdlBuffer,0,hwdata->sdlBufferLength); /* Always signed. */
+    memset(hwdata->sdlBuffer,0,hwdata->sdlBufferLength); /* Always signed. */
       else
-	memset(hwdata->sdlBuffer,0x80,hwdata->sdlBufferLength); /* Always unsigned. */
+    memset(hwdata->sdlBuffer,0x80,hwdata->sdlBufferLength); /* Always unsigned. */
     }
 }
 
@@ -269,8 +269,8 @@ static BOOL sdl_SetMode(MDRIVER *md, uint mixspeed, uint mode, uint channels, ui
   wanted.userdata = md;
 
   hwdata->sdlBuffer=malloc(hwdata->sdlBufferLength=
-		   sizeof(Uint8)*wanted.samples*
-		   hwdata->sdlChannels*((mode&DMODE_16BITS)?2:1));
+           sizeof(Uint8)*wanted.samples*
+           hwdata->sdlChannels*((mode&DMODE_16BITS)?2:1));
 
   if ( SDL_OpenAudio(&wanted, NULL) < 0 ) {
     _mmlog("Mikamp > drv_sdl > Failed to set SDL sound format.");

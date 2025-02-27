@@ -120,7 +120,7 @@ BOOL MTM_Load(MTM_HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
     _mm_read_UBYTES(h->mh.panpos,32,mmfile);
 
     if(_mm_feof(mmfile))
-	{   _mmlog("load_mtm > Failure: Unexpected end of file reading module header");
+    {   _mmlog("load_mtm > Failure: Unexpected end of file reading module header");
         return 0;
     }
 
@@ -152,7 +152,7 @@ BOOL MTM_Load(MTM_HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
         s.attribute =_mm_read_UBYTE(mmfile);
 
         if(_mm_feof(mmfile))
-		{   _mmlog("load_mtm > Failure: Unexpected end of file reading sample header %d",t);
+        {   _mmlog("load_mtm > Failure: Unexpected end of file reading sample header %d",t);
             return 0;
         }
 
@@ -186,7 +186,7 @@ BOOL MTM_Load(MTM_HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
     for(; t<128; t++)  _mm_read_UBYTE(mmfile);
 
     if(_mm_feof(mmfile))
-  	{   _mmlog("load_mtm > Failure: Unexpected end of file loading module header.");
+    {   _mmlog("load_mtm > Failure: Unexpected end of file loading module header.");
         return 0;
     }
 
@@ -256,7 +256,7 @@ BOOL MTM_Load(MTM_HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
         }
 
         if(_mm_feof(mmfile))
-		{   _mmlog("load_mtm > Failure: Unexpected end of file reading track data",t);
+        {   _mmlog("load_mtm > Failure: Unexpected end of file reading track data",t);
             return 0;
         }
 

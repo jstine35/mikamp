@@ -554,7 +554,7 @@ static int _mm_inline DoPan(int envpan, int pan)
 
 static int ScalePan(int pan,int pansep)
 {
-	return((pan*pansep)/128);
+    return((pan*pansep)/128);
 }
 
 // _____________________________________________________________________________________
@@ -867,8 +867,8 @@ static void process_global_effects(MPLAYER *ps)
         // delayed for the number of ticks specified.
 
         lo = eff->framedly & UFD_TICKMASK;
-	/* Effects delayed past end of row should be ignored, not handled
-	   at the last minute. */
+    /* Effects delayed past end of row should be ignored, not handled
+       at the last minute. */
 //        if(lo >= ps->state.sngspd) lo = ps->state.sngspd - 1;
         if(eff->framedly & UFD_RUNONCE)
         {   // we only check vbtick if sngspd is not 0, otherwise we just run
@@ -993,9 +993,9 @@ static void pt_playeffects(MPLAYER *ps, MP_CONTROL *a)
         // delayed for the number of ticks specified.
 
         lo = eff->framedly & UFD_TICKMASK;
-	/* Effects delayed past end of row should be ignored, not handled
-	   at the last minute. */
-	//        if(lo >= ps->state.sngspd) lo = ps->state.sngspd - 1;
+    /* Effects delayed past end of row should be ignored, not handled
+       at the last minute. */
+    //        if(lo >= ps->state.sngspd) lo = ps->state.sngspd - 1;
         if(eff->framedly & UFD_RUNONCE)
         {   // we only check vbtick if sngspd is not 0, otherwise we just run
             // the effect (or else it would never get run!)
@@ -1078,27 +1078,27 @@ static void pt_playeffects(MPLAYER *ps, MP_CONTROL *a)
                 a->ownper = 1;
             break;
     
-	    case UNI_PORTAMENTO_TRAN:
-		/* 669 style portamento with forced note retrig. */
-		
-		if ((a->shared.period==0)||Voice_Stopped(ps->vs,a->slavechn))
-		  a->shared.period=a->tmpperiod;
+        case UNI_PORTAMENTO_TRAN:
+        /* 669 style portamento with forced note retrig. */
+        
+        if ((a->shared.period==0)||Voice_Stopped(ps->vs,a->slavechn))
+          a->shared.period=a->tmpperiod;
 
-		a->ownper=1;		  
+        a->ownper=1;          
 
                 DoToneSlide(a, dat.u);
-		break;
+        break;
 
             case UNI_PORTAMENTO_LEGACY:
-	    case UNI_PORTAMENTO_BUGGY:
+        case UNI_PORTAMENTO_BUGGY:
                 // Old mod-style portamento.  Simple, sweet. Yeah!
 
-		/* IT _always_ starts a new note on porta if none is playing.
-		   I can see why Jake is so upset about Jeff Lim's coding
+        /* IT _always_ starts a new note on porta if none is playing.
+           I can see why Jake is so upset about Jeff Lim's coding
                    "standards". [Jan L] */
-		if (eff->effect==UNI_PORTAMENTO_BUGGY && 
-		    (a->shared.fadevol==0 || Voice_Stopped(ps->vs,a->slavechn)))
-		  break;
+        if (eff->effect==UNI_PORTAMENTO_BUGGY && 
+            (a->shared.fadevol==0 || Voice_Stopped(ps->vs,a->slavechn)))
+          break;
 
                 if(a->shared.period)
                 {   if(!ps->state.vbtick)
@@ -1128,46 +1128,46 @@ static void pt_playeffects(MPLAYER *ps, MP_CONTROL *a)
             break;
 
             case UNI_PORTAMENTO:
-	        if (a->shared.fadevol==0 || Voice_Stopped(ps->vs,a->slavechn))
-		    break; /* If no note is playing, act like
-			      new note. */
+            if (a->shared.fadevol==0 || Voice_Stopped(ps->vs,a->slavechn))
+            break; /* If no note is playing, act like
+                  new note. */
                 if(a->shared.period)
                 {   if(!ps->state.vbtick)
                     {   
-			if(a->newsamp && a->shared.s)
+            if(a->newsamp && a->shared.s)
                         {   // some sort of funky frequency setting is supposed
                             // to go here.. maybe I'll f*** with it later.
 
-			    // Above comment censored by me. >B-)
+                // Above comment censored by me. >B-)
 
                             //a->shared.period = (a->shared.period * a->speed) / a->newsamp;
                             //a->shared.period = GetPeriod(ps->mf->flags, (5*12), getfrequency(ps->mf->flags,a->shared.period,a->speed));
                             //a->shared.start  = SF_START_CURRENT;
 
-		           double quot,ex;
+                   double quot,ex;
 
-    			/* Impulse Tracker sucks, reason #3454:
-			   IT seems to keep the frequency the same when switching instruments	
-			   _even though the documentation says otherwise_. Another fine
-			   Limbug. Of course, simulating this on a period-style system like
-			   Mikamp (IT uses an insane frequency-multiplication system which
-			   actually causes rounding errors on pitch slides) is non-trivial. 
+                /* Impulse Tracker sucks, reason #3454:
+               IT seems to keep the frequency the same when switching instruments   
+               _even though the documentation says otherwise_. Another fine
+               Limbug. Of course, simulating this on a period-style system like
+               Mikamp (IT uses an insane frequency-multiplication system which
+               actually causes rounding errors on pitch slides) is non-trivial. 
 
-			   This part compensates for this weirdness.
+               This part compensates for this weirdness.
 
-			   If someone wants to rewrite this to use a table instead of bashing
-			   the math library, feel free to do so. Personally, I don't see
-			   any problem with a little floating point now and then.*/
+               If someone wants to rewrite this to use a table instead of bashing
+               the math library, feel free to do so. Personally, I don't see
+               any problem with a little floating point now and then.*/
 
-//			   _mmlog("Period %d, old speed %d, new speed %d\n",a->shared.period,a->old_s->speed,a->shared.s->speed);
-			   quot=(double)a->old_s->speed/(double)a->shared.s->speed;
-			   ex=log(quot)/log(2);
-			   a->shared.period-=(uint)(ex*(double)1536);
-//			   _mmlog("New Period %d\n",a->shared.period);
+//             _mmlog("Period %d, old speed %d, new speed %d\n",a->shared.period,a->old_s->speed,a->shared.s->speed);
+               quot=(double)a->old_s->speed/(double)a->shared.s->speed;
+               ex=log(quot)/log(2);
+               a->shared.period-=(uint)(ex*(double)1536);
+//             _mmlog("New Period %d\n",a->shared.period);
 
                         } else {
-				a->shared.kick  &= ~KICK_NOTE;
-			        a->shared.kick  &= ~KICK_ENV; /* Forgot this? - Jan L */
+                a->shared.kick  &= ~KICK_NOTE;
+                    a->shared.kick  &= ~KICK_ENV; /* Forgot this? - Jan L */
                         }
 
                         // NOTE: Standard mode doesn't rekick envelopes!
@@ -1285,14 +1285,14 @@ static void pt_playeffects(MPLAYER *ps, MP_CONTROL *a)
                 // this effect is provided for compatability to IT/S3M modules only,
                 // since they have that awkward style of hiword loword crap.
 
-		/* "Hiworld"? As in "Hello world!"? B-) */ 
+        /* "Hiworld"? As in "Hello world!"? B-) */ 
 
                 if(dat.loword.u) a->offset_lo = dat.loword.u;
                 if(dat.hiword.u&0x1000) a->offset_hi = dat.hiword.u&0x0fff; /* SA0 can't be ignored! */
 
                 if (dat.loword.u)
                 {
-		            a->shared.start = (int)(a->offset_hi<<16) + a->offset_lo;
+                    a->shared.start = (int)(a->offset_hi<<16) + a->offset_lo;
                     if(a->shared.s)
                     {
                         if((a->shared.s->flags & SL_LOOP) && (a->shared.start > (SLONG)a->shared.s->loopend))
@@ -1411,16 +1411,16 @@ static void pt_playeffects(MPLAYER *ps, MP_CONTROL *a)
             break;
 
             case UNI_SETSPEED_TRAN:
-		    {
-		        int perdif = ((int)dat.u) - ((int)a->speed);
+            {
+                int perdif = ((int)dat.u) - ((int)a->speed);
                 a->speed = dat.u;
 
-		        if ((perdif>=0) || (a->tmpperiod > (uint)(-perdif)))
+                if ((perdif>=0) || (a->tmpperiod > (uint)(-perdif)))
                 {
                     a->wantedperiod += perdif;
                     a->tmpperiod    += perdif;
-		        }
-		    }
+                }
+            }
             break;
         }
     }
@@ -1533,9 +1533,9 @@ uint Player_HandleTick(MD_VOICESET *vs, MPLAYER *ps)
                 if(a->row == NULL) continue;    // end of track, so skip it!
 
                 // make sure a few things are zero'd
-		        a->notedelay     = 0; /* Fixes SDx with x>=speed bug. */
-		        a->shared.kick   = 0; /* Required to prevent overdelayed
-					                     notes from being kicked. */
+                a->notedelay     = 0; /* Fixes SDx with x>=speed bug. */
+                a->shared.kick   = 0; /* Required to prevent overdelayed
+                                         notes from being kicked. */
                 a->old_s         = NULL;
                 a->newsamp       = 0;
                 a->shared.setpos = SF_START_CURRENT;
@@ -1710,7 +1710,7 @@ uint Player_HandleTick(MD_VOICESET *vs, MPLAYER *ps)
                             }
 
                             if(!(funky & 8) &&
-			       (a->shared.fadevol!=0 && !Voice_Stopped(ps->vs,a->slavechn)))
+                   (a->shared.fadevol!=0 && !Voice_Stopped(ps->vs,a->slavechn)))
                             {   if(i->volflg & EF_CARRY) a->shared.kick &= ~KICK_VOLENV;
                                 if(i->panflg & EF_CARRY) a->shared.kick &= ~KICK_PANENV;
                                 if(i->pitflg & EF_CARRY) a->shared.kick &= ~KICK_PITENV;
@@ -1915,30 +1915,30 @@ uint Player_HandleTick(MD_VOICESET *vs, MPLAYER *ps)
 
         if(pf->flags & UF_LINEAR_FREQ)
         {
-	        if (aout->shared.period < 5)
-	            aout->shared.period = 5;
-	    } else
+            if (aout->shared.period < 5)
+                aout->shared.period = 5;
+        } else
         {
-	        if(aout->shared.period < 2)
+            if(aout->shared.period < 2)
             {
-	            aout->shared.period = 2;
-	            _mmlogd("mplayer > Warning: Period clipped at 2");
+                aout->shared.period = 2;
+                _mmlogd("mplayer > Warning: Period clipped at 2");
             }
         }
         
-	    // Clipping raw frequencies at 28 kHz will be disastrous.
+        // Clipping raw frequencies at 28 kHz will be disastrous.
         if(pf->flags & UF_LINEAR_FREQ)
         {
-	        if (aout->shared.period > 60906)
-	            aout->shared.period = 60906;
-	    } else 
+            if (aout->shared.period > 60906)
+                aout->shared.period = 60906;
+        } else 
         {
-	        if (aout->shared.period > 28000)
+            if (aout->shared.period > 28000)
             {
-	            aout->shared.period = 28000;
-	            _mmlogd("mplayer > Warning: Period clipped at 28000");
-	        }
-	    }
+                aout->shared.period = 28000;
+                _mmlogd("mplayer > Warning: Period clipped at 28000");
+            }
+        }
         
         if(aout->shared.kick & KICK_NOTE)
         {   uint   flags = s->flags;
@@ -2091,7 +2091,7 @@ uint Player_HandleTick(MD_VOICESET *vs, MPLAYER *ps)
                         for(teepee=plop-1; teepee; teepee--) { freqboy *= 63670ul; freqboy >>= 16; }
 
                     freqout = (tp > 0) ? (0x100000000UL / freqboy) : freqboy;
-		    //_mmlog("tp: %d, freqout: %d",tp,freqout);
+            //_mmlog("tp: %d, freqout: %d",tp,freqout);
                     Voice_SetFrequency(vs,t,((INT64U)getfrequency(pf->flags,aout->shared.period,s->speed) * freqout) >> 16);
                 } else Voice_SetFrequency(vs,t,getfrequency(pf->flags,aout->shared.period,s->speed));
             } else

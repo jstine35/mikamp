@@ -45,11 +45,11 @@ uint S3MIT_ProcessCmd(UTRK_WRITER *ut, UBYTE *poslookup, uint cmd, uint inf, BOO
 {
 
 /* oldeffect bits have the following meanings (bit value - meaning):
-   1	- IT "old effects" mode (i.e. optional S3M compatibility bug fix mode).
-   2	- S3M file, not IT.
-   4	- IT "compatible Gxx" mode (i.e. optional XM compatibility bug fix mode).
-   8	- Saved by Scream Tracker 3, not by IT (i.e. has some bugs Lim never noticed).
-   16	- S3M fast volume slide mode (required for ST3.00 bug compatibility).
+   1    - IT "old effects" mode (i.e. optional S3M compatibility bug fix mode).
+   2    - S3M file, not IT.
+   4    - IT "compatible Gxx" mode (i.e. optional XM compatibility bug fix mode).
+   8    - Saved by Scream Tracker 3, not by IT (i.e. has some bugs Lim never noticed).
+   16   - S3M fast volume slide mode (required for ST3.00 bug compatibility).
 
    What a mess. */
 
@@ -108,26 +108,26 @@ uint S3MIT_ProcessCmd(UTRK_WRITER *ut, UBYTE *poslookup, uint cmd, uint inf, BOO
 
             case 7:                 // Gxx Tone portamento, speed xx
                 if(oldeffect & 4) {
-		    if (oldeffect & 8)
-                    	pt_write_effect(ut,0x3,inf); /* S3M. */
-		    else {
-			/* Impulse Tracker sucks, reason #3276:
-			   IT always retriggers notes on portamento if no
-			   note is currently playing (irrespective of
-			   old effects, compatible Gxx, whatever), which
-			   no other tracker does (PT doesn't, FT2 doesn't,
-			   ST3 doesn't; believe me, I checked).
+            if (oldeffect & 8)
+                        pt_write_effect(ut,0x3,inf); /* S3M. */
+            else {
+            /* Impulse Tracker sucks, reason #3276:
+               IT always retriggers notes on portamento if no
+               note is currently playing (irrespective of
+               old effects, compatible Gxx, whatever), which
+               no other tracker does (PT doesn't, FT2 doesn't,
+               ST3 doesn't; believe me, I checked).
 
-			   We need an effect that retriggers notes like
-			   the IT-style portamento, but otherwise behaves
-			   ST3-style (egad!).
-			*/
-	                effdat.effect   = UNI_PORTAMENTO_BUGGY;
-	                if(inf)
-	                {   effdat.param.u  = inf*8;
-	                    utrk_write_local(ut, &effdat, PTMEM_PORTAMENTO);
-	                } else utrk_memory_local(ut, &effdat, PTMEM_PORTAMENTO, 0);
-		    }
+               We need an effect that retriggers notes like
+               the IT-style portamento, but otherwise behaves
+               ST3-style (egad!).
+            */
+                    effdat.effect   = UNI_PORTAMENTO_BUGGY;
+                    if(inf)
+                    {   effdat.param.u  = inf*8;
+                        utrk_write_local(ut, &effdat, PTMEM_PORTAMENTO);
+                    } else utrk_memory_local(ut, &effdat, PTMEM_PORTAMENTO, 0);
+            }
                 }
                 else
                 {   // ImpulseTracker Sucks, Reason #2577:
@@ -218,17 +218,17 @@ uint S3MIT_ProcessCmd(UTRK_WRITER *ut, UBYTE *poslookup, uint cmd, uint inf, BOO
             break;
 
             case 0xf:               // Oxx set sampleoffset xx00h
-		if (inf) {
+        if (inf) {
                   effdat.effect         = UNI_OFFSET_LEGACY;
                   effdat.param.loword.u = inf<<8;
-		  if (!(oldeffect & 1)) effdat.param.hiword.u=0x2000;
-			/* Must ignore offset commands that go past
-			   end of sample when old effects are off. */
-			   
+          if (!(oldeffect & 1)) effdat.param.hiword.u=0x2000;
+            /* Must ignore offset commands that go past
+               end of sample when old effects are off. */
+               
                   effdat.framedly       = UFD_RUNONCE;
                   utrk_write_local(ut, &effdat, PTMEM_OFFSET);
-		}
-		else utrk_memory_local(ut,NULL,PTMEM_OFFSET,0);
+        }
+        else utrk_memory_local(ut,NULL,PTMEM_OFFSET,0);
             break;
 
             case 0x10:              // Pxy Slide Panning Commands
@@ -450,14 +450,14 @@ uint S3MIT_ProcessCmd(UTRK_WRITER *ut, UBYTE *poslookup, uint cmd, uint inf, BOO
                 //  only was it confusing to me, but any S3Ms saved with IT are not going
                 //  to pan properly.  What a total dweeb.
 
-		/* Huh? _My_ copy of Impulse Tracker both loads and saves Xxx commands
-		   in S3M correctly - it just multiplies by 2 when loading S3Ms and
-		   divides when saving S3Ms. Old effects mode has nothing to do with it.
+        /* Huh? _My_ copy of Impulse Tracker both loads and saves Xxx commands
+           in S3M correctly - it just multiplies by 2 when loading S3Ms and
+           divides when saving S3Ms. Old effects mode has nothing to do with it.
 
-		   I don't see anything about fixing this in the IT change log, either,
-		   meaning that Lim either managed to confuse Jake, or fixed it without
-		   telling anyone. Given the clarity of Lim's documentation, I'd choose
-		   the former. */
+           I don't see anything about fixing this in the IT change log, either,
+           meaning that Lim either managed to confuse Jake, or fixed it without
+           telling anyone. Given the clarity of Lim's documentation, I'd choose
+           the former. */
 
                 pt_write_effect(ut,0x8,(oldeffect & 2) ? (inf * 2) : inf);
             break;

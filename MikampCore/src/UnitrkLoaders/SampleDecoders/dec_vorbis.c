@@ -115,33 +115,33 @@ static VORBIS_HANDLE *Vorbis_Init(MMSTREAM *mmfp)
     {
         while(i < 2)
         {
-	        int     result  = ogg_sync_pageout(&vh->oy, &vh->og);
-	        if(result==0) break;
+            int     result  = ogg_sync_pageout(&vh->oy, &vh->og);
+            if(result==0) break;
 
-	        /* Don't complain about missing or corrupt data yet.  We'll
-	           catch it at the packet output phase */
-	
+            /* Don't complain about missing or corrupt data yet.  We'll
+               catch it at the packet output phase */
+    
             if(result == 1)
             {
-	            ogg_stream_pagein(&vh->os,&vh->og);
-	            while(i < 2)
+                ogg_stream_pagein(&vh->os,&vh->og);
+                while(i < 2)
                 {
-	                result  = ogg_stream_packetout(&vh->os, &vh->op);
+                    result  = ogg_stream_packetout(&vh->os, &vh->op);
                     if(result==0) break;
-	    
+        
                     if(result < 0)
                     {   _mmlog("Mikamp > dec_vorbis > More bad mojo .. check your data stream!");
                         assert(FALSE);
                         return NULL;
                     }
 #ifdef _VORBIS_COMMENTS_
-	                vorbis_synthesis_headerin(&vh->vi,&vh->vc,&vh->op);
+                    vorbis_synthesis_headerin(&vh->vi,&vh->vc,&vh->op);
 #else
-	                vorbis_synthesis_headerin(&vh->vi,&vh->op);
+                    vorbis_synthesis_headerin(&vh->vi,&vh->op);
 #endif
-	                i++;
-	            }
-	        }
+                    i++;
+                }
+            }
         }
 
         // no harm in not checking before adding more
@@ -181,7 +181,7 @@ static void Vorbis_Cleanup(VORBIS_HANDLE *vh)
     vorbis_block_clear(&vh->vb);
     vorbis_dsp_clear(&vh->vd);
 #ifdef _VORBIS_COMMENTS_
-	vorbis_comment_clear(&vh->vc);
+    vorbis_comment_clear(&vh->vc);
 #endif
     vorbis_info_clear(&vh->vi);
 
@@ -204,20 +204,20 @@ static BOOL Decompress16Bit(VORBIS_HANDLE *vh, SWORD *dest, int cbcount, MMSTREA
     {
         while(cbrun && !eos)
         {
-	        int result;
+            int result;
             
             if(!vh->samples)
             {
                 result  = ogg_sync_pageout(&vh->oy, &vh->og);
-	            if(result==0) break; /* need more data */
-	            assert(result >= 0);
+                if(result==0) break; /* need more data */
+                assert(result >= 0);
 
                 ogg_stream_pagein(&vh->os, &vh->og);
             }
 
             while(cbrun)
             {
-	            while(cbrun && vh->samples)
+                while(cbrun && vh->samples)
                 {
                     const int convsize  = cbrun / vh->vi.channels;
                     uint    bout        = MIN(vh->samples, convsize);
@@ -231,33 +231,33 @@ static BOOL Decompress16Bit(VORBIS_HANDLE *vh, SWORD *dest, int cbcount, MMSTREA
 
                     for(i=0; i<vh->vi.channels; i++)
                     {
-    		            uint         j;
+                        uint         j;
                         SWORD       *ptr    = dest + i;
                         float       *mono   = vh->pcm[i];
 
                         for(j=0; j<bout; j++)
                         {
-	                        int val = mono[j] * 32767.f;
-	                        *ptr    = _mm_boundscheck(val, -32768, 32767);
-	                        ptr    += vh->vi.channels;
+                            int val = mono[j] * 32767.f;
+                            *ptr    = _mm_boundscheck(val, -32768, 32767);
+                            ptr    += vh->vi.channels;
                         }
                     }
 
-		            vorbis_synthesis_read(&vh->vd, bout);
+                    vorbis_synthesis_read(&vh->vd, bout);
                     cbrun        -= bout * vh->vi.channels;
                     dest         += bout * vh->vi.channels;
                     vh->samples  -= bout;
-	            }
+                }
                 
                 if(!cbrun)
                     return cbcount;
 
                 result  = ogg_stream_packetout(&vh->os, &vh->op);
-	            if(result==0) break; /* need more data */
+                if(result==0) break; /* need more data */
                 assert(result >= 0);
 
-	            if(vorbis_synthesis(&vh->vb, &vh->op) == 0)
-		            vorbis_synthesis_blockin(&vh->vd,&vh->vb);
+                if(vorbis_synthesis(&vh->vb, &vh->op) == 0)
+                    vorbis_synthesis_blockin(&vh->vd,&vh->vb);
 
                 /* pcm is a multichannel float vector.  In stereo, for
                    example, pcm[0] is left, and pcm[1] is right.  samples is
@@ -265,8 +265,8 @@ static BOOL Decompress16Bit(VORBIS_HANDLE *vh, SWORD *dest, int cbcount, MMSTREA
                    (-1.<=range<=1.) to whatever PCM format and write it out */
 
                 vh->samples = vorbis_synthesis_pcmout(&vh->vd, &vh->pcm);
-	        }
-    	    //if(ogg_page_eos(&vh->og))
+            }
+            //if(ogg_page_eos(&vh->og))
                 //eos = 1;
         }
 

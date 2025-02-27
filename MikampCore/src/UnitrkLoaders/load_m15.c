@@ -281,7 +281,7 @@ BOOL M15_Load(MODULEHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
     // try to read module header
 
     if(!LoadModuleHeader(mh, mmfile))
-	{   _mmlog("load_m15 > Failure: Unexpected end of file reading module header");
+    {   _mmlog("load_m15 > Failure: Unexpected end of file reading module header");
         return 0;
     }
 
@@ -373,7 +373,7 @@ BOOL M15_Load(MODULEHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
 
         // Check for invalid modules
         if((q->length > 0x7ffff) || (q->loopstart > 0x7ffff) || (q->length > 0x7ffff))
-    	{   _mmlog("load_m15 > Failure: Invalid data in module -- length = %d; loopstart = %d", q->length, q->loopstart);
+        {   _mmlog("load_m15 > Failure: Invalid data in module -- length = %d; loopstart = %d", q->length, q->loopstart);
             return 0;
         }
         

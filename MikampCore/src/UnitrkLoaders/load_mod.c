@@ -246,7 +246,7 @@ BOOL MOD_Load(MODULEHEADER *mh, UNIMOD *of, MMSTREAM *mmfile)
     _mm_read_UBYTES(mh->magic2,4,mmfile);
 
     if(_mm_feof(mmfile))
-	{   _mmlog("load_mod > Failure: Unexpected end of file reading module header");
+    {   _mmlog("load_mod > Failure: Unexpected end of file reading module header");
         return 0;
     }
 

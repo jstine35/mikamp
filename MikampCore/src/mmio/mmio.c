@@ -398,106 +398,106 @@ void _mm_fputs(MMSTREAM *fp, const CHAR *data)
 // =====================================================================================
 
 #ifdef MM_BIG_ENDIAN
-#	define filewrite_M_SWORDS(x,y,z) fwrite((void *)x,1,(y)*sizeof(SWORD),(z)->fp)
-#	define filewrite_M_UWORDS(x,y,z) fwrite((void *)x,1,(y)*sizeof(UWORD),(z)->fp)
-#	define filewrite_M_SLONGS(x,y,z) fwrite((void *)x,1,(y)*sizeof(SLONG),(z)->fp)
-#	define filewrite_M_ULONGS(x,y,z) fwrite((void *)x,1,(y)*sizeof(ULONG),(z)->fp)
-#	define datawrite_M_SWORDS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(SWORD)), (z)->seekpos += (y)*sizeof(SWORD))
-#	define datawrite_M_UWORDS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(UWORD)), (z)->seekpos += (y)*sizeof(SWORD))
-#	define datawrite_M_SLONGS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(SLONG)), (z)->seekpos += (y)*sizeof(SLONG))
-#	define datawrite_M_ULONGS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(ULONG)), (z)->seekpos += (y)*sizeof(ULONG))
+#   define filewrite_M_SWORDS(x,y,z) fwrite((void *)x,1,(y)*sizeof(SWORD),(z)->fp)
+#   define filewrite_M_UWORDS(x,y,z) fwrite((void *)x,1,(y)*sizeof(UWORD),(z)->fp)
+#   define filewrite_M_SLONGS(x,y,z) fwrite((void *)x,1,(y)*sizeof(SLONG),(z)->fp)
+#   define filewrite_M_ULONGS(x,y,z) fwrite((void *)x,1,(y)*sizeof(ULONG),(z)->fp)
+#   define datawrite_M_SWORDS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(SWORD)), (z)->seekpos += (y)*sizeof(SWORD))
+#   define datawrite_M_UWORDS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(UWORD)), (z)->seekpos += (y)*sizeof(SWORD))
+#   define datawrite_M_SLONGS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(SLONG)), (z)->seekpos += (y)*sizeof(SLONG))
+#   define datawrite_M_ULONGS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(ULONG)), (z)->seekpos += (y)*sizeof(ULONG))
 #else
-#	define filewrite_I_SWORDS(x,y,z) fwrite((void *)x,1,(y)*sizeof(SWORD),(z)->fp)
-#	define filewrite_I_UWORDS(x,y,z) fwrite((void *)x,1,(y)*sizeof(UWORD),(z)->fp)
-#	define filewrite_I_SLONGS(x,y,z) fwrite((void *)x,1,(y)*sizeof(SLONG),(z)->fp)
-#	define filewrite_I_ULONGS(x,y,z) fwrite((void *)x,1,(y)*sizeof(ULONG),(z)->fp)
-#	define datawrite_I_SWORDS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(SWORD)), (z)->seekpos += (y)*sizeof(SWORD))
-#	define datawrite_I_UWORDS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(UWORD)), (z)->seekpos += (y)*sizeof(SWORD))
-#	define datawrite_I_SLONGS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(SLONG)), (z)->seekpos += (y)*sizeof(SLONG))
-#	define datawrite_I_ULONGS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(ULONG)), (z)->seekpos += (y)*sizeof(ULONG))
+#   define filewrite_I_SWORDS(x,y,z) fwrite((void *)x,1,(y)*sizeof(SWORD),(z)->fp)
+#   define filewrite_I_UWORDS(x,y,z) fwrite((void *)x,1,(y)*sizeof(UWORD),(z)->fp)
+#   define filewrite_I_SLONGS(x,y,z) fwrite((void *)x,1,(y)*sizeof(SLONG),(z)->fp)
+#   define filewrite_I_ULONGS(x,y,z) fwrite((void *)x,1,(y)*sizeof(ULONG),(z)->fp)
+#   define datawrite_I_SWORDS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(SWORD)), (z)->seekpos += (y)*sizeof(SWORD))
+#   define datawrite_I_UWORDS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(UWORD)), (z)->seekpos += (y)*sizeof(SWORD))
+#   define datawrite_I_SLONGS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(SLONG)), (z)->seekpos += (y)*sizeof(SLONG))
+#   define datawrite_I_ULONGS(x,y,z) (memcpy(&(z)->dp[(z)->seekpos],(void *)x,(y)*sizeof(ULONG)), (z)->seekpos += (y)*sizeof(ULONG))
 #endif
 
 void _mm_write_SBYTE(SBYTE data, MMSTREAM *fp)
 {
-	if(fp->fp)
-		fputc(data, fp->fp);
-	else
-		fp->dp[fp->seekpos++] = data;
+    if(fp->fp)
+        fputc(data, fp->fp);
+    else
+        fp->dp[fp->seekpos++] = data;
 }
 
 void _mm_write_UBYTE(UBYTE data, MMSTREAM *fp)
 {
-	if(fp->fp)
-		fputc(data, fp->fp);
-	else
-		fp->dp[fp->seekpos++] = data;
+    if(fp->fp)
+        fputc(data, fp->fp);
+    else
+        fp->dp[fp->seekpos++] = data;
 }
 
 void streamwrite16( UWORD data, MMSTREAM *fp )
 {
-	if(fp->fp)
-	{
-		fwrite(&data, 2, 1, fp->fp);
-	}
-	else
-	{
-		*(UWORD*)(fp->dp + fp->seekpos) = data;
-		fp->seekpos += 2;
-	}
+    if(fp->fp)
+    {
+        fwrite(&data, 2, 1, fp->fp);
+    }
+    else
+    {
+        *(UWORD*)(fp->dp + fp->seekpos) = data;
+        fp->seekpos += 2;
+    }
 }
 
 void streamwrite32( ULONG data, MMSTREAM *fp )
 {
-	if(fp->fp)
-	{
-		fwrite(&data, 4, 1, fp->fp);
-	}
-	else
-	{
-		*(ULONG*)(fp->dp + fp->seekpos) = data;
-		fp->seekpos += 4;
-	}
+    if(fp->fp)
+    {
+        fwrite(&data, 4, 1, fp->fp);
+    }
+    else
+    {
+        *(ULONG*)(fp->dp + fp->seekpos) = data;
+        fp->seekpos += 4;
+    }
 }
 
 
 void _mm_write_M_UWORD(UWORD data, MMSTREAM *fp)
 {
-	streamwrite16(mm_swap_M16(data), fp);
+    streamwrite16(mm_swap_M16(data), fp);
 }
 
 void _mm_write_I_UWORD(UWORD data, MMSTREAM *fp)
 {
-	streamwrite16(mm_swap_I16(data), fp);
+    streamwrite16(mm_swap_I16(data), fp);
 }
 
 void _mm_write_M_ULONG(ULONG data, MMSTREAM *fp)
 {
-	streamwrite32(mm_swap_M32(data), fp);
+    streamwrite32(mm_swap_M32(data), fp);
 }
 
 void _mm_write_I_ULONG(ULONG data, MMSTREAM *fp)
 {
-	streamwrite32(mm_swap_I32(data), fp);
+    streamwrite32(mm_swap_I32(data), fp);
 }
 
 void _mm_write_M_SWORD(SWORD data, MMSTREAM *fp)
 {
-	streamwrite16(mm_swap_M16(data), fp);
+    streamwrite16(mm_swap_M16(data), fp);
 }
 
 void _mm_write_I_SWORD(SWORD data, MMSTREAM *fp)
 {
-	streamwrite16(mm_swap_I16(data), fp);
+    streamwrite16(mm_swap_I16(data), fp);
 }
 
 void _mm_write_M_SLONG(SLONG data, MMSTREAM *fp)
 {
-	streamwrite32(mm_swap_M32(data), fp);
+    streamwrite32(mm_swap_M32(data), fp);
 }
 
 void _mm_write_I_SLONG(SLONG data, MMSTREAM *fp)
 {
-	streamwrite32(mm_swap_I32(data), fp);
+    streamwrite32(mm_swap_I32(data), fp);
 }
 
 #define DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN(type_name, type, bits)   \
@@ -527,23 +527,23 @@ DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (UBYTE, UBYTE)
 
 
 #ifdef MM_BIG_ENDIAN
-	DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (I_SWORD, SWORD, 16)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (I_UWORD, UWORD, 16)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (I_SLONG, SLONG, 32)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (I_ULONG, ULONG, 32)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (M_SWORD, SWORD)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (M_UWORD, UWORD)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (M_SLONG, SLONG)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (M_ULONG, ULONG)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (I_SWORD, SWORD, 16)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (I_UWORD, UWORD, 16)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (I_SLONG, SLONG, 32)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (I_ULONG, ULONG, 32)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (M_SWORD, SWORD)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (M_UWORD, UWORD)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (M_SLONG, SLONG)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (M_ULONG, ULONG)
 #else
-	DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (M_SWORD, SWORD, 16)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (M_UWORD, UWORD, 16)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (M_SLONG, SLONG, 32)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (M_ULONG, ULONG, 32)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (I_SWORD, SWORD)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (I_UWORD, UWORD)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (I_SLONG, SLONG)
-	DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (I_ULONG, ULONG)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (M_SWORD, SWORD, 16)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (M_UWORD, UWORD, 16)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (M_SLONG, SLONG, 32)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_ENDIAN (M_ULONG, ULONG, 32)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (I_SWORD, SWORD)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (I_UWORD, UWORD)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (I_SLONG, SLONG)
+    DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (I_ULONG, ULONG)
 #endif
 
 
@@ -552,23 +552,23 @@ DEFINE_MULTIPLE_WRITE_FUNCTION_NORM   (UBYTE, UBYTE)
 // =====================================================================================
 
 #ifdef MM_BIG_ENDIAN
-#	define fileread_M_SWORDS(x,y,z)  fread((void *)x,1,(y)*sizeof(SWORD),(z)->fp)
-#	define fileread_M_UWORDS(x,y,z)  fread((void *)x,1,(y)*sizeof(UWORD),(z)->fp)
-#	define fileread_M_SLONGS(x,y,z)  fread((void *)x,1,(y)*sizeof(SLONG),(z)->fp)
-#	define fileread_M_ULONGS(x,y,z)  fread((void *)x,1,(y)*sizeof(ULONG),(z)->fp)
-#	define dataread_M_SWORDS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(SWORD)), (z)->seekpos += (y)*sizeof(SWORD))
-#	define dataread_M_UWORDS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(UWORD)), (z)->seekpos += (y)*sizeof(UWORD))
-#	define dataread_M_SLONGS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(SLONG)), (z)->seekpos += (y)*sizeof(SLONG))
-#	define dataread_M_ULONGS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(ULONG)), (z)->seekpos += (y)*sizeof(ULONG))
+#   define fileread_M_SWORDS(x,y,z)  fread((void *)x,1,(y)*sizeof(SWORD),(z)->fp)
+#   define fileread_M_UWORDS(x,y,z)  fread((void *)x,1,(y)*sizeof(UWORD),(z)->fp)
+#   define fileread_M_SLONGS(x,y,z)  fread((void *)x,1,(y)*sizeof(SLONG),(z)->fp)
+#   define fileread_M_ULONGS(x,y,z)  fread((void *)x,1,(y)*sizeof(ULONG),(z)->fp)
+#   define dataread_M_SWORDS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(SWORD)), (z)->seekpos += (y)*sizeof(SWORD))
+#   define dataread_M_UWORDS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(UWORD)), (z)->seekpos += (y)*sizeof(UWORD))
+#   define dataread_M_SLONGS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(SLONG)), (z)->seekpos += (y)*sizeof(SLONG))
+#   define dataread_M_ULONGS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(ULONG)), (z)->seekpos += (y)*sizeof(ULONG))
 #else
-#	define fileread_I_SWORDS(x,y,z)  fread((void *)x,1,(y)*sizeof(SWORD),(z)->fp)
-#	define fileread_I_UWORDS(x,y,z)  fread((void *)x,1,(y)*sizeof(UWORD),(z)->fp)
-#	define fileread_I_SLONGS(x,y,z)  fread((void *)x,1,(y)*sizeof(SLONG),(z)->fp)
-#	define fileread_I_ULONGS(x,y,z)  fread((void *)x,1,(y)*sizeof(ULONG),(z)->fp)
-#	define dataread_I_SWORDS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(SWORD)), (z)->seekpos += (y)*sizeof(SWORD))
-#	define dataread_I_UWORDS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(UWORD)), (z)->seekpos += (y)*sizeof(UWORD))
-#	define dataread_I_SLONGS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(SLONG)), (z)->seekpos += (y)*sizeof(SLONG))
-#	define dataread_I_ULONGS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(ULONG)), (z)->seekpos += (y)*sizeof(ULONG))
+#   define fileread_I_SWORDS(x,y,z)  fread((void *)x,1,(y)*sizeof(SWORD),(z)->fp)
+#   define fileread_I_UWORDS(x,y,z)  fread((void *)x,1,(y)*sizeof(UWORD),(z)->fp)
+#   define fileread_I_SLONGS(x,y,z)  fread((void *)x,1,(y)*sizeof(SLONG),(z)->fp)
+#   define fileread_I_ULONGS(x,y,z)  fread((void *)x,1,(y)*sizeof(ULONG),(z)->fp)
+#   define dataread_I_SWORDS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(SWORD)), (z)->seekpos += (y)*sizeof(SWORD))
+#   define dataread_I_UWORDS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(UWORD)), (z)->seekpos += (y)*sizeof(UWORD))
+#   define dataread_I_SLONGS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(SLONG)), (z)->seekpos += (y)*sizeof(SLONG))
+#   define dataread_I_ULONGS(x,y,z)  (memcpy((void *)x,&(z)->dp[(z)->seekpos],(y)*sizeof(ULONG)), (z)->seekpos += (y)*sizeof(ULONG))
 #endif
 
 // ============
@@ -587,28 +587,28 @@ SBYTE _mm_read_SBYTE(MMSTREAM *fp)
 
 UWORD streamread16( MMSTREAM* fp )
 {
-	ULONG result;
-	if (fp->fp)
-		fread(&result, 2, 1, fp->fp);
-	else
-	{
-		result = *(UWORD*)(fp->dp + fp->seekpos);
-		fp->seekpos += 2;
-	}
-	return result;
+    ULONG result;
+    if (fp->fp)
+        fread(&result, 2, 1, fp->fp);
+    else
+    {
+        result = *(UWORD*)(fp->dp + fp->seekpos);
+        fp->seekpos += 2;
+    }
+    return result;
 }
 
 ULONG streamread32( MMSTREAM* fp )
 {
-	ULONG result;
-	if (fp->fp)
-		fread(&result, 4, 1, fp->fp);
-	else
-	{
-		result = *(ULONG*)(fp->dp + fp->seekpos);
-		fp->seekpos += 4;
-	}
-	return result;
+    ULONG result;
+    if (fp->fp)
+        fread(&result, 4, 1, fp->fp);
+    else
+    {
+        result = *(ULONG*)(fp->dp + fp->seekpos);
+        fp->seekpos += 4;
+    }
+    return result;
 }
 
 UWORD _mm_read_I_UWORD(MMSTREAM *fp)
@@ -618,37 +618,37 @@ UWORD _mm_read_I_UWORD(MMSTREAM *fp)
 
 UWORD _mm_read_M_UWORD(MMSTREAM *fp)
 {
-	return mm_swap_M16( streamread16(fp) );
+    return mm_swap_M16( streamread16(fp) );
 }
 
 ULONG _mm_read_I_ULONG(MMSTREAM *fp)
 {
-	return mm_swap_I32( streamread32(fp) );
+    return mm_swap_I32( streamread32(fp) );
 }
 
 ULONG _mm_read_M_ULONG(MMSTREAM *fp)
 {
-	return mm_swap_M32( streamread32(fp) );
+    return mm_swap_M32( streamread32(fp) );
 }
 
 SWORD _mm_read_I_SWORD(MMSTREAM *fp)
 {
-	return mm_swap_I16( streamread16(fp) );
+    return mm_swap_I16( streamread16(fp) );
 }
 
 SWORD _mm_read_M_SWORD(MMSTREAM *fp)
 {
-	return mm_swap_M16( streamread16(fp) );
+    return mm_swap_M16( streamread16(fp) );
 }
 
 SLONG _mm_read_I_SLONG(MMSTREAM *fp)
 {
-	return mm_swap_I32( streamread32(fp) );
+    return mm_swap_I32( streamread32(fp) );
 }
 
 SLONG _mm_read_M_SLONG(MMSTREAM *fp)
 {
-	return mm_swap_M32( streamread32(fp) );
+    return mm_swap_M32( streamread32(fp) );
 }
 
 int _mm_read_string(CHAR *buffer, const uint number, MMSTREAM *fp)
@@ -693,22 +693,22 @@ DEFINE_MULTIPLE_READ_FUNCTION_NORM   (SBYTE, SBYTE)
 DEFINE_MULTIPLE_READ_FUNCTION_NORM   (UBYTE, UBYTE)
 
 #ifdef MM_BIG_ENDIAN
-	DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (I_SWORD, SWORD, 16)
-	DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (I_UWORD, UWORD, 16)
-	DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (I_SLONG, SLONG, 32)
-	DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (I_ULONG, ULONG, 32)
-	DEFINE_MULTIPLE_READ_FUNCTION_NORM   (M_SWORD, SWORD)
-	DEFINE_MULTIPLE_READ_FUNCTION_NORM   (M_UWORD, UWORD)
-	DEFINE_MULTIPLE_READ_FUNCTION_NORM   (M_SLONG, SLONG)
-	DEFINE_MULTIPLE_READ_FUNCTION_NORM   (M_ULONG, ULONG)
+    DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (I_SWORD, SWORD, 16)
+    DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (I_UWORD, UWORD, 16)
+    DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (I_SLONG, SLONG, 32)
+    DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (I_ULONG, ULONG, 32)
+    DEFINE_MULTIPLE_READ_FUNCTION_NORM   (M_SWORD, SWORD)
+    DEFINE_MULTIPLE_READ_FUNCTION_NORM   (M_UWORD, UWORD)
+    DEFINE_MULTIPLE_READ_FUNCTION_NORM   (M_SLONG, SLONG)
+    DEFINE_MULTIPLE_READ_FUNCTION_NORM   (M_ULONG, ULONG)
 #else
-	DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (M_SWORD, SWORD, 16)
-	DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (M_UWORD, UWORD, 16)
-	DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (M_SLONG, SLONG, 32)
-	DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (M_ULONG, ULONG, 32)
-	DEFINE_MULTIPLE_READ_FUNCTION_NORM   (I_SWORD, SWORD)
-	DEFINE_MULTIPLE_READ_FUNCTION_NORM   (I_UWORD, UWORD)
-	DEFINE_MULTIPLE_READ_FUNCTION_NORM   (I_SLONG, SLONG)
-	DEFINE_MULTIPLE_READ_FUNCTION_NORM   (I_ULONG, ULONG)
+    DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (M_SWORD, SWORD, 16)
+    DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (M_UWORD, UWORD, 16)
+    DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (M_SLONG, SLONG, 32)
+    DEFINE_MULTIPLE_READ_FUNCTION_ENDIAN (M_ULONG, ULONG, 32)
+    DEFINE_MULTIPLE_READ_FUNCTION_NORM   (I_SWORD, SWORD)
+    DEFINE_MULTIPLE_READ_FUNCTION_NORM   (I_UWORD, UWORD)
+    DEFINE_MULTIPLE_READ_FUNCTION_NORM   (I_SLONG, SLONG)
+    DEFINE_MULTIPLE_READ_FUNCTION_NORM   (I_ULONG, ULONG)
 #endif
 

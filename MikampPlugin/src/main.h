@@ -31,10 +31,10 @@ typedef struct tag_dlghdr
 {   
     HWND     hwndTab;       // tab control 
     HWND     hwndDisplay;   // current child dialog box 
-	int      left,top;
+    int      left,top;
     HWND     apRes[INFO_CPAGES]; 
 
-	UNIMOD  *module;
+    UNIMOD  *module;
     MPLAYER *seeker;
     int      maxv;
 

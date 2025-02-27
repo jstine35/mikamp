@@ -177,7 +177,7 @@ BOOL STM_LoadPatterns(UNIMOD *of, MMSTREAM *mmfile)
         }
   
         if(_mm_feof(mmfile))
-	    {   _mmlog("load_stm > Failure: Unexpected end of file reading pattern %d",t);
+        {   _mmlog("load_stm > Failure: Unexpected end of file reading pattern %d",t);
             return 0;
         }
 

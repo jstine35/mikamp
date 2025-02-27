@@ -166,8 +166,8 @@ MD_VOICESET *Voiceset_Create(MDRIVER *md, MD_VOICESET *owner, uint voices, uint 
 
     Voiceset_SetNumVoices(vs, voices);
 
-	//lets initialize its volumes!
-	Voiceset_SetVolume(vs,128);
+    //lets initialize its volumes!
+    Voiceset_SetVolume(vs,128);
 
     return vs;
 }
@@ -927,51 +927,51 @@ two functions.
 //
 static int _mm_inline get_max_volume(MD_VOICESET *vs)
 {
-	if(vs->owner)
-    	return (vs->volume * get_max_volume(vs->owner)) / 128;
-	else
-		return vs->volume * 0x1000;
+    if(vs->owner)
+        return (vs->volume * get_max_volume(vs->owner)) / 128;
+    else
+        return vs->volume * 0x1000;
 }
 
 // _____________________________________________________________________________________
 //
 static void child_volupd(MD_VOICESET *vs, int effective_volume)
 {
-	MD_VOICESET *cruise;
+    MD_VOICESET *cruise;
     uint         i;
 
-	// If the absolute volume didn't change, let's make like snow cones
+    // If the absolute volume didn't change, let's make like snow cones
     // and melt away the cpu cycles.
 
     if(vs->absvol == (effective_volume / 0x1000)) return;
     
     vs->absvol = effective_volume / 0x1000;
 
-	// set my own voices
-	for(i=0; i<vs->voices; i++) MD_UpdateVoiceVolume(vs, &vs->vdesc[i]);
+    // set my own voices
+    for(i=0; i<vs->voices; i++) MD_UpdateVoiceVolume(vs, &vs->vdesc[i]);
 
-	// set my children voicesets. my effective volume will be their max volume
-	cruise = vs->children;
-	while(cruise)
-	{   child_volupd(cruise,(cruise->volume*effective_volume) / 128);
+    // set my children voicesets. my effective volume will be their max volume
+    cruise = vs->children;
+    while(cruise)
+    {   child_volupd(cruise,(cruise->volume*effective_volume) / 128);
         cruise = cruise->nextchild;
-	}
+    }
 }
 
 // _____________________________________________________________________________________
 //
 void Voiceset_SetVolume(MD_VOICESET *vs, int volume)
 {
-	int max_volume;
+    int max_volume;
 
-	if(!vs) return;
+    if(!vs) return;
     if(volume == vs->volume) return;
         
     // Set the relative volume
     vs->volume = volume;
 
-	// find out our maximum absolute volume
-	max_volume = get_max_volume(vs);
+    // find out our maximum absolute volume
+    max_volume = get_max_volume(vs);
 
     // if we have no parent voiceset, our volumes are on a new scale of 0..128
 

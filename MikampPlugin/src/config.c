@@ -32,7 +32,7 @@
     CHAR *filename;
     HWND  hwndTab;       // tab control 
     HWND  hwndDisplay;   // current child dialog box 
-	int   left,top;
+    int   left,top;
     HWND  apRes[C_PAGES];
 
 } CFG_DLGHDR; 
@@ -286,26 +286,26 @@ static MLCONF l_mod[C_NUMLOADERS];                  // local copy, for cancelabi
 
     config_init();
 
-	RI(config_savestr);
+    RI(config_savestr);
     RI(config_priority);
 
     RI(config_8bit);
     RI(config_nch);
     RI(config_srate);
-	RI(config_interp);
-	RI(config_surround);
-	RI(config_voices);
+    RI(config_interp);
+    RI(config_surround);
+    RI(config_voices);
 
-	RI(config_loopcount);
-	RI(config_playflag);
-	RI(config_resonance);
-	RI(config_fadeout);
+    RI(config_loopcount);
+    RI(config_playflag);
+    RI(config_resonance);
+    RI(config_fadeout);
 
-	RI(config_pansep);
-	RI(config_panrev);
+    RI(config_pansep);
+    RI(config_panrev);
 
-  	//RI(config_cpu);
-  	//RI(config_cpu_autodetect);
+    //RI(config_cpu);
+    //RI(config_cpu_autodetect);
 
     /*if(config_cpu_autodetect == CPU_AUTODETECT)*/ config_cpu = _mm_cpudetect();
 
@@ -353,7 +353,7 @@ static MLCONF l_mod[C_NUMLOADERS];                  // local copy, for cancelabi
     void config_write(void)
 // =====================================================================================
 {
-	uint   t;
+    uint   t;
     
     WI(config_savestr);
     WI(config_priority);
@@ -361,18 +361,18 @@ static MLCONF l_mod[C_NUMLOADERS];                  // local copy, for cancelabi
     WI(config_8bit);
     WI(config_nch);
     WI(config_srate);
-	WI(config_interp);
-	WI(config_surround);
-	WI(config_voices);
+    WI(config_interp);
+    WI(config_surround);
+    WI(config_voices);
 
-	WI(config_loopcount);
-	WI(config_playflag);
-	WI(config_resonance);
-	WI(config_fadeout);
+    WI(config_loopcount);
+    WI(config_playflag);
+    WI(config_resonance);
+    WI(config_fadeout);
 
-	WI(config_pansep);
-	WI(config_panrev);
-   	
+    WI(config_pansep);
+    WI(config_panrev);
+    
     //WI(config_cpu);
     //WI(config_cpu_autodetect);
 
@@ -413,7 +413,7 @@ static UINT_PTR CALLBACK prefsProc(HWND hwndDlg, UINT uMsg, WPARAM wParam,LPARAM
     void __cdecl config(HWND hwndParent)
 // =====================================================================================
 {
-	DialogBox(mikamp.hDllInstance,MAKEINTRESOURCE(IDD_PREFS),hwndParent,prefsProc);
+    DialogBox(mikamp.hDllInstance,MAKEINTRESOURCE(IDD_PREFS),hwndParent,prefsProc);
     config_write();
 }
 
@@ -434,31 +434,31 @@ static void OnSelChanged(HWND hwndDlg);
     TC_ITEM tie;
     int     tabCounter;
     
-	tie.mask = TCIF_TEXT | TCIF_IMAGE; 
+    tie.mask = TCIF_TEXT | TCIF_IMAGE; 
     tie.iImage = -1; 
 
     tabCounter = 0;
 
-	tie.pszText = "Mixer"; 
-	TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie);
+    tie.pszText = "Mixer"; 
+    TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie);
     pHdr->apRes[tabCounter] = CreateDialogParam(mikamp.hDllInstance, MAKEINTRESOURCE(IDD_PREFTAB_MIXER), hwndDlg, mixerProc, IDD_PREFTAB_MIXER);
     SetWindowPos(pHdr->apRes[tabCounter], HWND_TOP, pHdr->left, pHdr->top, 0, 0, SWP_NOSIZE);
     ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
 
-  	tie.pszText = "Player";
-	TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie); 
+    tie.pszText = "Player";
+    TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie); 
     pHdr->apRes[tabCounter] = CreateDialogParam(mikamp.hDllInstance, MAKEINTRESOURCE(IDD_PREFTAB_DECODER), hwndDlg, tabProc, IDD_PREFTAB_DECODER);
     SetWindowPos(pHdr->apRes[tabCounter], HWND_TOP, pHdr->left, pHdr->top, 0, 0, SWP_NOSIZE);
     ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
 
-  	tie.pszText = "Loader";
-	TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie); 
+    tie.pszText = "Loader";
+    TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie); 
     pHdr->apRes[tabCounter] = CreateDialogParam(mikamp.hDllInstance, MAKEINTRESOURCE(IDD_PREFTAB_LOADER), hwndDlg, loaderProc, IDD_PREFTAB_LOADER);
     SetWindowPos(pHdr->apRes[tabCounter], HWND_TOP, pHdr->left, pHdr->top, 0, 0, SWP_NOSIZE);
     ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
 
-  	tie.pszText = "General";
-	TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie); 
+    tie.pszText = "General";
+    TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie); 
     pHdr->apRes[tabCounter] = CreateDialogParam(mikamp.hDllInstance, MAKEINTRESOURCE(IDD_PREFTAB_GENERAL), hwndDlg, tabProc, IDD_PREFTAB_GENERAL);
     SetWindowPos(pHdr->apRes[tabCounter], HWND_TOP, pHdr->left, pHdr->top, 0, 0, SWP_NOSIZE);
     ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
@@ -475,9 +475,9 @@ static void OnSelChanged(HWND hwndDlg);
     CFG_DLGHDR *pHdr = (CFG_DLGHDR *) GetWindowLongPtrA(hwndDlg, GWLP_USERDATA);
     int iSel = TabCtrl_GetCurSel(pHdr->hwndTab);
 
-	if(pHdr->hwndDisplay)  ShowWindow(pHdr->hwndDisplay,SW_HIDE);
-	ShowWindow(pHdr->apRes[iSel],SW_SHOW);
-	pHdr->hwndDisplay = pHdr->apRes[iSel];
+    if(pHdr->hwndDisplay)  ShowWindow(pHdr->hwndDisplay,SW_HIDE);
+    ShowWindow(pHdr->apRes[iSel],SW_SHOW);
+    pHdr->hwndDisplay = pHdr->apRes[iSel];
 
 } 
 
@@ -604,7 +604,7 @@ static void OnSelChanged(HWND hwndDlg);
 // =====================================================================================
     static UINT_PTR CALLBACK mixerProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // =====================================================================================
-{	
+{   
 
     switch (uMsg)
     {
@@ -615,7 +615,7 @@ static void OnSelChanged(HWND hwndDlg);
         // Initialize all of the controls on each of those forms!
         {   
             HWND        hwndMisc;
-		    CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
+            CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
 
             CheckDlgButton(hwndDlg,OUTMODE_16BIT,   config_8bit         ? BST_UNCHECKED : BST_CHECKED);
             CheckDlgButton(hwndDlg,OUTMODE_STEREO, (config_nch==2)      ? BST_CHECKED : BST_UNCHECKED);
@@ -653,7 +653,7 @@ static void OnSelChanged(HWND hwndDlg);
             SetVoiceList(GetDlgItem(hwndDlg,IDC_VOICES));
             Stereo_Dependencies(hwndDlg);
 
-			return TRUE;
+            return TRUE;
         }
         break;
 
@@ -666,7 +666,7 @@ static void OnSelChanged(HWND hwndDlg);
             {   case IDOK:
                 {   
                     config_8bit     = IsDlgButtonChecked(hwndDlg,OUTMODE_16BIT) ? 0 : 1;
-    				
+                    
                     if(l_voices  != CFG_UNCHANGED) config_voices = voicetable[l_voices];
 
                     config_srate     = l_srate;
@@ -677,7 +677,7 @@ static void OnSelChanged(HWND hwndDlg);
                     config_surround = IsDlgButtonChecked(hwndDlg,OUTMODE_SURROUND) ? 1 : 0;
                     config_panrev   = IsDlgButtonChecked(hwndDlg,OUTMODE_REVERSE)  ? 1 : 0;
 
-	    			config_voices   = _mm_boundscheck(config_voices, 2,1024);
+                    config_voices   = _mm_boundscheck(config_voices, 2,1024);
                 }
                 break;
 
@@ -721,7 +721,7 @@ static void OnSelChanged(HWND hwndDlg);
                     }
                 break;
             }
-		break;
+        break;
     }
     return 0;
 }
@@ -733,7 +733,7 @@ static void OnSelChanged(HWND hwndDlg);
 // This is the callback procedure used by each of the three forms under the tab control 
 // on the Preferences dialog box.  It handles all the messages for all of the controls
 // within those dialog boxes.
-{	
+{   
     switch (uMsg)
     {
         // --------------------------------------------------------------
@@ -743,7 +743,7 @@ static void OnSelChanged(HWND hwndDlg);
         // form created. Initialize all of the controls on each of those forms!
         {   
             HWND        hwndMisc;
-		    CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
+            CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
 
             uint   i;
 
@@ -950,7 +950,7 @@ static void OnSelChanged(HWND hwndDlg);
 // =====================================================================================
     static UINT_PTR CALLBACK tabProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // =====================================================================================
-{	
+{   
     switch (uMsg)
     {
         // --------------------------------------------------------------
@@ -960,7 +960,7 @@ static void OnSelChanged(HWND hwndDlg);
         // Initialize all of the controls on each of those forms!
         {   
             HWND        hwndMisc;
-		    CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
+            CFG_DLGHDR *pHdr = (CFG_DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
 
             switch(lParam)
             {
@@ -1023,12 +1023,12 @@ static void OnSelChanged(HWND hwndDlg);
 
                         case IDD_PREFTAB_DECODER:
                             config_loopcount = GetDlgItemInt(hwndDlg, IDC_LOOPBOX, &bresult, FALSE);
-	    				    config_loopcount = _mm_boundscheck(config_loopcount, 0, 16);
+                            config_loopcount = _mm_boundscheck(config_loopcount, 0, 16);
 
                             GetDlgItemText(hwndDlg, IDC_FADEOUT, stmp, 12);
                             ftmp = atof(stmp);
                             config_fadeout    = (int)(ftmp * 1000l);
-	    				    config_fadeout    = _mm_boundscheck(config_fadeout, 0, 1000l*1000l);   // bound to 1000 seconds.
+                            config_fadeout    = _mm_boundscheck(config_fadeout, 0, 1000l*1000l);   // bound to 1000 seconds.
 
                             {
                             int  erg  = SendMessage(GetDlgItem(hwndDlg,IDC_PANSEP),TBM_GETPOS,0,0)<<4;
@@ -1039,14 +1039,14 @@ static void OnSelChanged(HWND hwndDlg);
                             config_pansep     = erg;
                             }
 
-	            			config_playflag   = IsDlgButtonChecked(hwndDlg,IDC_LOOPALL)      ? CPLAYFLG_LOOPALL : 0;
-	            			config_playflag  |= IsDlgButtonChecked(hwndDlg,IDC_PLAYALL)      ? CPLAYFLG_PLAYALL : 0;
-	            			config_playflag  |= IsDlgButtonChecked(hwndDlg,IDC_FADECHECK)    ? CPLAYFLG_FADEOUT : 0;
-	            			config_playflag  |= IsDlgButtonChecked(hwndDlg,IDC_STRIPSILENCE) ? CPLAYFLG_STRIPSILENCE : 0;
-	            			config_resonance  = IsDlgButtonChecked(hwndDlg,IDC_RESONANCE) ? 1 : 0;
+                            config_playflag   = IsDlgButtonChecked(hwndDlg,IDC_LOOPALL)      ? CPLAYFLG_LOOPALL : 0;
+                            config_playflag  |= IsDlgButtonChecked(hwndDlg,IDC_PLAYALL)      ? CPLAYFLG_PLAYALL : 0;
+                            config_playflag  |= IsDlgButtonChecked(hwndDlg,IDC_FADECHECK)    ? CPLAYFLG_FADEOUT : 0;
+                            config_playflag  |= IsDlgButtonChecked(hwndDlg,IDC_STRIPSILENCE) ? CPLAYFLG_STRIPSILENCE : 0;
+                            config_resonance  = IsDlgButtonChecked(hwndDlg,IDC_RESONANCE) ? 1 : 0;
                         break;
 
-            			case IDD_PREFTAB_GENERAL:
+                        case IDD_PREFTAB_GENERAL:
                             config_priority = SendMessage(GetDlgItem(hwndDlg,IDC_PREFS_PRIORITY_DECODE),TBM_GETPOS,0,0)<<4;
 
                             //config_cpu_autodetect = IsDlgButtonChecked(hwndDlg,IDC_CPU_AUTODETECT) ? 1 : 0;
@@ -1054,7 +1054,7 @@ static void OnSelChanged(HWND hwndDlg);
                             //if(IsDlgButtonChecked(hwndDlg,IDC_CPU_3DNOW)) config_cpu = CPU_3DNOW;
                             //if(IsDlgButtonChecked(hwndDlg,IDC_CPU_SIMD))  config_cpu = CPU_SIMD;
 
-	            			config_savestr  = IsDlgButtonChecked(hwndDlg,IDC_SAVESTR)   ? 1 : 0;
+                            config_savestr  = IsDlgButtonChecked(hwndDlg,IDC_SAVESTR)   ? 1 : 0;
                         break;
                     }
                 }
@@ -1077,7 +1077,7 @@ static void OnSelChanged(HWND hwndDlg);
                     }
                 break;
             }
-		break;
+        break;
 
         // --------------------------------------------------------------
         case WM_NOTIFY:
@@ -1121,18 +1121,18 @@ static void OnSelChanged(HWND hwndDlg);
         {
             CFG_DLGHDR *pHdr = (CFG_DLGHDR *) LocalAlloc(LPTR, sizeof(CFG_DLGHDR));
             SetWindowLongPtr(hwndDlg, GWLP_USERDATA, (LONG_PTR) pHdr); 
-          	pHdr->hwndTab = GetDlgItem(hwndDlg,MM_PREFTAB);
+            pHdr->hwndTab = GetDlgItem(hwndDlg,MM_PREFTAB);
             pHdr->left   = 8;  pHdr->top      = 30;
  
             prefsTabInit(hwndDlg, pHdr);
         }
         return FALSE;
-	
+    
         // --------------------------------------------------------------
-	    case WM_COMMAND:
+        case WM_COMMAND:
         // --------------------------------------------------------------
-			switch (LOWORD(wParam))
-			{	case IDOK:
+            switch (LOWORD(wParam))
+            {   case IDOK:
                 {   CFG_DLGHDR *pHdr;
 
                     // Send an IDOK command to both tabcontrol children to let them know
@@ -1147,21 +1147,21 @@ static void OnSelChanged(HWND hwndDlg);
                     EndDialog(hwndDlg,0);
                 return 0;
                 }
-				
-			    case IDCANCEL:
-					EndDialog(hwndDlg,0);
-				return FALSE;
+                
+                case IDCANCEL:
+                    EndDialog(hwndDlg,0);
+                return FALSE;
 
                 case OQ_QUALITY:
                     uMsg = 8;
                 break;
-			}
-		break;
+            }
+        break;
 
         // --------------------------------------------------------------
-		case WM_NOTIFY:
+        case WM_NOTIFY:
         // --------------------------------------------------------------
-		{
+        {
             NMHDR *notice = (NMHDR *) lParam;
             NMHDR *ack;
 
@@ -1178,13 +1178,13 @@ static void OnSelChanged(HWND hwndDlg);
                 }
             }
 
-			switch(notice->code)
+            switch(notice->code)
             {   case TCN_SELCHANGE:
                     OnSelChanged(hwndDlg);
-			    return TRUE;
-			}
-		}
-	    return FALSE;
+                return TRUE;
+            }
+        }
+        return FALSE;
 
     
     }

@@ -40,7 +40,7 @@ static std::string& transform_lower(std::string& text) {
     std::transform(text.begin(), text.end(), text.begin(), [](char c) {
         return tolower((uint8_t)c);
     });
-	return text;
+    return text;
 }
 
 extern "C"

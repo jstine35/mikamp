@@ -145,8 +145,8 @@ BOOL S3M_GetNumChannels(MMSTREAM *mmfile, SBYTE *remap, UBYTE *channels)
         flag = _mm_read_UBYTE(mmfile);
 
         if(_mm_feof(mmfile))
-		{
-		    _mmlog("load_s3m > Failure: Unexpected end of file reading pattern");
+        {
+            _mmlog("load_s3m > Failure: Unexpected end of file reading pattern");
             return 0;
         }
 
@@ -186,7 +186,7 @@ BOOL S3M_ReadPattern(UTRK_WRITER *ut, MMSTREAM *mmfile, UBYTE *poslookup, SBYTE 
     {   flag = _mm_read_UBYTE(mmfile);
 
         if(flag==EOF)
-    	{   _mmlog("load_s3m > Failure: Unexpected end of file loading pattern data.");
+        {   _mmlog("load_s3m > Failure: Unexpected end of file loading pattern data.");
             return 0;
         }
 
@@ -264,7 +264,7 @@ BOOL S3M_Load(ST3HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
     _mm_read_UBYTES(h->mh.channels,32,mmfile);
 
     if(_mm_feof(mmfile))
-	{   _mmlog("load_s3m > Failure: Unexpected end of file reading module header");
+    {   _mmlog("load_s3m > Failure: Unexpected end of file reading module header");
         return 0;
     }
 
@@ -276,12 +276,12 @@ BOOL S3M_Load(ST3HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
         // versions less than 3 = impulse tracker made (v3.2 compliant!)
 
      /* IT uses tracker number 3 instead of tracker number 1, so
-	    we can future-proof this detection mechanism against IT 3.xx
-	    by checking the tracker number too.
+        we can future-proof this detection mechanism against IT 3.xx
+        by checking the tracker number too.
 
-	    Unfortunately, ModPlug Tracker uses IT-style extended S3M
-	    effects such as Mxx, Nxx, Pxx, Wxx and Zxx, even in S3M mode,
-	    and identifies itself as ScreamTracker 3.20. This makes it
+        Unfortunately, ModPlug Tracker uses IT-style extended S3M
+        effects such as Mxx, Nxx, Pxx, Wxx and Zxx, even in S3M mode,
+        and identifies itself as ScreamTracker 3.20. This makes it
         impossible to tell the difference between ModPlug Tracker
         S3Ms with "extended" effects and ScreamTracker 3.20 modules
         without them. 
@@ -298,16 +298,16 @@ BOOL S3M_Load(ST3HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
         effects when in doubt, as I believe more ModPlug users have
         used these effects than ScreamTracker users. */
 
-	    of->modtype     = _mm_strdup(of->allochandle, S3M_Version_IT);
+        of->modtype     = _mm_strdup(of->allochandle, S3M_Version_IT);
         of->modtype[23] = ((h->mh.tracker >> 8) &0xf) + 0x30;
         of->modtype[25] = ((h->mh.tracker >> 4)&0xf) + 0x30;
         of->modtype[26] = ((h->mh.tracker)&0xf) + 0x30;
-	    effectver&=~8;
+        effectver&=~8;
     }
     else
     {   
-	    of->modtype     = _mm_strdup( of->allochandle, S3M_Version );
-	    of->modtype[14] = ((h->mh.tracker >> 8) &0xf) + 0x30;
+        of->modtype     = _mm_strdup( of->allochandle, S3M_Version );
+        of->modtype[14] = ((h->mh.tracker >> 8) &0xf) + 0x30;
         of->modtype[16] = ((h->mh.tracker >> 4)&0xf) + 0x30;
         of->modtype[17] = ((h->mh.tracker)&0xf) + 0x30;
     }
@@ -360,8 +360,8 @@ BOOL S3M_Load(ST3HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
     // now is a good time to check if the header was too short :)
 
     if(_mm_feof(mmfile))
-	{
-	    _mmlog("load_s3m > Failure: Unexpected end of file reading module header");
+    {
+        _mmlog("load_s3m > Failure: Unexpected end of file reading module header");
         return 0;
     }
 
@@ -401,8 +401,8 @@ BOOL S3M_Load(ST3HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
         _mm_read_string(s.scrs,4,mmfile);
 
         if( _mm_feof( mmfile ) )
-    	{
-    	    _mmlog( "load_s3m > Failure: Unexpected end of file reading sample header %d", t );
+        {
+            _mmlog( "load_s3m > Failure: Unexpected end of file reading sample header %d", t );
             return 0;
         }
 
@@ -502,7 +502,7 @@ BOOL S3M_Load(ST3HANDLE *h, UNIMOD *of, MMSTREAM *mmfile)
             // seek to pattern position ( + 2 skip pattern length )
             _mm_fseek(mmfile,(((long)h->paraptr[of->numsmp+t])<<4)+2,SEEK_SET);
             if(!S3M_ReadPattern(of->ut, mmfile, h->poslookup, h->remap,effectver))
-	      return 0;
+          return 0;
         }
 
         if(!utrk_dup_pattern(of->ut,of)) return 0;

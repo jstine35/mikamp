@@ -92,13 +92,13 @@ typedef struct DS_LOCALINFO
 
     int     dorefresh;          // enables buffer writes
 
-	int     bufsize;
+    int     bufsize;
     int     samplesize;
-	int     lag;                // allowed lag threshold
+    int     lag;                // allowed lag threshold
     int     currpos;
-	int     lastwrite;
-	int     lastwritecursor;
-	int     lasterror;          // timer for measuring lag between updates
+    int     lastwrite;
+    int     lastwritecursor;
+    int     lasterror;          // timer for measuring lag between updates
 
     SBYTE  *nullbuf;            // null buffer used for mixing "lost bits" of music
 
@@ -108,67 +108,67 @@ typedef struct DS_LOCALINFO
 //
 static void logerror( const CHAR *function, int code )
 {
-	static CHAR *error;
+    static CHAR *error;
 
-	switch (code)
+    switch (code)
     {
         case E_NOINTERFACE:
-			error = "Unsupported interface (DirectX version incompatability)";
-		break;
+            error = "Unsupported interface (DirectX version incompatability)";
+        break;
 
         case DSERR_ALLOCATED:
-			// This one gets a special action since the user may want to be
+            // This one gets a special action since the user may want to be
             // informed that their sound is tied up.
             error = "Audio device in use.";
             _mmerr_set(MMERR_INITIALIZING_DEVICE, "DirectSound Initialization Failure", "The audio device is already in use and I'm not allowed to use it.  Woops!");
-		break;
-
-        case DSERR_BADFORMAT:
-			error = "Unsupported audio format";
-		break;
-
-        case DSERR_BUFFERLOST:
-			error = "Mixing buffer was lost";
-		break;
-
-        case DSERR_INVALIDPARAM:
-			error = "Invalid parameter";
-		break;
-
-        case DSERR_NODRIVER:
-			error = "No audio device found";
         break;
 
-		case DSERR_OUTOFMEMORY:
-			error = "DirectSound ran out of memory";
-		break;
+        case DSERR_BADFORMAT:
+            error = "Unsupported audio format";
+        break;
 
-		case DSERR_PRIOLEVELNEEDED:
-			error = "Caller doesn't have priority";
-		break;
+        case DSERR_BUFFERLOST:
+            error = "Mixing buffer was lost";
+        break;
 
-		case DSERR_UNSUPPORTED:
-			error = "Function not supported (DirectX driver inferiority)";
-		break;
-	}
+        case DSERR_INVALIDPARAM:
+            error = "Invalid parameter";
+        break;
+
+        case DSERR_NODRIVER:
+            error = "No audio device found";
+        break;
+
+        case DSERR_OUTOFMEMORY:
+            error = "DirectSound ran out of memory";
+        break;
+
+        case DSERR_PRIOLEVELNEEDED:
+            error = "Caller doesn't have priority";
+        break;
+
+        case DSERR_UNSUPPORTED:
+            error = "Function not supported (DirectX driver inferiority)";
+        break;
+    }
     _mmlog( "Mikamp > drv_ds > %s : %s", function, error );
-	return;
+    return;
 }
 
 // _____________________________________________________________________________________
 //
 static BOOL DS_IsPresent(void)
 {
-	HINSTANCE dsdll;
-	int       ok;
+    HINSTANCE dsdll;
+    int       ok;
 
-	// Version check DSOUND.DLL
-	ok = 0;
-	dsdll = LoadLibrary("DSOUND.DLL");
-	
+    // Version check DSOUND.DLL
+    ok = 0;
+    dsdll = LoadLibrary("DSOUND.DLL");
+    
     if (dsdll)
     {
-		// DirectSound available.  Good.
+        // DirectSound available.  Good.
         
         ok = 1;
         
@@ -176,29 +176,29 @@ static BOOL DS_IsPresent(void)
             this code and force NT users to drop back to winmm audio.
         
         OSVERSIONINFO ver;
-		ver.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-		GetVersionEx(&ver);
-		switch (ver.dwPlatformId)
-        {	case VER_PLATFORM_WIN32_NT:
+        ver.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
+        GetVersionEx(&ver);
+        switch (ver.dwPlatformId)
+        {   case VER_PLATFORM_WIN32_NT:
                 if (ver.dwMajorVersion > 4)
                 {   // Win2K
                     ok = 1;
-				} else
+                } else
                 {   // WinNT
-                	ok = 0;
+                    ok = 0;
                 }
-		    break;
+            break;
 
-			default:
+            default:
                 // Win95 or Win98
                 dsound_ok = 1;
-		    break;
-		}
+            break;
+        }
         */
 
-		FreeLibrary(dsdll);
-	}
-	
+        FreeLibrary(dsdll);
+    }
+    
     return ok;
 }
 
@@ -212,7 +212,7 @@ static BOOL DS_Init( MDRIVER *md )
 
     hwdata      = _mmobj_allocblock( md, DS_LOCALINFO );
     hwdata->dll = LoadLibrary("DSOUND.DLL");
-	
+    
     if( !hwdata->dll )
     {
         _mmlog( "Mikamp > drv_ds > Failed loading DSOUND.DLL!" );
@@ -224,7 +224,7 @@ static BOOL DS_Init( MDRIVER *md )
 
     //SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS); //HIGH_PRIORITY_CLASS);
     //SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
-	
+    
     hres = DSoundCreate( NULL, &hwdata->ds, NULL );
     if( hres != DS_OK )
     {
@@ -256,8 +256,8 @@ static void DS_Exit( MDRIVER *md )
 
     if( !hwdata ) return;
 
-	//_mmforbid_deinit( hwdata->mutex );
-	if( hwdata->dll )
+    //_mmforbid_deinit( hwdata->mutex );
+    if( hwdata->dll )
     {
         if( hwdata->bb ) IDirectSoundBuffer_Stop( hwdata->bb );
 
@@ -288,67 +288,67 @@ static void DS_Update(MDRIVER *md)
 
     if( !hwdata->dorefresh ) return;
 
-	IDirectSoundBuffer_GetCurrentPosition( hwdata->bb, &play, &write );
+    IDirectSoundBuffer_GetCurrentPosition( hwdata->bb, &play, &write );
 
-	diff = (int)write - hwdata->lastwritecursor;
-	if(diff < 0) diff += hwdata->bufsize;
+    diff = (int)write - hwdata->lastwritecursor;
+    if(diff < 0) diff += hwdata->bufsize;
 
-	hwdata->lastwritecursor = (int)write;
+    hwdata->lastwritecursor = (int)write;
 
-	if( diff > hwdata->lag )
-	{
-		thistime  = (int)timeGetTime();
-		errordiff = thistime - hwdata->lasterror;
+    if( diff > hwdata->lag )
+    {
+        thistime  = (int)timeGetTime();
+        errordiff = thistime - hwdata->lasterror;
 
         //_mmlogd( "Mikamp DSound > Buffer Lag : %d > %d", diff, hwdata->lag);
 
-		if( errordiff < ERROR_TOLERANCE )
-		{
-			hwdata->lag += hwdata->samplesize * LAG_INCREMENT;
-			if( hwdata->lag > hwdata->bufsize )
-			{
+        if( errordiff < ERROR_TOLERANCE )
+        {
+            hwdata->lag += hwdata->samplesize * LAG_INCREMENT;
+            if( hwdata->lag > hwdata->bufsize )
+            {
                 // we needed more samples worth of lag than BUFFER_SIZE
                 // things are never going to work without a larger buffer
                 hwdata->lag = hwdata->bufsize;
-			}
+            }
 
-		}
+        }
 
-		hwdata->lasterror = thistime;
+        hwdata->lasterror = thistime;
 
-		diff = (int)write - hwdata->lastwrite;
-		if( diff < 0 )
-			diff += hwdata->bufsize;
+        diff = (int)write - hwdata->lastwrite;
+        if( diff < 0 )
+            diff += hwdata->bufsize;
 
-		VC_WriteBytes( md, hwdata->nullbuf, diff );
+        VC_WriteBytes( md, hwdata->nullbuf, diff );
 
-		diff = hwdata->lag;
-		hwdata->lastwrite = write;
+        diff = hwdata->lag;
+        hwdata->lastwrite = write;
 
-	}
+    }
 
-	if( diff > 0 )
-	{
-		h = IDirectSoundBuffer_Lock(hwdata->bb,hwdata->lastwrite, diff, &ptr1, &ptr1len, &ptr2, &ptr2len, 0);
+    if( diff > 0 )
+    {
+        h = IDirectSoundBuffer_Lock(hwdata->bb,hwdata->lastwrite, diff, &ptr1, &ptr1len, &ptr2, &ptr2len, 0);
         if( h == DSERR_BUFFERLOST )
         {
-			IDirectSoundBuffer_Restore(hwdata->bb);
-			h = IDirectSoundBuffer_Lock(hwdata->bb, hwdata->lastwrite, diff, &ptr1, &ptr1len, &ptr2, &ptr2len, 0);
-		}
+            IDirectSoundBuffer_Restore(hwdata->bb);
+            h = IDirectSoundBuffer_Lock(hwdata->bb, hwdata->lastwrite, diff, &ptr1, &ptr1len, &ptr2, &ptr2len, 0);
+        }
 
         if( h == DS_OK )
         {   
-			
+            
             VC_WriteBytes( md, ptr1, ptr1len );
             if(ptr2) VC_WriteBytes( md, ptr2, ptr2len );
 
             IDirectSoundBuffer_Unlock( hwdata->bb, ptr1, ptr1len, ptr2, ptr2len );
         }
 
-		hwdata->lastwrite += diff;
-		if( hwdata->lastwrite >= hwdata->bufsize )
-			hwdata->lastwrite -= hwdata->bufsize;
-	}
+        hwdata->lastwrite += diff;
+        if( hwdata->lastwrite >= hwdata->bufsize )
+            hwdata->lastwrite -= hwdata->bufsize;
+    }
 }
 
 // _____________________________________________________________________________________
@@ -519,28 +519,28 @@ static BOOL DS_PlayStart( MDRIVER *md )
     pcmwf.nBlockAlign     = ( pcmwf.wBitsPerSample * pcmwf.nChannels ) / 8;
     pcmwf.nAvgBytesPerSec = pcmwf.nSamplesPerSec * pcmwf.nBlockAlign;
 
-	hwdata->samplesize = pcmwf.nBlockAlign;
+    hwdata->samplesize = pcmwf.nBlockAlign;
 
-	// set bufsize and round to nearest samplesize
-	hwdata->bufsize  = ( BUFFER_SIZE * hwdata->mixspeed * hwdata->samplesize ) / 1000;
-	hwdata->bufsize += (hwdata->samplesize - (hwdata->bufsize % hwdata->samplesize)) % hwdata->samplesize;
+    // set bufsize and round to nearest samplesize
+    hwdata->bufsize  = ( BUFFER_SIZE * hwdata->mixspeed * hwdata->samplesize ) / 1000;
+    hwdata->bufsize += (hwdata->samplesize - (hwdata->bufsize % hwdata->samplesize)) % hwdata->samplesize;
 
-	// allocate scratch buffer for dumping lost samples
-	_mmobj_free( md, hwdata->nullbuf );
-	hwdata->nullbuf = _mmobj_array( md, hwdata->bufsize, UBYTE );
+    // allocate scratch buffer for dumping lost samples
+    _mmobj_free( md, hwdata->nullbuf );
+    hwdata->nullbuf = _mmobj_array( md, hwdata->bufsize, UBYTE );
 
-	// set write cursor lag and round to nearest samplesize
-	hwdata->lag  = (MINIMUM_LATENCY * hwdata->mixspeed * hwdata->samplesize) / 1000;
-	hwdata->lag += (hwdata->samplesize - (hwdata->samplesize - hwdata->lag % hwdata->samplesize)) % hwdata->samplesize;
+    // set write cursor lag and round to nearest samplesize
+    hwdata->lag  = (MINIMUM_LATENCY * hwdata->mixspeed * hwdata->samplesize) / 1000;
+    hwdata->lag += (hwdata->samplesize - (hwdata->samplesize - hwdata->lag % hwdata->samplesize)) % hwdata->samplesize;
 
-	//initial write cursors
-	hwdata->currpos         = hwdata->lag;
-	hwdata->lastwrite       = 0;
-	hwdata->lastwritecursor = 0;
+    //initial write cursors
+    hwdata->currpos         = hwdata->lag;
+    hwdata->lastwrite       = 0;
+    hwdata->lastwritecursor = 0;
 
-	// error tolerance timer
-	hwdata->lasterror       = 0;
-	
+    // error tolerance timer
+    hwdata->lasterror       = 0;
+    
     memset( &bf, 0, sizeof(DSBUFFERDESC) );
     bf.dwSize          = sizeof(DSBUFFERDESC);
     bf.dwFlags         = DSBCAPS_GETCURRENTPOSITION2 | DSBCAPS_LOCSOFTWARE | ((hwdata->mode & DMODE_EXCLUSIVE) ? 0 : DSBCAPS_GLOBALFOCUS);
@@ -556,10 +556,10 @@ static BOOL DS_PlayStart( MDRIVER *md )
 
     // Finally, start playing the buffer (and wipe it first)
 
-	IDirectSoundBuffer_Play( hwdata->bb, 0, 0, DSBPLAY_LOOPING );
+    IDirectSoundBuffer_Play( hwdata->bb, 0, 0, DSBPLAY_LOOPING );
     VC_PlayStart( md );
     hwdata->dorefresh = TRUE;
-	DS_WipeBuffers( md );
+    DS_WipeBuffers( md );
 
     return TRUE;
 }

@@ -81,36 +81,36 @@ INFOBOX   *infobox_list = NULL;
     int     tabCounter;
     
     // Add a tab for each of the three child dialog boxes. 
-	// and lock the resources for the child frams that appear within.
+    // and lock the resources for the child frams that appear within.
     
-	tie.mask = TCIF_TEXT | TCIF_IMAGE; 
+    tie.mask = TCIF_TEXT | TCIF_IMAGE; 
     tie.iImage = -1; 
 
     tabCounter = 0;
 
     if(m->numsmp)
-	{	tie.pszText = "Samples";
-		TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie); 
+    {   tie.pszText = "Samples";
+        TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie); 
         pHdr->apRes[tabCounter] = CreateDialogParam(mikamp.hDllInstance, MAKEINTRESOURCE(IDD_SAMPLES), hwndDlg, tabProc, IDD_SAMPLES);
         SetWindowPos(pHdr->apRes[tabCounter], HWND_TOP, pHdr->left, pHdr->top, 0, 0, SWP_NOSIZE);
-		ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
-	}
+        ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
+    }
 
     if(m->numins)
-	{	tie.pszText = "Instruments"; 
-		TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie);
+    {   tie.pszText = "Instruments"; 
+        TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie);
         pHdr->apRes[tabCounter] = CreateDialogParam(mikamp.hDllInstance, MAKEINTRESOURCE(IDD_INSTRUMENTS), hwndDlg, tabProc, IDD_INSTRUMENTS);
         SetWindowPos(pHdr->apRes[tabCounter], HWND_TOP, pHdr->left, pHdr->top, 0, 0, SWP_NOSIZE);
-		ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
-	}
+        ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
+    }
 
     if(m->comment && m->comment[0])
-	{   tie.pszText = "Comment"; 
+    {   tie.pszText = "Comment"; 
         TabCtrl_InsertItem(pHdr->hwndTab, tabCounter, &tie);
         pHdr->apRes[tabCounter] = CreateDialogParam(mikamp.hDllInstance, MAKEINTRESOURCE(IDD_COMMENT), hwndDlg, tabProc, CEMENT_BOX);
         SetWindowPos(pHdr->apRes[tabCounter], HWND_TOP, pHdr->left, pHdr->top, 0, 0, SWP_NOSIZE);
-		ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
-	}
+        ShowWindow(pHdr->apRes[tabCounter++], SW_HIDE);
+    }
  
     // Simulate selection of the first item.
     OnSelChanged(hwndDlg);
@@ -123,18 +123,18 @@ INFOBOX   *infobox_list = NULL;
 // This is the callback procedure used by each of the three forms under the
 // tab control on the Module info dialog box (sample, instrument, comment
 // info forms).
-{	
+{   
     switch (uMsg)
     {   case WM_INITDIALOG:
-		{
-			HWND   hwndLB;
-		    DLGHDR *pHdr = (DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
-			UNIMOD *m = pHdr->module;
-			char   sbuf[10280];
+        {
+            HWND   hwndLB;
+            DLGHDR *pHdr = (DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
+            UNIMOD *m = pHdr->module;
+            char   sbuf[10280];
 
             switch(lParam)
-			{   case IDD_SAMPLES:
-		        {
+            {   case IDD_SAMPLES:
+                {
                     uint  x;
 
                     hwndLB = GetDlgItem(hwndDlg, IDC_SAMPLIST);
@@ -145,56 +145,56 @@ INFOBOX   *infobox_list = NULL;
                     SendMessage(hwndLB, LB_SETCURSEL, 0, 0);
                     tabProc(hwndDlg, WM_COMMAND, (WPARAM)((LBN_SELCHANGE << 16) + IDC_SAMPLIST), (LPARAM)hwndLB);
                 }
-			    return TRUE;
+                return TRUE;
 
-				case IDD_INSTRUMENTS:
-		        {
+                case IDD_INSTRUMENTS:
+                {
                     uint  x;
                     
                     hwndLB = GetDlgItem(hwndDlg, IDC_INSTLIST);
-					for (x=0; x<m->numins; x++)
+                    for (x=0; x<m->numins; x++)
                     {   sprintf(sbuf, "%02d: %s",x+1, m->instruments[x].insname ? m->instruments[x].insname : "");
                         SendMessage(hwndLB, LB_ADDSTRING, 0, (LPARAM) sbuf);
                     }
                     SendMessage(hwndLB, LB_SETCURSEL, 0, 0);
                     tabProc(hwndDlg, WM_COMMAND, (WPARAM)((LBN_SELCHANGE << 16) + IDC_INSTLIST), (LPARAM)hwndLB);
                 }
-			    return TRUE;
+                return TRUE;
 
-				case CEMENT_BOX:
-		            if(m->comment && m->comment[0])
+                case CEMENT_BOX:
+                    if(m->comment && m->comment[0])
                     {   
                         uint  x,i;
 
                         hwndLB = GetDlgItem(hwndDlg, CEMENT_BOX);
 
-					    // convert all CRs to CR/LF pairs.  That's the way the edit box likes them!
+                        // convert all CRs to CR/LF pairs.  That's the way the edit box likes them!
 
-			            for(x=0, i=0; x<strlen(m->comment); x++)
-					    {	sbuf[i++] = m->comment[x];
-    						if(m->comment[x] == 0x0d) sbuf[i++] = 0x0a;
-					    }
-					    sbuf[i] = 0;
-    					SetWindowText(GetDlgItem(hwndDlg, CEMENT_BOX), sbuf);
+                        for(x=0, i=0; x<strlen(m->comment); x++)
+                        {   sbuf[i++] = m->comment[x];
+                            if(m->comment[x] == 0x0d) sbuf[i++] = 0x0a;
+                        }
+                        sbuf[i] = 0;
+                        SetWindowText(GetDlgItem(hwndDlg, CEMENT_BOX), sbuf);
                     }
-			    return TRUE;
-			}
-		}
-		break;
+                return TRUE;
+            }
+        }
+        break;
 
-	    case WM_COMMAND:
+        case WM_COMMAND:
             if(HIWORD(wParam) == LBN_SELCHANGE)
-			{	// Processes the events for the sample and instrument list boxes, namely updating
+            {   // Processes the events for the sample and instrument list boxes, namely updating
                 // the samp/inst info upon a WM_COMMAND issuing a listbox selection change.
 
                 int   moo = SendMessage((HWND)lParam, LB_GETCURSEL, 0, 0);
-			    char  sbuf[1024], st1[64], st2[20], st3[20];
-			    DLGHDR *pHdr = (DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
-				UNIMOD *m = pHdr->module;
+                char  sbuf[1024], st1[64], st2[20], st3[20];
+                DLGHDR *pHdr = (DLGHDR *)GetWindowLongPtrA(GetParent(hwndDlg), GWLP_USERDATA);
+                UNIMOD *m = pHdr->module;
 
-				switch (LOWORD(wParam))
-				{   case IDC_INSTLIST:
-					{	INSTRUMENT *inst = &m->instruments[moo];
+                switch (LOWORD(wParam))
+                {   case IDC_INSTLIST:
+                    {   INSTRUMENT *inst = &m->instruments[moo];
                         uint        x;
                         int         cnt;
 
@@ -214,56 +214,56 @@ INFOBOX   *infobox_list = NULL;
                         // is needed of course.
 
                         if(inst->volflg & (EF_LOOP | EF_SUSTAIN))
-						{	sprintf(st1,"(%s%s%s)",(inst->volflg & EF_LOOP) ? "Loop" : "", ((inst->volflg & EF_LOOP) && (inst->volflg & EF_SUSTAIN)) ? " / " : "",
-												   (inst->volflg & EF_SUSTAIN) ? "Sustain" : "");
-						} else st1[0] = 0;
+                        {   sprintf(st1,"(%s%s%s)",(inst->volflg & EF_LOOP) ? "Loop" : "", ((inst->volflg & EF_LOOP) && (inst->volflg & EF_SUSTAIN)) ? " / " : "",
+                                                   (inst->volflg & EF_SUSTAIN) ? "Sustain" : "");
+                        } else st1[0] = 0;
 
-						if(inst->panflg & (EF_LOOP | EF_SUSTAIN))
-						{	sprintf(st2,"(%s%s%s)",(inst->panflg & EF_LOOP) ? "Loop" : "", ((inst->panflg & EF_LOOP) && (inst->panflg & EF_SUSTAIN)) ? " / " : "",
-												   (inst->panflg & EF_SUSTAIN) ? "Sustain" : "");
-						} else st2[0] = 0;
+                        if(inst->panflg & (EF_LOOP | EF_SUSTAIN))
+                        {   sprintf(st2,"(%s%s%s)",(inst->panflg & EF_LOOP) ? "Loop" : "", ((inst->panflg & EF_LOOP) && (inst->panflg & EF_SUSTAIN)) ? " / " : "",
+                                                   (inst->panflg & EF_SUSTAIN) ? "Sustain" : "");
+                        } else st2[0] = 0;
 
-						if(inst->pitflg & (EF_LOOP | EF_SUSTAIN))
-						{	sprintf(st3,"(%s%s%s)",(inst->pitflg & EF_LOOP) ? "Loop" : "", ((inst->pitflg & EF_LOOP) && (inst->pitflg & EF_SUSTAIN)) ? " / " : "",
-												   (inst->pitflg & EF_SUSTAIN) ? "Sustain" : "");
-						} else st3[0] = 0;
-						
-						sprintf(sbuf, "%s %s\n%s %s\n%s %s",
-							(inst->volflg & EF_ON) ? "On" : "Off", st1[0] ? st1 : "", 
-							(inst->panflg & EF_ON) ? "On" : "Off", st2[0] ? st2 : "", 
-							(inst->pitflg & EF_ON) ? "On" : "Off", st3[0] ? st3 : "");
+                        if(inst->pitflg & (EF_LOOP | EF_SUSTAIN))
+                        {   sprintf(st3,"(%s%s%s)",(inst->pitflg & EF_LOOP) ? "Loop" : "", ((inst->pitflg & EF_LOOP) && (inst->pitflg & EF_SUSTAIN)) ? " / " : "",
+                                                   (inst->pitflg & EF_SUSTAIN) ? "Sustain" : "");
+                        } else st3[0] = 0;
+                        
+                        sprintf(sbuf, "%s %s\n%s %s\n%s %s",
+                            (inst->volflg & EF_ON) ? "On" : "Off", st1[0] ? st1 : "", 
+                            (inst->panflg & EF_ON) ? "On" : "Off", st2[0] ? st2 : "", 
+                            (inst->pitflg & EF_ON) ? "On" : "Off", st3[0] ? st3 : "");
 
                         SetWindowText(GetDlgItem(hwndDlg, IDC_INSTENV), sbuf);
 
-						// --------------------
+                        // --------------------
                         // Part 3: List of samples used by this instrument!
                         // the trick here is that that we have to figure out what samples are used from the
                         // sample index table in inst->samplenumber.
 
-					    memset(pHdr->suse,0,m->numsmp*sizeof(BOOL));
+                        memset(pHdr->suse,0,m->numsmp*sizeof(BOOL));
                         for(x=0; x<120; x++)
                             if(inst->samplenumber[x] != 255)
                                 pHdr->suse[inst->samplenumber[x]] = 1;
 
                         sbuf[0] = 0;  cnt = 0;
                         for (x=0; x<m->numsmp; x++)
-					    {   if(pHdr->suse[x])
+                        {   if(pHdr->suse[x])
                                 cnt += sprintf(&sbuf[cnt], "%02d: %s\r\n",x+1, m->samples[x].samplename);
                             
-	    				}
+                        }
                         sbuf[cnt - 2] = 0;  // cut off the final CR/LF set
                         SetWindowText(GetDlgItem(hwndDlg, TB_SAMPLELIST), sbuf);
 
-					}
-					break;
+                    }
+                    break;
 
-					case IDC_SAMPLIST:
-					{	UNISAMPLE *samp = &m->samples[moo];
+                    case IDC_SAMPLIST:
+                    {   UNISAMPLE *samp = &m->samples[moo];
                         EXTSAMPLE *es = NULL;
 
                         if(m->extsamples) es = &m->extsamples[moo];
 
-						// Display sampe header info...
+                        // Display sampe header info...
                         // Length, Quality, Looping, Auto-vibrato (in that order).
 
                         sprintf(sbuf, "%u bytes\n%u bits\n%s\n%s",
@@ -272,11 +272,11 @@ INFOBOX   *infobox_list = NULL;
                             (es && es->vibdepth) ? "Yes" : "No");
 
                         SetWindowText(GetDlgItem(hwndDlg, IDC_SAMPINFO), sbuf);
-					}
-					break;
-				}
-			}
-		break;
+                    }
+                    break;
+                }
+            }
+        break;
 
         /*case WM_CHAR:
         case WM_KEYDOWN:
@@ -287,7 +287,7 @@ INFOBOX   *infobox_list = NULL;
             }
         break;*/
     }
-	return 0;
+    return 0;
 }
 
 
@@ -298,14 +298,14 @@ INFOBOX   *infobox_list = NULL;
     DLGHDR *pHdr = (DLGHDR *) GetWindowLongPtrA(hwndDlg, GWLP_USERDATA); 
     int iSel = TabCtrl_GetCurSel(pHdr->hwndTab); 
 
-	if(pHdr->hwndDisplay)  ShowWindow(pHdr->hwndDisplay,SW_HIDE);
-	ShowWindow(pHdr->apRes[iSel],SW_SHOW);
-	pHdr->hwndDisplay = pHdr->apRes[iSel];
+    if(pHdr->hwndDisplay)  ShowWindow(pHdr->hwndDisplay,SW_HIDE);
+    ShowWindow(pHdr->apRes[iSel],SW_SHOW);
+    pHdr->hwndDisplay = pHdr->apRes[iSel];
 
-	// Note to self: Despite their inhernet use in interfaces, coding tab controls
-	// apparently REALLY sucks, and it should never ever be done again by myself
-	// or anyone else whom I respect as a sane individual and I would like to have
-	// remain that way.  As for me, it is too late.  Bruhahahaha!K!J!lkjgkljASBfkJBdglkn.
+    // Note to self: Despite their inhernet use in interfaces, coding tab controls
+    // apparently REALLY sucks, and it should never ever be done again by myself
+    // or anyone else whom I respect as a sane individual and I would like to have
+    // remain that way.  As for me, it is too late.  Bruhahahaha!K!J!lkjgkljASBfkJBdglkn.
 
 } 
 
@@ -318,7 +318,7 @@ extern void     infobox_delete(HWND hwnd);
 {
     char        str[256];
     DLGHDR     *pHdr = (DLGHDR *)GetWindowLongPtrA(hwnd, GWLP_USERDATA);
-	MPLAYER    *mp;
+    MPLAYER    *mp;
     int         acv;           // current active voices.
     
     // Player info update .. BPM, sngspeed, position, row, voices.
@@ -392,11 +392,11 @@ extern void     infobox_delete(HWND hwnd);
 
     m = pHdr->module;
 
-	// Set IDC_INFOLEFT - contains static module information:
+    // Set IDC_INFOLEFT - contains static module information:
     //   File Size, Length (in mins), channels, samples, instruments.
 
     wsprintf(str,"%d bytes\n%d:%02d minutes\n%d\n%d\n%d",
-	m->filesize, m->songlen/60000,(m->songlen%60000)/1000, m->numchn, m->numsmp, m->numins);
+    m->filesize, m->songlen/60000,(m->songlen%60000)/1000, m->numchn, m->numsmp, m->numins);
     SetWindowText(GetDlgItem(dialog,IDC_INFOLEFT),str);
 
     SetWindowText(GetDlgItem(dialog,IDC_TITLE),m->songname);
@@ -480,15 +480,15 @@ extern void     infobox_delete(HWND hwnd);
             }
         break;
 
-		case WM_NOTIFY:
-		{   NMHDR *notice = (NMHDR *) lParam;
-			switch(notice->code)
+        case WM_NOTIFY:
+        {   NMHDR *notice = (NMHDR *) lParam;
+            switch(notice->code)
             {   case TCN_SELCHANGE:
                     OnSelChanged(hwndDlg);
-			    break;
-			}
-		}
-	    return TRUE;
-	}
-	return 0;
+                break;
+            }
+        }
+        return TRUE;
+    }
+    return 0;
 }

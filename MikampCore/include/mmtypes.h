@@ -246,7 +246,7 @@ typedef unsigned __int64 INT64U;
 // we use memset instead of Windows-specific ZeroMemory because it is more
 // cross-platform friendly.
 
-#define CLEAR_STRUCT(s)			memset(&(s), 0, sizeof(s))
+#define CLEAR_STRUCT(s)         memset(&(s), 0, sizeof(s))
 
 #define _mmchr_numeric(x)       ( ((x) >= 0x30) && ((x) <= 0x39) )
 #define _mmchr_whitespace(x)    ( (x) && ((x <= 32) || (x == 255)) )

@@ -527,7 +527,7 @@ struct _MD_VOICESET
     uint       sfxpool;          // sound effects voice-search
 
     int        volume;           // voiceset 'natural' volume
-	int        absvol;           // internal volume (after parents suppress it)
+    int        absvol;           // internal volume (after parents suppress it)
     int        pan_lr, pan_fb;
 
     struct _MD_VOICESET
@@ -756,7 +756,7 @@ MMEXPORT MD_DEVICE drv_tim;      // timing driver
 MMEXPORT MD_DEVICE drv_ultra;    // ultra driver for linux
 
 // Very portable SDL driver:
-MMEXPORT MD_DEVICE drv_sdl;	// Simple DirectMedia Layer output driver
+MMEXPORT MD_DEVICE drv_sdl; // Simple DirectMedia Layer output driver
 
 #ifdef __cplusplus
 }

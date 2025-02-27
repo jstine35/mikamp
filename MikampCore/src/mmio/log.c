@@ -102,7 +102,7 @@ void __cdecl log_print(const CHAR *fmt, ... )
 {
     if(str)
     {
-        static va_list argptr;
+        va_list argptr;
         ULONG cnt=0;
 
         va_start(argptr, fmt);
@@ -126,7 +126,7 @@ void __cdecl log_printv(const CHAR *fmt, ... )
 {
     if(str)
     {
-        static va_list argptr;
+        va_list argptr;
         ULONG cnt=0;
 
         va_start(argptr, fmt);
